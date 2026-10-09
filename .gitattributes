@@ -1,0 +1,2 @@
+# Preserve the exact whitespace emitted by abi-typegen 0.7.0.
+generated/*.fs whitespace=-blank-at-eof

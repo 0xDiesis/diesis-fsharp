@@ -9,7 +9,7 @@ open Nethereum.Web3
 open Nethereum.RPC.Eth.DTOs
 open Nethereum.Hex.HexTypes
 
-let abi = "[{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"internalType\":\"int256\",\"name\":\"marginDelta\",\"type\":\"int256\"}],\"name\":\"adjustIsolatedMargin\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"policyHash\",\"type\":\"bytes32\"}],\"name\":\"advancePricedPerpRuntime\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"orderId\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"price\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"internalType\":\"uint64\",\"name\":\"expiry\",\"type\":\"uint64\"}],\"name\":\"amendPerpOrder\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"replacementOrderId\",\"type\":\"bytes32\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"internalType\":\"int256\",\"name\":\"fundingRateBps\",\"type\":\"int256\"}],\"name\":\"applyPerpFunding\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"orderId\",\"type\":\"bytes32\"}],\"name\":\"cancelPerpOrder\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"makerOrderId\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32\",\"name\":\"takerOrderId\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"fillPrice\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"fillQty\",\"type\":\"uint256\"}],\"name\":\"executePerpTrade\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"clearingTransactionId\",\"type\":\"bytes32\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"orderId\",\"type\":\"bytes32\"}],\"name\":\"expirePerpOrder\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"internalType\":\"uint64\",\"name\":\"epoch\",\"type\":\"uint64\"},{\"internalType\":\"bytes32\",\"name\":\"snapshotHash\",\"type\":\"bytes32\"}],\"name\":\"finalizePerpFeeEpoch\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"trader\",\"type\":\"address\"},{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"}],\"name\":\"getIsolatedMargin\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"isolatedMargin\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"trader\",\"type\":\"address\"},{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"}],\"name\":\"getPosition\",\"outputs\":[{\"components\":[{\"internalType\":\"bytes32\",\"name\":\"header\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"size\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"entryPrice\",\"type\":\"uint256\"}],\"internalType\":\"struct IDiesisPerpsBook.PackedPosition\",\"name\":\"position\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"encodedWrapper\",\"type\":\"bytes\"}],\"name\":\"submitBoundSessionActions\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"resultHash\",\"type\":\"bytes32\"},{\"internalType\":\"uint16\",\"name\":\"acceptedCount\",\"type\":\"uint16\"},{\"internalType\":\"uint16\",\"name\":\"rejectedCount\",\"type\":\"uint16\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"encodedActions\",\"type\":\"bytes\"}],\"name\":\"submitExchangeActions\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"resultHash\",\"type\":\"bytes32\"},{\"internalType\":\"uint16\",\"name\":\"acceptedCount\",\"type\":\"uint16\"},{\"internalType\":\"uint16\",\"name\":\"rejectedCount\",\"type\":\"uint16\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"internalType\":\"uint8\",\"name\":\"side\",\"type\":\"uint8\"},{\"internalType\":\"uint8\",\"name\":\"orderType\",\"type\":\"uint8\"},{\"internalType\":\"uint256\",\"name\":\"price\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"internalType\":\"uint8\",\"name\":\"flags\",\"type\":\"uint8\"},{\"internalType\":\"uint8\",\"name\":\"marginType\",\"type\":\"uint8\"},{\"internalType\":\"uint64\",\"name\":\"expiry\",\"type\":\"uint64\"}],\"name\":\"submitPerpOrder\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"orderId\",\"type\":\"bytes32\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"signedEnvelope\",\"type\":\"bytes\"}],\"name\":\"submitSponsoredPerpActions\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"batchId\",\"type\":\"bytes32\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"markPrice\",\"type\":\"uint256\"}],\"name\":\"updatePerpMark\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"indexPrice\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"markPrice\",\"type\":\"uint256\"},{\"internalType\":\"uint64\",\"name\":\"observedAt\",\"type\":\"uint64\"},{\"internalType\":\"uint64\",\"name\":\"oracleRound\",\"type\":\"uint64\"},{\"internalType\":\"bytes32\",\"name\":\"sourceSetHash\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32\",\"name\":\"evidenceHash\",\"type\":\"bytes32\"}],\"name\":\"updatePerpOracle\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"payload\",\"type\":\"bytes\"}],\"name\":\"updatePricedOracle\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes16\",\"name\":\"clientActionId\",\"type\":\"bytes16\"},{\"indexed\":true,\"internalType\":\"uint16\",\"name\":\"actionIndex\",\"type\":\"uint16\"},{\"indexed\":false,\"internalType\":\"uint8\",\"name\":\"actionTag\",\"type\":\"uint8\"},{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"principal\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"bytes32\",\"name\":\"resultId\",\"type\":\"bytes32\"}],\"name\":\"ExchangeActionAccepted\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes16\",\"name\":\"clientActionId\",\"type\":\"bytes16\"},{\"indexed\":true,\"internalType\":\"uint16\",\"name\":\"actionIndex\",\"type\":\"uint16\"},{\"indexed\":false,\"internalType\":\"uint8\",\"name\":\"actionTag\",\"type\":\"uint8\"},{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"principal\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint16\",\"name\":\"reasonCode\",\"type\":\"uint16\"},{\"indexed\":false,\"internalType\":\"bytes32\",\"name\":\"context\",\"type\":\"bytes32\"}],\"name\":\"ExchangeActionRejected\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"orderId\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"trader\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint8\",\"name\":\"mutation\",\"type\":\"uint8\"},{\"indexed\":false,\"internalType\":\"uint8\",\"name\":\"side\",\"type\":\"uint8\"},{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"priceTicks\",\"type\":\"uint64\"},{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"quantityLots\",\"type\":\"uint64\"},{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"remainingLots\",\"type\":\"uint64\"}],\"name\":\"ExchangeL3Mutation\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"int256\",\"name\":\"fundingRate\",\"type\":\"int256\"},{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"timestamp\",\"type\":\"uint64\"}],\"name\":\"FundingApplied\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"trader\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"int256\",\"name\":\"marginDelta\",\"type\":\"int256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"newIsolatedMargin\",\"type\":\"uint256\"}],\"name\":\"IsolatedMarginAdjusted\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"price\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"timestamp\",\"type\":\"uint256\"}],\"name\":\"MarkPriceUpdated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"orderId\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"trader\",\"type\":\"address\"}],\"name\":\"OrderCancelled\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"orderId\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"trader\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"fillQty\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"fillPrice\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"remainingAmount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"bool\",\"name\":\"complete\",\"type\":\"bool\"}],\"name\":\"OrderFilled\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"orderId\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"trader\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint8\",\"name\":\"side\",\"type\":\"uint8\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"price\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint8\",\"name\":\"flags\",\"type\":\"uint8\"}],\"name\":\"OrderPlaced\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"trader\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"int256\",\"name\":\"realizedPnl\",\"type\":\"int256\"}],\"name\":\"PositionClosed\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"trader\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"int256\",\"name\":\"collateralDelta\",\"type\":\"int256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"newClaim\",\"type\":\"uint256\"}],\"name\":\"PositionCollateralAdjusted\",\"type\":\"event\"}]"
+let abi = "[{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"internalType\":\"int256\",\"name\":\"marginDelta\",\"type\":\"int256\"}],\"name\":\"adjustIsolatedMargin\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"orderId\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"price\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"internalType\":\"uint64\",\"name\":\"expiry\",\"type\":\"uint64\"}],\"name\":\"amendPerpOrderV1\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"replacementOrderId\",\"type\":\"bytes32\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"internalType\":\"int256\",\"name\":\"fundingRateBps\",\"type\":\"int256\"}],\"name\":\"applyPerpFundingV1\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"orderId\",\"type\":\"bytes32\"}],\"name\":\"cancelPerpOrderV1\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"makerOrderId\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32\",\"name\":\"takerOrderId\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"fillPrice\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"fillQty\",\"type\":\"uint256\"}],\"name\":\"executePerpTradeV1\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"clearingTransactionId\",\"type\":\"bytes32\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"orderId\",\"type\":\"bytes32\"}],\"name\":\"expirePerpOrderV1\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"internalType\":\"uint64\",\"name\":\"epoch\",\"type\":\"uint64\"},{\"internalType\":\"bytes32\",\"name\":\"snapshotHash\",\"type\":\"bytes32\"}],\"name\":\"finalizePerpFeeEpochV2\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"trader\",\"type\":\"address\"},{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"}],\"name\":\"getIsolatedMargin\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"isolatedMargin\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"trader\",\"type\":\"address\"},{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"}],\"name\":\"getPosition\",\"outputs\":[{\"components\":[{\"internalType\":\"bytes32\",\"name\":\"header\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"size\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"entryPrice\",\"type\":\"uint256\"}],\"internalType\":\"struct IDiesisPerpsBook.PackedPosition\",\"name\":\"position\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"encodedActions\",\"type\":\"bytes\"}],\"name\":\"submitExchangeActionsV2\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"resultHash\",\"type\":\"bytes32\"},{\"internalType\":\"uint16\",\"name\":\"acceptedCount\",\"type\":\"uint16\"},{\"internalType\":\"uint16\",\"name\":\"rejectedCount\",\"type\":\"uint16\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"internalType\":\"uint8\",\"name\":\"side\",\"type\":\"uint8\"},{\"internalType\":\"uint8\",\"name\":\"orderType\",\"type\":\"uint8\"},{\"internalType\":\"uint256\",\"name\":\"price\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"internalType\":\"uint8\",\"name\":\"flags\",\"type\":\"uint8\"},{\"internalType\":\"uint8\",\"name\":\"marginType\",\"type\":\"uint8\"},{\"internalType\":\"uint64\",\"name\":\"expiry\",\"type\":\"uint64\"}],\"name\":\"submitPerpOrderV1\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"orderId\",\"type\":\"bytes32\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"signedEnvelope\",\"type\":\"bytes\"}],\"name\":\"submitSignedPerpActionsV2\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"batchId\",\"type\":\"bytes32\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"markPrice\",\"type\":\"uint256\"}],\"name\":\"updatePerpMarkV1\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"indexPrice\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"markPrice\",\"type\":\"uint256\"},{\"internalType\":\"uint64\",\"name\":\"observedAt\",\"type\":\"uint64\"},{\"internalType\":\"uint64\",\"name\":\"oracleRound\",\"type\":\"uint64\"},{\"internalType\":\"bytes32\",\"name\":\"sourceSetHash\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32\",\"name\":\"evidenceHash\",\"type\":\"bytes32\"}],\"name\":\"updatePerpOracleV1\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes16\",\"name\":\"clientActionId\",\"type\":\"bytes16\"},{\"indexed\":true,\"internalType\":\"uint16\",\"name\":\"actionIndex\",\"type\":\"uint16\"},{\"indexed\":false,\"internalType\":\"uint8\",\"name\":\"actionTag\",\"type\":\"uint8\"},{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"principal\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"bytes32\",\"name\":\"resultId\",\"type\":\"bytes32\"}],\"name\":\"ExchangeActionAcceptedV2\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes16\",\"name\":\"clientActionId\",\"type\":\"bytes16\"},{\"indexed\":true,\"internalType\":\"uint16\",\"name\":\"actionIndex\",\"type\":\"uint16\"},{\"indexed\":false,\"internalType\":\"uint8\",\"name\":\"actionTag\",\"type\":\"uint8\"},{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"principal\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint16\",\"name\":\"reasonCode\",\"type\":\"uint16\"},{\"indexed\":false,\"internalType\":\"bytes32\",\"name\":\"context\",\"type\":\"bytes32\"}],\"name\":\"ExchangeActionRejectedV2\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"orderId\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"trader\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint8\",\"name\":\"mutation\",\"type\":\"uint8\"},{\"indexed\":false,\"internalType\":\"uint8\",\"name\":\"side\",\"type\":\"uint8\"},{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"priceTicks\",\"type\":\"uint64\"},{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"quantityLots\",\"type\":\"uint64\"},{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"remainingLots\",\"type\":\"uint64\"}],\"name\":\"ExchangeL3MutationV2\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"int256\",\"name\":\"fundingRate\",\"type\":\"int256\"},{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"timestamp\",\"type\":\"uint64\"}],\"name\":\"FundingApplied\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"trader\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"int256\",\"name\":\"marginDelta\",\"type\":\"int256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"newIsolatedMargin\",\"type\":\"uint256\"}],\"name\":\"IsolatedMarginAdjusted\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"price\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"timestamp\",\"type\":\"uint256\"}],\"name\":\"MarkPriceUpdated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"orderId\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"trader\",\"type\":\"address\"}],\"name\":\"OrderCancelled\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"orderId\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"trader\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"fillQty\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"fillPrice\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"remainingAmount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"bool\",\"name\":\"complete\",\"type\":\"bool\"}],\"name\":\"OrderFilled\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"orderId\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"trader\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint8\",\"name\":\"side\",\"type\":\"uint8\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"price\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint8\",\"name\":\"flags\",\"type\":\"uint8\"}],\"name\":\"OrderPlaced\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"trader\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"int256\",\"name\":\"realizedPnl\",\"type\":\"int256\"}],\"name\":\"PositionClosed\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"trader\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"int256\",\"name\":\"collateralDelta\",\"type\":\"int256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"newClaim\",\"type\":\"uint256\"}],\"name\":\"PositionCollateralAdjusted\",\"type\":\"event\"}]"
 
 [<Struct("PackedPosition")>]
 [<CLIMutable>]
@@ -37,18 +37,7 @@ type AdjustIsolatedMarginResult() =
     interface IFunctionOutputDTO
 
 [<CLIMutable>]
-type AdvancePricedPerpRuntimeParams =
-    {
-        [<Parameter("bytes32", "policyHash", 1, false)>]
-        PolicyHash: byte array
-    }
-
-[<FunctionOutput>]
-type AdvancePricedPerpRuntimeResult() =
-    interface IFunctionOutputDTO
-
-[<CLIMutable>]
-type AmendPerpOrderParams =
+type AmendPerpOrderV1Params =
     {
         [<Parameter("bytes32", "orderId", 1, false)>]
         OrderId: byte array
@@ -62,7 +51,7 @@ type AmendPerpOrderParams =
 
 [<FunctionOutput>]
 [<CLIMutable>]
-type AmendPerpOrderResult =
+type AmendPerpOrderV1Result =
     {
         [<Parameter("bytes32", "replacementOrderId", 1, false)>]
         ReplacementOrderId: byte array
@@ -70,7 +59,7 @@ type AmendPerpOrderResult =
     interface IFunctionOutputDTO
 
 [<CLIMutable>]
-type ApplyPerpFundingParams =
+type ApplyPerpFundingV1Params =
     {
         [<Parameter("bytes32", "marketId", 1, false)>]
         MarketId: byte array
@@ -79,22 +68,22 @@ type ApplyPerpFundingParams =
     }
 
 [<FunctionOutput>]
-type ApplyPerpFundingResult() =
+type ApplyPerpFundingV1Result() =
     interface IFunctionOutputDTO
 
 [<CLIMutable>]
-type CancelPerpOrderParams =
+type CancelPerpOrderV1Params =
     {
         [<Parameter("bytes32", "orderId", 1, false)>]
         OrderId: byte array
     }
 
 [<FunctionOutput>]
-type CancelPerpOrderResult() =
+type CancelPerpOrderV1Result() =
     interface IFunctionOutputDTO
 
 [<CLIMutable>]
-type ExecutePerpTradeParams =
+type ExecutePerpTradeV1Params =
     {
         [<Parameter("bytes32", "makerOrderId", 1, false)>]
         MakerOrderId: byte array
@@ -108,7 +97,7 @@ type ExecutePerpTradeParams =
 
 [<FunctionOutput>]
 [<CLIMutable>]
-type ExecutePerpTradeResult =
+type ExecutePerpTradeV1Result =
     {
         [<Parameter("bytes32", "clearingTransactionId", 1, false)>]
         ClearingTransactionId: byte array
@@ -116,18 +105,18 @@ type ExecutePerpTradeResult =
     interface IFunctionOutputDTO
 
 [<CLIMutable>]
-type ExpirePerpOrderParams =
+type ExpirePerpOrderV1Params =
     {
         [<Parameter("bytes32", "orderId", 1, false)>]
         OrderId: byte array
     }
 
 [<FunctionOutput>]
-type ExpirePerpOrderResult() =
+type ExpirePerpOrderV1Result() =
     interface IFunctionOutputDTO
 
 [<CLIMutable>]
-type FinalizePerpFeeEpochParams =
+type FinalizePerpFeeEpochV2Params =
     {
         [<Parameter("bytes32", "marketId", 1, false)>]
         MarketId: byte array
@@ -138,7 +127,7 @@ type FinalizePerpFeeEpochParams =
     }
 
 [<FunctionOutput>]
-type FinalizePerpFeeEpochResult() =
+type FinalizePerpFeeEpochV2Result() =
     interface IFunctionOutputDTO
 
 [<CLIMutable>]
@@ -178,27 +167,7 @@ type GetPositionResult =
     interface IFunctionOutputDTO
 
 [<CLIMutable>]
-type SubmitBoundSessionActionsParams =
-    {
-        [<Parameter("bytes", "encodedWrapper", 1, false)>]
-        EncodedWrapper: byte array
-    }
-
-[<FunctionOutput>]
-[<CLIMutable>]
-type SubmitBoundSessionActionsResult =
-    {
-        [<Parameter("bytes32", "resultHash", 1, false)>]
-        ResultHash: byte array
-        [<Parameter("uint16", "acceptedCount", 2, false)>]
-        AcceptedCount: BigInteger
-        [<Parameter("uint16", "rejectedCount", 3, false)>]
-        RejectedCount: BigInteger
-    }
-    interface IFunctionOutputDTO
-
-[<CLIMutable>]
-type SubmitExchangeActionsParams =
+type SubmitExchangeActionsV2Params =
     {
         [<Parameter("bytes", "encodedActions", 1, false)>]
         EncodedActions: byte array
@@ -206,7 +175,7 @@ type SubmitExchangeActionsParams =
 
 [<FunctionOutput>]
 [<CLIMutable>]
-type SubmitExchangeActionsResult =
+type SubmitExchangeActionsV2Result =
     {
         [<Parameter("bytes32", "resultHash", 1, false)>]
         ResultHash: byte array
@@ -218,7 +187,7 @@ type SubmitExchangeActionsResult =
     interface IFunctionOutputDTO
 
 [<CLIMutable>]
-type SubmitPerpOrderParams =
+type SubmitPerpOrderV1Params =
     {
         [<Parameter("bytes32", "marketId", 1, false)>]
         MarketId: byte array
@@ -240,7 +209,7 @@ type SubmitPerpOrderParams =
 
 [<FunctionOutput>]
 [<CLIMutable>]
-type SubmitPerpOrderResult =
+type SubmitPerpOrderV1Result =
     {
         [<Parameter("bytes32", "orderId", 1, false)>]
         OrderId: byte array
@@ -248,7 +217,7 @@ type SubmitPerpOrderResult =
     interface IFunctionOutputDTO
 
 [<CLIMutable>]
-type SubmitSponsoredPerpActionsParams =
+type SubmitSignedPerpActionsV2Params =
     {
         [<Parameter("bytes", "signedEnvelope", 1, false)>]
         SignedEnvelope: byte array
@@ -256,7 +225,7 @@ type SubmitSponsoredPerpActionsParams =
 
 [<FunctionOutput>]
 [<CLIMutable>]
-type SubmitSponsoredPerpActionsResult =
+type SubmitSignedPerpActionsV2Result =
     {
         [<Parameter("bytes32", "batchId", 1, false)>]
         BatchId: byte array
@@ -264,7 +233,7 @@ type SubmitSponsoredPerpActionsResult =
     interface IFunctionOutputDTO
 
 [<CLIMutable>]
-type UpdatePerpMarkParams =
+type UpdatePerpMarkV1Params =
     {
         [<Parameter("bytes32", "marketId", 1, false)>]
         MarketId: byte array
@@ -273,11 +242,11 @@ type UpdatePerpMarkParams =
     }
 
 [<FunctionOutput>]
-type UpdatePerpMarkResult() =
+type UpdatePerpMarkV1Result() =
     interface IFunctionOutputDTO
 
 [<CLIMutable>]
-type UpdatePerpOracleParams =
+type UpdatePerpOracleV1Params =
     {
         [<Parameter("bytes32", "marketId", 1, false)>]
         MarketId: byte array
@@ -296,23 +265,12 @@ type UpdatePerpOracleParams =
     }
 
 [<FunctionOutput>]
-type UpdatePerpOracleResult() =
+type UpdatePerpOracleV1Result() =
     interface IFunctionOutputDTO
 
+[<Event("ExchangeActionAcceptedV2", false)>]
 [<CLIMutable>]
-type UpdatePricedOracleParams =
-    {
-        [<Parameter("bytes", "payload", 1, false)>]
-        Payload: byte array
-    }
-
-[<FunctionOutput>]
-type UpdatePricedOracleResult() =
-    interface IFunctionOutputDTO
-
-[<Event("ExchangeActionAccepted", false)>]
-[<CLIMutable>]
-type ExchangeActionAcceptedEvent =
+type ExchangeActionAcceptedV2Event =
     {
         [<Parameter("bytes16", "clientActionId", 1, true)>]
         ClientActionId: byte array
@@ -329,9 +287,9 @@ type ExchangeActionAcceptedEvent =
     }
     interface IEventDTO
 
-[<Event("ExchangeActionRejected", false)>]
+[<Event("ExchangeActionRejectedV2", false)>]
 [<CLIMutable>]
-type ExchangeActionRejectedEvent =
+type ExchangeActionRejectedV2Event =
     {
         [<Parameter("bytes16", "clientActionId", 1, true)>]
         ClientActionId: byte array
@@ -350,9 +308,9 @@ type ExchangeActionRejectedEvent =
     }
     interface IEventDTO
 
-[<Event("ExchangeL3Mutation", false)>]
+[<Event("ExchangeL3MutationV2", false)>]
 [<CLIMutable>]
-type ExchangeL3MutationEvent =
+type ExchangeL3MutationV2Event =
     {
         [<Parameter("bytes32", "marketId", 1, true)>]
         MarketId: byte array
@@ -514,103 +472,89 @@ let sendAdjustIsolatedMargin (contract: Contract) (options: TransactionInput) (a
     options.To <- contract.Address
     contract.GetFunctionBySignature("0xea2630bc").SendTransactionAsync(options, [| box args.MarketId; box args.MarginDelta |])
 
-/// Encodes advancePricedPerpRuntime(bytes32) without RPC.
-let encodeAdvancePricedPerpRuntime (contract: Contract) (args: AdvancePricedPerpRuntimeParams) =
-    contract.GetFunctionBySignature("0xe13d5c47").GetData([| box args.PolicyHash |])
+/// Encodes amendPerpOrderV1(bytes32,uint256,uint256,uint64) without RPC.
+let encodeAmendPerpOrderV1 (contract: Contract) (args: AmendPerpOrderV1Params) =
+    contract.GetFunctionBySignature("0xb4a95c17").GetData([| box args.OrderId; box args.Price; box args.Amount; box args.Expiry |])
 
-let decodeAdvancePricedPerpRuntimeResult (data: string) : AdvancePricedPerpRuntimeResult =
-    Nethereum.ABI.FunctionEncoding.FunctionCallDecoder().DecodeFunctionOutput(Activator.CreateInstance<AdvancePricedPerpRuntimeResult>(), data)
+let decodeAmendPerpOrderV1Result (data: string) : AmendPerpOrderV1Result =
+    Nethereum.ABI.FunctionEncoding.FunctionCallDecoder().DecodeFunctionOutput(Activator.CreateInstance<AmendPerpOrderV1Result>(), data)
 
 /// Sends through the client's configured transaction manager.
-let sendAdvancePricedPerpRuntime (contract: Contract) (options: TransactionInput) (args: AdvancePricedPerpRuntimeParams) =
+let sendAmendPerpOrderV1 (contract: Contract) (options: TransactionInput) (args: AmendPerpOrderV1Params) =
     if isNull options then nullArg "options"
     if not (isNull options.Value) && options.Value.Value <> BigInteger.Zero then invalidArg "options" "Function is not payable"
     options.To <- contract.Address
-    contract.GetFunctionBySignature("0xe13d5c47").SendTransactionAsync(options, [| box args.PolicyHash |])
+    contract.GetFunctionBySignature("0xb4a95c17").SendTransactionAsync(options, [| box args.OrderId; box args.Price; box args.Amount; box args.Expiry |])
 
-/// Encodes amendPerpOrder(bytes32,uint256,uint256,uint64) without RPC.
-let encodeAmendPerpOrder (contract: Contract) (args: AmendPerpOrderParams) =
-    contract.GetFunctionBySignature("0xefa58ca6").GetData([| box args.OrderId; box args.Price; box args.Amount; box args.Expiry |])
+/// Encodes applyPerpFundingV1(bytes32,int256) without RPC.
+let encodeApplyPerpFundingV1 (contract: Contract) (args: ApplyPerpFundingV1Params) =
+    contract.GetFunctionBySignature("0xf0e81677").GetData([| box args.MarketId; box args.FundingRateBps |])
 
-let decodeAmendPerpOrderResult (data: string) : AmendPerpOrderResult =
-    Nethereum.ABI.FunctionEncoding.FunctionCallDecoder().DecodeFunctionOutput(Activator.CreateInstance<AmendPerpOrderResult>(), data)
+let decodeApplyPerpFundingV1Result (data: string) : ApplyPerpFundingV1Result =
+    Nethereum.ABI.FunctionEncoding.FunctionCallDecoder().DecodeFunctionOutput(Activator.CreateInstance<ApplyPerpFundingV1Result>(), data)
 
 /// Sends through the client's configured transaction manager.
-let sendAmendPerpOrder (contract: Contract) (options: TransactionInput) (args: AmendPerpOrderParams) =
+let sendApplyPerpFundingV1 (contract: Contract) (options: TransactionInput) (args: ApplyPerpFundingV1Params) =
     if isNull options then nullArg "options"
     if not (isNull options.Value) && options.Value.Value <> BigInteger.Zero then invalidArg "options" "Function is not payable"
     options.To <- contract.Address
-    contract.GetFunctionBySignature("0xefa58ca6").SendTransactionAsync(options, [| box args.OrderId; box args.Price; box args.Amount; box args.Expiry |])
+    contract.GetFunctionBySignature("0xf0e81677").SendTransactionAsync(options, [| box args.MarketId; box args.FundingRateBps |])
 
-/// Encodes applyPerpFunding(bytes32,int256) without RPC.
-let encodeApplyPerpFunding (contract: Contract) (args: ApplyPerpFundingParams) =
-    contract.GetFunctionBySignature("0xdbb469ae").GetData([| box args.MarketId; box args.FundingRateBps |])
+/// Encodes cancelPerpOrderV1(bytes32) without RPC.
+let encodeCancelPerpOrderV1 (contract: Contract) (args: CancelPerpOrderV1Params) =
+    contract.GetFunctionBySignature("0x21c202d4").GetData([| box args.OrderId |])
 
-let decodeApplyPerpFundingResult (data: string) : ApplyPerpFundingResult =
-    Nethereum.ABI.FunctionEncoding.FunctionCallDecoder().DecodeFunctionOutput(Activator.CreateInstance<ApplyPerpFundingResult>(), data)
+let decodeCancelPerpOrderV1Result (data: string) : CancelPerpOrderV1Result =
+    Nethereum.ABI.FunctionEncoding.FunctionCallDecoder().DecodeFunctionOutput(Activator.CreateInstance<CancelPerpOrderV1Result>(), data)
 
 /// Sends through the client's configured transaction manager.
-let sendApplyPerpFunding (contract: Contract) (options: TransactionInput) (args: ApplyPerpFundingParams) =
+let sendCancelPerpOrderV1 (contract: Contract) (options: TransactionInput) (args: CancelPerpOrderV1Params) =
     if isNull options then nullArg "options"
     if not (isNull options.Value) && options.Value.Value <> BigInteger.Zero then invalidArg "options" "Function is not payable"
     options.To <- contract.Address
-    contract.GetFunctionBySignature("0xdbb469ae").SendTransactionAsync(options, [| box args.MarketId; box args.FundingRateBps |])
+    contract.GetFunctionBySignature("0x21c202d4").SendTransactionAsync(options, [| box args.OrderId |])
 
-/// Encodes cancelPerpOrder(bytes32) without RPC.
-let encodeCancelPerpOrder (contract: Contract) (args: CancelPerpOrderParams) =
-    contract.GetFunctionBySignature("0xd7f87590").GetData([| box args.OrderId |])
+/// Encodes executePerpTradeV1(bytes32,bytes32,uint256,uint256) without RPC.
+let encodeExecutePerpTradeV1 (contract: Contract) (args: ExecutePerpTradeV1Params) =
+    contract.GetFunctionBySignature("0x898772b8").GetData([| box args.MakerOrderId; box args.TakerOrderId; box args.FillPrice; box args.FillQty |])
 
-let decodeCancelPerpOrderResult (data: string) : CancelPerpOrderResult =
-    Nethereum.ABI.FunctionEncoding.FunctionCallDecoder().DecodeFunctionOutput(Activator.CreateInstance<CancelPerpOrderResult>(), data)
+let decodeExecutePerpTradeV1Result (data: string) : ExecutePerpTradeV1Result =
+    Nethereum.ABI.FunctionEncoding.FunctionCallDecoder().DecodeFunctionOutput(Activator.CreateInstance<ExecutePerpTradeV1Result>(), data)
 
 /// Sends through the client's configured transaction manager.
-let sendCancelPerpOrder (contract: Contract) (options: TransactionInput) (args: CancelPerpOrderParams) =
+let sendExecutePerpTradeV1 (contract: Contract) (options: TransactionInput) (args: ExecutePerpTradeV1Params) =
     if isNull options then nullArg "options"
     if not (isNull options.Value) && options.Value.Value <> BigInteger.Zero then invalidArg "options" "Function is not payable"
     options.To <- contract.Address
-    contract.GetFunctionBySignature("0xd7f87590").SendTransactionAsync(options, [| box args.OrderId |])
+    contract.GetFunctionBySignature("0x898772b8").SendTransactionAsync(options, [| box args.MakerOrderId; box args.TakerOrderId; box args.FillPrice; box args.FillQty |])
 
-/// Encodes executePerpTrade(bytes32,bytes32,uint256,uint256) without RPC.
-let encodeExecutePerpTrade (contract: Contract) (args: ExecutePerpTradeParams) =
-    contract.GetFunctionBySignature("0x0067531e").GetData([| box args.MakerOrderId; box args.TakerOrderId; box args.FillPrice; box args.FillQty |])
+/// Encodes expirePerpOrderV1(bytes32) without RPC.
+let encodeExpirePerpOrderV1 (contract: Contract) (args: ExpirePerpOrderV1Params) =
+    contract.GetFunctionBySignature("0xa2c86402").GetData([| box args.OrderId |])
 
-let decodeExecutePerpTradeResult (data: string) : ExecutePerpTradeResult =
-    Nethereum.ABI.FunctionEncoding.FunctionCallDecoder().DecodeFunctionOutput(Activator.CreateInstance<ExecutePerpTradeResult>(), data)
+let decodeExpirePerpOrderV1Result (data: string) : ExpirePerpOrderV1Result =
+    Nethereum.ABI.FunctionEncoding.FunctionCallDecoder().DecodeFunctionOutput(Activator.CreateInstance<ExpirePerpOrderV1Result>(), data)
 
 /// Sends through the client's configured transaction manager.
-let sendExecutePerpTrade (contract: Contract) (options: TransactionInput) (args: ExecutePerpTradeParams) =
+let sendExpirePerpOrderV1 (contract: Contract) (options: TransactionInput) (args: ExpirePerpOrderV1Params) =
     if isNull options then nullArg "options"
     if not (isNull options.Value) && options.Value.Value <> BigInteger.Zero then invalidArg "options" "Function is not payable"
     options.To <- contract.Address
-    contract.GetFunctionBySignature("0x0067531e").SendTransactionAsync(options, [| box args.MakerOrderId; box args.TakerOrderId; box args.FillPrice; box args.FillQty |])
+    contract.GetFunctionBySignature("0xa2c86402").SendTransactionAsync(options, [| box args.OrderId |])
 
-/// Encodes expirePerpOrder(bytes32) without RPC.
-let encodeExpirePerpOrder (contract: Contract) (args: ExpirePerpOrderParams) =
-    contract.GetFunctionBySignature("0xbd97048f").GetData([| box args.OrderId |])
+/// Encodes finalizePerpFeeEpochV2(bytes32,uint64,bytes32) without RPC.
+let encodeFinalizePerpFeeEpochV2 (contract: Contract) (args: FinalizePerpFeeEpochV2Params) =
+    contract.GetFunctionBySignature("0x521f5d0c").GetData([| box args.MarketId; box args.Epoch; box args.SnapshotHash |])
 
-let decodeExpirePerpOrderResult (data: string) : ExpirePerpOrderResult =
-    Nethereum.ABI.FunctionEncoding.FunctionCallDecoder().DecodeFunctionOutput(Activator.CreateInstance<ExpirePerpOrderResult>(), data)
+let decodeFinalizePerpFeeEpochV2Result (data: string) : FinalizePerpFeeEpochV2Result =
+    Nethereum.ABI.FunctionEncoding.FunctionCallDecoder().DecodeFunctionOutput(Activator.CreateInstance<FinalizePerpFeeEpochV2Result>(), data)
 
 /// Sends through the client's configured transaction manager.
-let sendExpirePerpOrder (contract: Contract) (options: TransactionInput) (args: ExpirePerpOrderParams) =
+let sendFinalizePerpFeeEpochV2 (contract: Contract) (options: TransactionInput) (args: FinalizePerpFeeEpochV2Params) =
     if isNull options then nullArg "options"
     if not (isNull options.Value) && options.Value.Value <> BigInteger.Zero then invalidArg "options" "Function is not payable"
     options.To <- contract.Address
-    contract.GetFunctionBySignature("0xbd97048f").SendTransactionAsync(options, [| box args.OrderId |])
-
-/// Encodes finalizePerpFeeEpoch(bytes32,uint64,bytes32) without RPC.
-let encodeFinalizePerpFeeEpoch (contract: Contract) (args: FinalizePerpFeeEpochParams) =
-    contract.GetFunctionBySignature("0x9f6373eb").GetData([| box args.MarketId; box args.Epoch; box args.SnapshotHash |])
-
-let decodeFinalizePerpFeeEpochResult (data: string) : FinalizePerpFeeEpochResult =
-    Nethereum.ABI.FunctionEncoding.FunctionCallDecoder().DecodeFunctionOutput(Activator.CreateInstance<FinalizePerpFeeEpochResult>(), data)
-
-/// Sends through the client's configured transaction manager.
-let sendFinalizePerpFeeEpoch (contract: Contract) (options: TransactionInput) (args: FinalizePerpFeeEpochParams) =
-    if isNull options then nullArg "options"
-    if not (isNull options.Value) && options.Value.Value <> BigInteger.Zero then invalidArg "options" "Function is not payable"
-    options.To <- contract.Address
-    contract.GetFunctionBySignature("0x9f6373eb").SendTransactionAsync(options, [| box args.MarketId; box args.Epoch; box args.SnapshotHash |])
+    contract.GetFunctionBySignature("0x521f5d0c").SendTransactionAsync(options, [| box args.MarketId; box args.Epoch; box args.SnapshotHash |])
 
 /// Encodes getIsolatedMargin(address,bytes32) without RPC.
 let encodeGetIsolatedMargin (contract: Contract) (args: GetIsolatedMarginParams) =
@@ -632,164 +576,136 @@ let decodeGetPositionResult (data: string) : GetPositionResult =
 let callGetPosition (contract: Contract) (block: BlockParameter) (args: GetPositionParams) =
     contract.GetFunctionBySignature("0x0fa8f516").CallDeserializingToObjectAsync<GetPositionResult>(block, [| box args.Trader; box args.MarketId |])
 
-/// Encodes submitBoundSessionActions(bytes) without RPC.
-let encodeSubmitBoundSessionActions (contract: Contract) (args: SubmitBoundSessionActionsParams) =
-    contract.GetFunctionBySignature("0x1cf05da9").GetData([| box args.EncodedWrapper |])
+/// Encodes submitExchangeActionsV2(bytes) without RPC.
+let encodeSubmitExchangeActionsV2 (contract: Contract) (args: SubmitExchangeActionsV2Params) =
+    contract.GetFunctionBySignature("0x881c51de").GetData([| box args.EncodedActions |])
 
-let decodeSubmitBoundSessionActionsResult (data: string) : SubmitBoundSessionActionsResult =
-    Nethereum.ABI.FunctionEncoding.FunctionCallDecoder().DecodeFunctionOutput(Activator.CreateInstance<SubmitBoundSessionActionsResult>(), data)
+let decodeSubmitExchangeActionsV2Result (data: string) : SubmitExchangeActionsV2Result =
+    Nethereum.ABI.FunctionEncoding.FunctionCallDecoder().DecodeFunctionOutput(Activator.CreateInstance<SubmitExchangeActionsV2Result>(), data)
 
 /// Sends through the client's configured transaction manager.
-let sendSubmitBoundSessionActions (contract: Contract) (options: TransactionInput) (args: SubmitBoundSessionActionsParams) =
+let sendSubmitExchangeActionsV2 (contract: Contract) (options: TransactionInput) (args: SubmitExchangeActionsV2Params) =
     if isNull options then nullArg "options"
     if not (isNull options.Value) && options.Value.Value <> BigInteger.Zero then invalidArg "options" "Function is not payable"
     options.To <- contract.Address
-    contract.GetFunctionBySignature("0x1cf05da9").SendTransactionAsync(options, [| box args.EncodedWrapper |])
+    contract.GetFunctionBySignature("0x881c51de").SendTransactionAsync(options, [| box args.EncodedActions |])
 
-/// Encodes submitExchangeActions(bytes) without RPC.
-let encodeSubmitExchangeActions (contract: Contract) (args: SubmitExchangeActionsParams) =
-    contract.GetFunctionBySignature("0xd47b704f").GetData([| box args.EncodedActions |])
+/// Encodes submitPerpOrderV1(bytes32,uint8,uint8,uint256,uint256,uint8,uint8,uint64) without RPC.
+let encodeSubmitPerpOrderV1 (contract: Contract) (args: SubmitPerpOrderV1Params) =
+    contract.GetFunctionBySignature("0xa6c40b3c").GetData([| box args.MarketId; box args.Side; box args.OrderType; box args.Price; box args.Amount; box args.Flags; box args.MarginType; box args.Expiry |])
 
-let decodeSubmitExchangeActionsResult (data: string) : SubmitExchangeActionsResult =
-    Nethereum.ABI.FunctionEncoding.FunctionCallDecoder().DecodeFunctionOutput(Activator.CreateInstance<SubmitExchangeActionsResult>(), data)
+let decodeSubmitPerpOrderV1Result (data: string) : SubmitPerpOrderV1Result =
+    Nethereum.ABI.FunctionEncoding.FunctionCallDecoder().DecodeFunctionOutput(Activator.CreateInstance<SubmitPerpOrderV1Result>(), data)
 
 /// Sends through the client's configured transaction manager.
-let sendSubmitExchangeActions (contract: Contract) (options: TransactionInput) (args: SubmitExchangeActionsParams) =
+let sendSubmitPerpOrderV1 (contract: Contract) (options: TransactionInput) (args: SubmitPerpOrderV1Params) =
     if isNull options then nullArg "options"
     if not (isNull options.Value) && options.Value.Value <> BigInteger.Zero then invalidArg "options" "Function is not payable"
     options.To <- contract.Address
-    contract.GetFunctionBySignature("0xd47b704f").SendTransactionAsync(options, [| box args.EncodedActions |])
+    contract.GetFunctionBySignature("0xa6c40b3c").SendTransactionAsync(options, [| box args.MarketId; box args.Side; box args.OrderType; box args.Price; box args.Amount; box args.Flags; box args.MarginType; box args.Expiry |])
 
-/// Encodes submitPerpOrder(bytes32,uint8,uint8,uint256,uint256,uint8,uint8,uint64) without RPC.
-let encodeSubmitPerpOrder (contract: Contract) (args: SubmitPerpOrderParams) =
-    contract.GetFunctionBySignature("0x08186390").GetData([| box args.MarketId; box args.Side; box args.OrderType; box args.Price; box args.Amount; box args.Flags; box args.MarginType; box args.Expiry |])
+/// Encodes submitSignedPerpActionsV2(bytes) without RPC.
+let encodeSubmitSignedPerpActionsV2 (contract: Contract) (args: SubmitSignedPerpActionsV2Params) =
+    contract.GetFunctionBySignature("0xabde9b72").GetData([| box args.SignedEnvelope |])
 
-let decodeSubmitPerpOrderResult (data: string) : SubmitPerpOrderResult =
-    Nethereum.ABI.FunctionEncoding.FunctionCallDecoder().DecodeFunctionOutput(Activator.CreateInstance<SubmitPerpOrderResult>(), data)
+let decodeSubmitSignedPerpActionsV2Result (data: string) : SubmitSignedPerpActionsV2Result =
+    Nethereum.ABI.FunctionEncoding.FunctionCallDecoder().DecodeFunctionOutput(Activator.CreateInstance<SubmitSignedPerpActionsV2Result>(), data)
 
 /// Sends through the client's configured transaction manager.
-let sendSubmitPerpOrder (contract: Contract) (options: TransactionInput) (args: SubmitPerpOrderParams) =
+let sendSubmitSignedPerpActionsV2 (contract: Contract) (options: TransactionInput) (args: SubmitSignedPerpActionsV2Params) =
     if isNull options then nullArg "options"
     if not (isNull options.Value) && options.Value.Value <> BigInteger.Zero then invalidArg "options" "Function is not payable"
     options.To <- contract.Address
-    contract.GetFunctionBySignature("0x08186390").SendTransactionAsync(options, [| box args.MarketId; box args.Side; box args.OrderType; box args.Price; box args.Amount; box args.Flags; box args.MarginType; box args.Expiry |])
+    contract.GetFunctionBySignature("0xabde9b72").SendTransactionAsync(options, [| box args.SignedEnvelope |])
 
-/// Encodes submitSponsoredPerpActions(bytes) without RPC.
-let encodeSubmitSponsoredPerpActions (contract: Contract) (args: SubmitSponsoredPerpActionsParams) =
-    contract.GetFunctionBySignature("0x22dbf541").GetData([| box args.SignedEnvelope |])
+/// Encodes updatePerpMarkV1(bytes32,uint256) without RPC.
+let encodeUpdatePerpMarkV1 (contract: Contract) (args: UpdatePerpMarkV1Params) =
+    contract.GetFunctionBySignature("0x38ea0be1").GetData([| box args.MarketId; box args.MarkPrice |])
 
-let decodeSubmitSponsoredPerpActionsResult (data: string) : SubmitSponsoredPerpActionsResult =
-    Nethereum.ABI.FunctionEncoding.FunctionCallDecoder().DecodeFunctionOutput(Activator.CreateInstance<SubmitSponsoredPerpActionsResult>(), data)
+let decodeUpdatePerpMarkV1Result (data: string) : UpdatePerpMarkV1Result =
+    Nethereum.ABI.FunctionEncoding.FunctionCallDecoder().DecodeFunctionOutput(Activator.CreateInstance<UpdatePerpMarkV1Result>(), data)
 
 /// Sends through the client's configured transaction manager.
-let sendSubmitSponsoredPerpActions (contract: Contract) (options: TransactionInput) (args: SubmitSponsoredPerpActionsParams) =
+let sendUpdatePerpMarkV1 (contract: Contract) (options: TransactionInput) (args: UpdatePerpMarkV1Params) =
     if isNull options then nullArg "options"
     if not (isNull options.Value) && options.Value.Value <> BigInteger.Zero then invalidArg "options" "Function is not payable"
     options.To <- contract.Address
-    contract.GetFunctionBySignature("0x22dbf541").SendTransactionAsync(options, [| box args.SignedEnvelope |])
+    contract.GetFunctionBySignature("0x38ea0be1").SendTransactionAsync(options, [| box args.MarketId; box args.MarkPrice |])
 
-/// Encodes updatePerpMark(bytes32,uint256) without RPC.
-let encodeUpdatePerpMark (contract: Contract) (args: UpdatePerpMarkParams) =
-    contract.GetFunctionBySignature("0x6ee832f9").GetData([| box args.MarketId; box args.MarkPrice |])
+/// Encodes updatePerpOracleV1(bytes32,uint256,uint256,uint64,uint64,bytes32,bytes32) without RPC.
+let encodeUpdatePerpOracleV1 (contract: Contract) (args: UpdatePerpOracleV1Params) =
+    contract.GetFunctionBySignature("0xebf18a92").GetData([| box args.MarketId; box args.IndexPrice; box args.MarkPrice; box args.ObservedAt; box args.OracleRound; box args.SourceSetHash; box args.EvidenceHash |])
 
-let decodeUpdatePerpMarkResult (data: string) : UpdatePerpMarkResult =
-    Nethereum.ABI.FunctionEncoding.FunctionCallDecoder().DecodeFunctionOutput(Activator.CreateInstance<UpdatePerpMarkResult>(), data)
+let decodeUpdatePerpOracleV1Result (data: string) : UpdatePerpOracleV1Result =
+    Nethereum.ABI.FunctionEncoding.FunctionCallDecoder().DecodeFunctionOutput(Activator.CreateInstance<UpdatePerpOracleV1Result>(), data)
 
 /// Sends through the client's configured transaction manager.
-let sendUpdatePerpMark (contract: Contract) (options: TransactionInput) (args: UpdatePerpMarkParams) =
+let sendUpdatePerpOracleV1 (contract: Contract) (options: TransactionInput) (args: UpdatePerpOracleV1Params) =
     if isNull options then nullArg "options"
     if not (isNull options.Value) && options.Value.Value <> BigInteger.Zero then invalidArg "options" "Function is not payable"
     options.To <- contract.Address
-    contract.GetFunctionBySignature("0x6ee832f9").SendTransactionAsync(options, [| box args.MarketId; box args.MarkPrice |])
+    contract.GetFunctionBySignature("0xebf18a92").SendTransactionAsync(options, [| box args.MarketId; box args.IndexPrice; box args.MarkPrice; box args.ObservedAt; box args.OracleRound; box args.SourceSetHash; box args.EvidenceHash |])
 
-/// Encodes updatePerpOracle(bytes32,uint256,uint256,uint64,uint64,bytes32,bytes32) without RPC.
-let encodeUpdatePerpOracle (contract: Contract) (args: UpdatePerpOracleParams) =
-    contract.GetFunctionBySignature("0x855dc976").GetData([| box args.MarketId; box args.IndexPrice; box args.MarkPrice; box args.ObservedAt; box args.OracleRound; box args.SourceSetHash; box args.EvidenceHash |])
-
-let decodeUpdatePerpOracleResult (data: string) : UpdatePerpOracleResult =
-    Nethereum.ABI.FunctionEncoding.FunctionCallDecoder().DecodeFunctionOutput(Activator.CreateInstance<UpdatePerpOracleResult>(), data)
-
-/// Sends through the client's configured transaction manager.
-let sendUpdatePerpOracle (contract: Contract) (options: TransactionInput) (args: UpdatePerpOracleParams) =
-    if isNull options then nullArg "options"
-    if not (isNull options.Value) && options.Value.Value <> BigInteger.Zero then invalidArg "options" "Function is not payable"
-    options.To <- contract.Address
-    contract.GetFunctionBySignature("0x855dc976").SendTransactionAsync(options, [| box args.MarketId; box args.IndexPrice; box args.MarkPrice; box args.ObservedAt; box args.OracleRound; box args.SourceSetHash; box args.EvidenceHash |])
-
-/// Encodes updatePricedOracle(bytes) without RPC.
-let encodeUpdatePricedOracle (contract: Contract) (args: UpdatePricedOracleParams) =
-    contract.GetFunctionBySignature("0x96fbe971").GetData([| box args.Payload |])
-
-let decodeUpdatePricedOracleResult (data: string) : UpdatePricedOracleResult =
-    Nethereum.ABI.FunctionEncoding.FunctionCallDecoder().DecodeFunctionOutput(Activator.CreateInstance<UpdatePricedOracleResult>(), data)
-
-/// Sends through the client's configured transaction manager.
-let sendUpdatePricedOracle (contract: Contract) (options: TransactionInput) (args: UpdatePricedOracleParams) =
-    if isNull options then nullArg "options"
-    if not (isNull options.Value) && options.Value.Value <> BigInteger.Zero then invalidArg "options" "Function is not payable"
-    options.To <- contract.Address
-    contract.GetFunctionBySignature("0x96fbe971").SendTransactionAsync(options, [| box args.Payload |])
-
-let filterExchangeActionAccepted (contract: Contract) (fromBlock: BlockParameter) (toBlock: BlockParameter) =
-    let filter = contract.GetEventBySignature("0x9fd3566e39f14b3c593967cf13d7e11e65dafed9c4a3bfeab39504f893a72158").CreateFilterInput(fromBlock, toBlock)
+let filterExchangeActionAcceptedV2 (contract: Contract) (fromBlock: BlockParameter) (toBlock: BlockParameter) =
+    let filter = contract.GetEventBySignature("0x3ca6ab0c0316f6313bc20abbc2dc769133834b25425e93a865b9ef0892d83e2f").CreateFilterInput(fromBlock, toBlock)
     filter
 
-let decodeExchangeActionAcceptedEvent (contract: Contract) (log: FilterLog) : ExchangeActionAcceptedEvent =
-    let decoded = contract.GetEventBySignature("0x9fd3566e39f14b3c593967cf13d7e11e65dafed9c4a3bfeab39504f893a72158").DecodeAllEventsForEvent<ExchangeActionAcceptedEvent>([| log |])
+let decodeExchangeActionAcceptedV2Event (contract: Contract) (log: FilterLog) : ExchangeActionAcceptedV2Event =
+    let decoded = contract.GetEventBySignature("0x3ca6ab0c0316f6313bc20abbc2dc769133834b25425e93a865b9ef0892d83e2f").DecodeAllEventsForEvent<ExchangeActionAcceptedV2Event>([| log |])
     if decoded.Count <> 1 then invalidArg "log" "Log does not match event"
     decoded.[0].Event
 
-let queryExchangeActionAccepted (contract: Contract) (filter: NewFilterInput) =
+let queryExchangeActionAcceptedV2 (contract: Contract) (filter: NewFilterInput) =
     if isNull filter || isNull filter.Address || not (filter.Address |> Array.exists (fun address -> String.Equals(address, contract.Address, StringComparison.OrdinalIgnoreCase))) then invalidArg "filter" "Filter must include this contract address"
     task {
         let! logs = contract.Eth.Filters.GetLogs.SendRequestAsync(filter)
-        let result = ResizeArray<EventLog<ExchangeActionAcceptedEvent>>()
-        let event = contract.GetEventBySignature("0x9fd3566e39f14b3c593967cf13d7e11e65dafed9c4a3bfeab39504f893a72158")
+        let result = ResizeArray<EventLog<ExchangeActionAcceptedV2Event>>()
+        let event = contract.GetEventBySignature("0x3ca6ab0c0316f6313bc20abbc2dc769133834b25425e93a865b9ef0892d83e2f")
         for log in logs do
             if String.Equals(log.Address, contract.Address, StringComparison.OrdinalIgnoreCase) && event.IsLogForEvent(log) then
-                result.Add(EventLog<ExchangeActionAcceptedEvent>(decodeExchangeActionAcceptedEvent contract log, log))
+                result.Add(EventLog<ExchangeActionAcceptedV2Event>(decodeExchangeActionAcceptedV2Event contract log, log))
         return result
     }
 
-let filterExchangeActionRejected (contract: Contract) (fromBlock: BlockParameter) (toBlock: BlockParameter) =
-    let filter = contract.GetEventBySignature("0x70937d7f9595dc387b9e50f455a240b0830750a17ec1be4373c143fc5dde1b54").CreateFilterInput(fromBlock, toBlock)
+let filterExchangeActionRejectedV2 (contract: Contract) (fromBlock: BlockParameter) (toBlock: BlockParameter) =
+    let filter = contract.GetEventBySignature("0x919a92f6cab2e02a0599f1c76ab564597ac54873d064ae7b21c5ba8a8744d958").CreateFilterInput(fromBlock, toBlock)
     filter
 
-let decodeExchangeActionRejectedEvent (contract: Contract) (log: FilterLog) : ExchangeActionRejectedEvent =
-    let decoded = contract.GetEventBySignature("0x70937d7f9595dc387b9e50f455a240b0830750a17ec1be4373c143fc5dde1b54").DecodeAllEventsForEvent<ExchangeActionRejectedEvent>([| log |])
+let decodeExchangeActionRejectedV2Event (contract: Contract) (log: FilterLog) : ExchangeActionRejectedV2Event =
+    let decoded = contract.GetEventBySignature("0x919a92f6cab2e02a0599f1c76ab564597ac54873d064ae7b21c5ba8a8744d958").DecodeAllEventsForEvent<ExchangeActionRejectedV2Event>([| log |])
     if decoded.Count <> 1 then invalidArg "log" "Log does not match event"
     decoded.[0].Event
 
-let queryExchangeActionRejected (contract: Contract) (filter: NewFilterInput) =
+let queryExchangeActionRejectedV2 (contract: Contract) (filter: NewFilterInput) =
     if isNull filter || isNull filter.Address || not (filter.Address |> Array.exists (fun address -> String.Equals(address, contract.Address, StringComparison.OrdinalIgnoreCase))) then invalidArg "filter" "Filter must include this contract address"
     task {
         let! logs = contract.Eth.Filters.GetLogs.SendRequestAsync(filter)
-        let result = ResizeArray<EventLog<ExchangeActionRejectedEvent>>()
-        let event = contract.GetEventBySignature("0x70937d7f9595dc387b9e50f455a240b0830750a17ec1be4373c143fc5dde1b54")
+        let result = ResizeArray<EventLog<ExchangeActionRejectedV2Event>>()
+        let event = contract.GetEventBySignature("0x919a92f6cab2e02a0599f1c76ab564597ac54873d064ae7b21c5ba8a8744d958")
         for log in logs do
             if String.Equals(log.Address, contract.Address, StringComparison.OrdinalIgnoreCase) && event.IsLogForEvent(log) then
-                result.Add(EventLog<ExchangeActionRejectedEvent>(decodeExchangeActionRejectedEvent contract log, log))
+                result.Add(EventLog<ExchangeActionRejectedV2Event>(decodeExchangeActionRejectedV2Event contract log, log))
         return result
     }
 
-let filterExchangeL3Mutation (contract: Contract) (fromBlock: BlockParameter) (toBlock: BlockParameter) =
-    let filter = contract.GetEventBySignature("0x2a5a4fc8324c7e62213e49aee23883746c4398ed74bd31d2eccc48de31026734").CreateFilterInput(fromBlock, toBlock)
+let filterExchangeL3MutationV2 (contract: Contract) (fromBlock: BlockParameter) (toBlock: BlockParameter) =
+    let filter = contract.GetEventBySignature("0x083d99cea649c1d115fc1f70b8045c9b198634bd9b286cc43a595e2f5328fbdd").CreateFilterInput(fromBlock, toBlock)
     filter
 
-let decodeExchangeL3MutationEvent (contract: Contract) (log: FilterLog) : ExchangeL3MutationEvent =
-    let decoded = contract.GetEventBySignature("0x2a5a4fc8324c7e62213e49aee23883746c4398ed74bd31d2eccc48de31026734").DecodeAllEventsForEvent<ExchangeL3MutationEvent>([| log |])
+let decodeExchangeL3MutationV2Event (contract: Contract) (log: FilterLog) : ExchangeL3MutationV2Event =
+    let decoded = contract.GetEventBySignature("0x083d99cea649c1d115fc1f70b8045c9b198634bd9b286cc43a595e2f5328fbdd").DecodeAllEventsForEvent<ExchangeL3MutationV2Event>([| log |])
     if decoded.Count <> 1 then invalidArg "log" "Log does not match event"
     decoded.[0].Event
 
-let queryExchangeL3Mutation (contract: Contract) (filter: NewFilterInput) =
+let queryExchangeL3MutationV2 (contract: Contract) (filter: NewFilterInput) =
     if isNull filter || isNull filter.Address || not (filter.Address |> Array.exists (fun address -> String.Equals(address, contract.Address, StringComparison.OrdinalIgnoreCase))) then invalidArg "filter" "Filter must include this contract address"
     task {
         let! logs = contract.Eth.Filters.GetLogs.SendRequestAsync(filter)
-        let result = ResizeArray<EventLog<ExchangeL3MutationEvent>>()
-        let event = contract.GetEventBySignature("0x2a5a4fc8324c7e62213e49aee23883746c4398ed74bd31d2eccc48de31026734")
+        let result = ResizeArray<EventLog<ExchangeL3MutationV2Event>>()
+        let event = contract.GetEventBySignature("0x083d99cea649c1d115fc1f70b8045c9b198634bd9b286cc43a595e2f5328fbdd")
         for log in logs do
             if String.Equals(log.Address, contract.Address, StringComparison.OrdinalIgnoreCase) && event.IsLogForEvent(log) then
-                result.Add(EventLog<ExchangeL3MutationEvent>(decodeExchangeL3MutationEvent contract log, log))
+                result.Add(EventLog<ExchangeL3MutationV2Event>(decodeExchangeL3MutationV2Event contract log, log))
         return result
     }
 

@@ -9,10 +9,10 @@ open Nethereum.Web3
 open Nethereum.RPC.Eth.DTOs
 open Nethereum.Hex.HexTypes
 
-let abi = "[{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"}],\"name\":\"resolvePerpProtection\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"transactionId\",\"type\":\"bytes32\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"deleveraged\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"counterparty\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"size\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"price\",\"type\":\"uint256\"}],\"name\":\"AutoDeleverage\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"trader\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"size\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"price\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"penalty\",\"type\":\"uint256\"}],\"name\":\"Liquidation\",\"type\":\"event\"}]"
+let abi = "[{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"}],\"name\":\"resolvePerpProtectionV1\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"transactionId\",\"type\":\"bytes32\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"deleveraged\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"counterparty\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"size\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"price\",\"type\":\"uint256\"}],\"name\":\"AutoDeleverage\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"trader\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"size\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"price\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"penalty\",\"type\":\"uint256\"}],\"name\":\"Liquidation\",\"type\":\"event\"}]"
 
 [<CLIMutable>]
-type ResolvePerpProtectionParams =
+type ResolvePerpProtectionV1Params =
     {
         [<Parameter("bytes32", "marketId", 1, false)>]
         MarketId: byte array
@@ -20,7 +20,7 @@ type ResolvePerpProtectionParams =
 
 [<FunctionOutput>]
 [<CLIMutable>]
-type ResolvePerpProtectionResult =
+type ResolvePerpProtectionV1Result =
     {
         [<Parameter("bytes32", "transactionId", 1, false)>]
         TransactionId: byte array
@@ -64,19 +64,19 @@ type LiquidationEvent =
 /// Creates a contract using the caller's client and signing configuration.
 let bind (web3: Web3) (address: string) = web3.Eth.GetContract(abi, address)
 
-/// Encodes resolvePerpProtection(bytes32) without RPC.
-let encodeResolvePerpProtection (contract: Contract) (args: ResolvePerpProtectionParams) =
-    contract.GetFunctionBySignature("0x94481298").GetData([| box args.MarketId |])
+/// Encodes resolvePerpProtectionV1(bytes32) without RPC.
+let encodeResolvePerpProtectionV1 (contract: Contract) (args: ResolvePerpProtectionV1Params) =
+    contract.GetFunctionBySignature("0x310d20c3").GetData([| box args.MarketId |])
 
-let decodeResolvePerpProtectionResult (data: string) : ResolvePerpProtectionResult =
-    Nethereum.ABI.FunctionEncoding.FunctionCallDecoder().DecodeFunctionOutput(Activator.CreateInstance<ResolvePerpProtectionResult>(), data)
+let decodeResolvePerpProtectionV1Result (data: string) : ResolvePerpProtectionV1Result =
+    Nethereum.ABI.FunctionEncoding.FunctionCallDecoder().DecodeFunctionOutput(Activator.CreateInstance<ResolvePerpProtectionV1Result>(), data)
 
 /// Sends through the client's configured transaction manager.
-let sendResolvePerpProtection (contract: Contract) (options: TransactionInput) (args: ResolvePerpProtectionParams) =
+let sendResolvePerpProtectionV1 (contract: Contract) (options: TransactionInput) (args: ResolvePerpProtectionV1Params) =
     if isNull options then nullArg "options"
     if not (isNull options.Value) && options.Value.Value <> BigInteger.Zero then invalidArg "options" "Function is not payable"
     options.To <- contract.Address
-    contract.GetFunctionBySignature("0x94481298").SendTransactionAsync(options, [| box args.MarketId |])
+    contract.GetFunctionBySignature("0x310d20c3").SendTransactionAsync(options, [| box args.MarketId |])
 
 let filterAutoDeleverage (contract: Contract) (fromBlock: BlockParameter) (toBlock: BlockParameter) =
     let filter = contract.GetEventBySignature("0xa313ba5ab2a04b36e5925a4d9166509adc0e0b74f2fb3080801b862d143a0cb6").CreateFilterInput(fromBlock, toBlock)

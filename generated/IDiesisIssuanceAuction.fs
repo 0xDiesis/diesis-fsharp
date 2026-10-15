@@ -9,29 +9,11 @@ open Nethereum.Web3
 open Nethereum.RPC.Eth.DTOs
 open Nethereum.Hex.HexTypes
 
-let abi = "[{\"inputs\":[{\"components\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"baseAsset\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"quoteAsset\",\"type\":\"address\"},{\"internalType\":\"bytes32\",\"name\":\"evidenceHash\",\"type\":\"bytes32\"},{\"internalType\":\"uint8\",\"name\":\"pricingVersion\",\"type\":\"uint8\"},{\"internalType\":\"uint64\",\"name\":\"priceDenominator\",\"type\":\"uint64\"}],\"internalType\":\"struct IDiesisIssuanceAuction.PricedPerpRegistration\",\"name\":\"registration\",\"type\":\"tuple\"}],\"name\":\"bidPricedPerpListing\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"components\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"baseAsset\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"quoteAsset\",\"type\":\"address\"},{\"internalType\":\"bytes32\",\"name\":\"evidenceHash\",\"type\":\"bytes32\"}],\"internalType\":\"struct IDiesisIssuanceAuction.UnpricedPerpRegistration\",\"name\":\"registration\",\"type\":\"tuple\"}],\"name\":\"bidUnpricedPerpListing\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"currentPerpListingPrice\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getPerpListingSlot\",\"outputs\":[{\"components\":[{\"internalType\":\"uint64\",\"name\":\"slotStartBlock\",\"type\":\"uint64\"},{\"internalType\":\"uint64\",\"name\":\"slotLengthBlocks\",\"type\":\"uint64\"},{\"internalType\":\"uint256\",\"name\":\"initialPriceUsdc\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"winningPriceUsdc\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"currentWinner\",\"type\":\"address\"},{\"internalType\":\"bytes32\",\"name\":\"registrationDigest\",\"type\":\"bytes32\"}],\"internalType\":\"struct IDiesisIssuanceAuction.PerpListingSlot\",\"name\":\"\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"}],\"name\":\"getPerpRegistrationPricing\",\"outputs\":[{\"internalType\":\"uint8\",\"name\":\"pricingVersion\",\"type\":\"uint8\"},{\"internalType\":\"uint64\",\"name\":\"priceDenominator\",\"type\":\"uint64\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"settlePerpListing\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"bidder\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"bytes32\",\"name\":\"registrationDigest\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"priceUsdc\",\"type\":\"uint256\"}],\"name\":\"BidAccepted\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"winner\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"bytes32\",\"name\":\"registrationDigest\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"priceUsdc\",\"type\":\"uint256\"}],\"name\":\"SlotSettled\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"AuctionNotSettled\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InvalidUnpricedPerpRegistration\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"IssuanceAuctionCallFailed\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"RegistrationConflict\",\"type\":\"error\"}]"
+let abi = "[{\"inputs\":[{\"components\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"baseAsset\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"quoteAsset\",\"type\":\"address\"},{\"internalType\":\"bytes32\",\"name\":\"evidenceHash\",\"type\":\"bytes32\"}],\"internalType\":\"struct IDiesisIssuanceAuction.PerpRegistrationV1\",\"name\":\"registration\",\"type\":\"tuple\"}],\"name\":\"bidPerpListingV1\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"currentPerpListingPriceV1\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getPerpListingSlotV1\",\"outputs\":[{\"components\":[{\"internalType\":\"uint64\",\"name\":\"slotStartBlock\",\"type\":\"uint64\"},{\"internalType\":\"uint64\",\"name\":\"slotLengthBlocks\",\"type\":\"uint64\"},{\"internalType\":\"uint256\",\"name\":\"initialPriceUsdc\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"winningPriceUsdc\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"currentWinner\",\"type\":\"address\"},{\"internalType\":\"bytes32\",\"name\":\"registrationDigest\",\"type\":\"bytes32\"}],\"internalType\":\"struct IDiesisIssuanceAuction.PerpListingSlotV1\",\"name\":\"\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"settlePerpListingV1\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"bidder\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"bytes32\",\"name\":\"registrationDigest\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"priceUsdc\",\"type\":\"uint256\"}],\"name\":\"BidAccepted\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"winner\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"bytes32\",\"name\":\"registrationDigest\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"priceUsdc\",\"type\":\"uint256\"}],\"name\":\"SlotSettled\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"AuctionNotSettled\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InvalidPerpRegistrationV1\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"IssuanceAuctionCallFailed\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"RegistrationConflict\",\"type\":\"error\"}]"
 
-[<Struct("PricedPerpRegistration")>]
+[<Struct("PerpRegistrationV1")>]
 [<CLIMutable>]
-type TuplePricedPerpRegistration =
-    {
-        [<Parameter("bytes32", "marketId", 1, false)>]
-        MarketId: byte array
-        [<Parameter("address", "baseAsset", 2, false)>]
-        BaseAsset: string
-        [<Parameter("address", "quoteAsset", 3, false)>]
-        QuoteAsset: string
-        [<Parameter("bytes32", "evidenceHash", 4, false)>]
-        EvidenceHash: byte array
-        [<Parameter("uint8", "pricingVersion", 5, false)>]
-        PricingVersion: BigInteger
-        [<Parameter("uint64", "priceDenominator", 6, false)>]
-        PriceDenominator: BigInteger
-    }
-
-[<Struct("UnpricedPerpRegistration")>]
-[<CLIMutable>]
-type TupleUnpricedPerpRegistration =
+type TuplePerpRegistrationV1 =
     {
         [<Parameter("bytes32", "marketId", 1, false)>]
         MarketId: byte array
@@ -43,9 +25,9 @@ type TupleUnpricedPerpRegistration =
         EvidenceHash: byte array
     }
 
-[<Struct("PerpListingSlot")>]
+[<Struct("PerpListingSlotV1")>]
 [<CLIMutable>]
-type TuplePerpListingSlot =
+type TuplePerpListingSlotV1 =
     {
         [<Parameter("uint64", "slotStartBlock", 1, false)>]
         SlotStartBlock: BigInteger
@@ -62,74 +44,45 @@ type TuplePerpListingSlot =
     }
 
 [<CLIMutable>]
-type BidPricedPerpListingParams =
+type BidPerpListingV1Params =
     {
         [<Parameter("tuple", "registration", 1, false)>]
-        Registration: TuplePricedPerpRegistration
+        Registration: TuplePerpRegistrationV1
     }
 
 [<FunctionOutput>]
-type BidPricedPerpListingResult() =
+type BidPerpListingV1Result() =
     interface IFunctionOutputDTO
 
-[<CLIMutable>]
-type BidUnpricedPerpListingParams =
-    {
-        [<Parameter("tuple", "registration", 1, false)>]
-        Registration: TupleUnpricedPerpRegistration
-    }
-
-[<FunctionOutput>]
-type BidUnpricedPerpListingResult() =
-    interface IFunctionOutputDTO
-
-type CurrentPerpListingPriceParams() =
+type CurrentPerpListingPriceV1Params() =
     class end
 
 [<FunctionOutput>]
 [<CLIMutable>]
-type CurrentPerpListingPriceResult =
+type CurrentPerpListingPriceV1Result =
     {
         [<Parameter("uint256", "", 1, false)>]
         Arg0: BigInteger
     }
     interface IFunctionOutputDTO
 
-type GetPerpListingSlotParams() =
+type GetPerpListingSlotV1Params() =
     class end
 
 [<FunctionOutput>]
 [<CLIMutable>]
-type GetPerpListingSlotResult =
+type GetPerpListingSlotV1Result =
     {
         [<Parameter("tuple", "", 1, false)>]
-        Arg0: TuplePerpListingSlot
+        Arg0: TuplePerpListingSlotV1
     }
     interface IFunctionOutputDTO
 
-[<CLIMutable>]
-type GetPerpRegistrationPricingParams =
-    {
-        [<Parameter("bytes32", "marketId", 1, false)>]
-        MarketId: byte array
-    }
-
-[<FunctionOutput>]
-[<CLIMutable>]
-type GetPerpRegistrationPricingResult =
-    {
-        [<Parameter("uint8", "pricingVersion", 1, false)>]
-        PricingVersion: BigInteger
-        [<Parameter("uint64", "priceDenominator", 2, false)>]
-        PriceDenominator: BigInteger
-    }
-    interface IFunctionOutputDTO
-
-type SettlePerpListingParams() =
+type SettlePerpListingV1Params() =
     class end
 
 [<FunctionOutput>]
-type SettlePerpListingResult() =
+type SettlePerpListingV1Result() =
     interface IFunctionOutputDTO
 
 [<Event("BidAccepted", false)>]
@@ -166,8 +119,8 @@ type SlotSettledEvent =
 type AuctionNotSettledError() =
     interface IErrorDTO
 
-[<Error("InvalidUnpricedPerpRegistration")>]
-type InvalidUnpricedPerpRegistrationError() =
+[<Error("InvalidPerpRegistrationV1")>]
+type InvalidPerpRegistrationV1Error() =
     interface IErrorDTO
 
 [<Error("IssuanceAuctionCallFailed")>]
@@ -181,77 +134,53 @@ type RegistrationConflictError() =
 /// Creates a contract using the caller's client and signing configuration.
 let bind (web3: Web3) (address: string) = web3.Eth.GetContract(abi, address)
 
-/// Encodes bidPricedPerpListing((bytes32,address,address,bytes32,uint8,uint64)) without RPC.
-let encodeBidPricedPerpListing (contract: Contract) (args: BidPricedPerpListingParams) =
-    contract.GetFunctionBySignature("0xf8a631a6").GetData([| box args.Registration |])
+/// Encodes bidPerpListingV1((bytes32,address,address,bytes32)) without RPC.
+let encodeBidPerpListingV1 (contract: Contract) (args: BidPerpListingV1Params) =
+    contract.GetFunctionBySignature("0xc73f51bc").GetData([| box args.Registration |])
 
-let decodeBidPricedPerpListingResult (data: string) : BidPricedPerpListingResult =
-    Nethereum.ABI.FunctionEncoding.FunctionCallDecoder().DecodeFunctionOutput(Activator.CreateInstance<BidPricedPerpListingResult>(), data)
+let decodeBidPerpListingV1Result (data: string) : BidPerpListingV1Result =
+    Nethereum.ABI.FunctionEncoding.FunctionCallDecoder().DecodeFunctionOutput(Activator.CreateInstance<BidPerpListingV1Result>(), data)
 
 /// Sends through the client's configured transaction manager.
-let sendBidPricedPerpListing (contract: Contract) (options: TransactionInput) (args: BidPricedPerpListingParams) =
+let sendBidPerpListingV1 (contract: Contract) (options: TransactionInput) (args: BidPerpListingV1Params) =
     if isNull options then nullArg "options"
     if not (isNull options.Value) && options.Value.Value <> BigInteger.Zero then invalidArg "options" "Function is not payable"
     options.To <- contract.Address
-    contract.GetFunctionBySignature("0xf8a631a6").SendTransactionAsync(options, [| box args.Registration |])
+    contract.GetFunctionBySignature("0xc73f51bc").SendTransactionAsync(options, [| box args.Registration |])
 
-/// Encodes bidUnpricedPerpListing((bytes32,address,address,bytes32)) without RPC.
-let encodeBidUnpricedPerpListing (contract: Contract) (args: BidUnpricedPerpListingParams) =
-    contract.GetFunctionBySignature("0x2b37f88d").GetData([| box args.Registration |])
+/// Encodes currentPerpListingPriceV1() without RPC.
+let encodeCurrentPerpListingPriceV1 (contract: Contract) (args: CurrentPerpListingPriceV1Params) =
+    contract.GetFunctionBySignature("0x5f4e5ecf").GetData([|  |])
 
-let decodeBidUnpricedPerpListingResult (data: string) : BidUnpricedPerpListingResult =
-    Nethereum.ABI.FunctionEncoding.FunctionCallDecoder().DecodeFunctionOutput(Activator.CreateInstance<BidUnpricedPerpListingResult>(), data)
+let decodeCurrentPerpListingPriceV1Result (data: string) : CurrentPerpListingPriceV1Result =
+    Nethereum.ABI.FunctionEncoding.FunctionCallDecoder().DecodeFunctionOutput(Activator.CreateInstance<CurrentPerpListingPriceV1Result>(), data)
+
+let callCurrentPerpListingPriceV1 (contract: Contract) (block: BlockParameter) (args: CurrentPerpListingPriceV1Params) =
+    contract.GetFunctionBySignature("0x5f4e5ecf").CallDeserializingToObjectAsync<CurrentPerpListingPriceV1Result>(block, [|  |])
+
+/// Encodes getPerpListingSlotV1() without RPC.
+let encodeGetPerpListingSlotV1 (contract: Contract) (args: GetPerpListingSlotV1Params) =
+    contract.GetFunctionBySignature("0x4e8d9d31").GetData([|  |])
+
+let decodeGetPerpListingSlotV1Result (data: string) : GetPerpListingSlotV1Result =
+    Nethereum.ABI.FunctionEncoding.FunctionCallDecoder().DecodeFunctionOutput(Activator.CreateInstance<GetPerpListingSlotV1Result>(), data)
+
+let callGetPerpListingSlotV1 (contract: Contract) (block: BlockParameter) (args: GetPerpListingSlotV1Params) =
+    contract.GetFunctionBySignature("0x4e8d9d31").CallDeserializingToObjectAsync<GetPerpListingSlotV1Result>(block, [|  |])
+
+/// Encodes settlePerpListingV1() without RPC.
+let encodeSettlePerpListingV1 (contract: Contract) (args: SettlePerpListingV1Params) =
+    contract.GetFunctionBySignature("0x5c66b78b").GetData([|  |])
+
+let decodeSettlePerpListingV1Result (data: string) : SettlePerpListingV1Result =
+    Nethereum.ABI.FunctionEncoding.FunctionCallDecoder().DecodeFunctionOutput(Activator.CreateInstance<SettlePerpListingV1Result>(), data)
 
 /// Sends through the client's configured transaction manager.
-let sendBidUnpricedPerpListing (contract: Contract) (options: TransactionInput) (args: BidUnpricedPerpListingParams) =
+let sendSettlePerpListingV1 (contract: Contract) (options: TransactionInput) (args: SettlePerpListingV1Params) =
     if isNull options then nullArg "options"
     if not (isNull options.Value) && options.Value.Value <> BigInteger.Zero then invalidArg "options" "Function is not payable"
     options.To <- contract.Address
-    contract.GetFunctionBySignature("0x2b37f88d").SendTransactionAsync(options, [| box args.Registration |])
-
-/// Encodes currentPerpListingPrice() without RPC.
-let encodeCurrentPerpListingPrice (contract: Contract) (args: CurrentPerpListingPriceParams) =
-    contract.GetFunctionBySignature("0x6acdd627").GetData([|  |])
-
-let decodeCurrentPerpListingPriceResult (data: string) : CurrentPerpListingPriceResult =
-    Nethereum.ABI.FunctionEncoding.FunctionCallDecoder().DecodeFunctionOutput(Activator.CreateInstance<CurrentPerpListingPriceResult>(), data)
-
-let callCurrentPerpListingPrice (contract: Contract) (block: BlockParameter) (args: CurrentPerpListingPriceParams) =
-    contract.GetFunctionBySignature("0x6acdd627").CallDeserializingToObjectAsync<CurrentPerpListingPriceResult>(block, [|  |])
-
-/// Encodes getPerpListingSlot() without RPC.
-let encodeGetPerpListingSlot (contract: Contract) (args: GetPerpListingSlotParams) =
-    contract.GetFunctionBySignature("0x01e06b79").GetData([|  |])
-
-let decodeGetPerpListingSlotResult (data: string) : GetPerpListingSlotResult =
-    Nethereum.ABI.FunctionEncoding.FunctionCallDecoder().DecodeFunctionOutput(Activator.CreateInstance<GetPerpListingSlotResult>(), data)
-
-let callGetPerpListingSlot (contract: Contract) (block: BlockParameter) (args: GetPerpListingSlotParams) =
-    contract.GetFunctionBySignature("0x01e06b79").CallDeserializingToObjectAsync<GetPerpListingSlotResult>(block, [|  |])
-
-/// Encodes getPerpRegistrationPricing(bytes32) without RPC.
-let encodeGetPerpRegistrationPricing (contract: Contract) (args: GetPerpRegistrationPricingParams) =
-    contract.GetFunctionBySignature("0x79dbb199").GetData([| box args.MarketId |])
-
-let decodeGetPerpRegistrationPricingResult (data: string) : GetPerpRegistrationPricingResult =
-    Nethereum.ABI.FunctionEncoding.FunctionCallDecoder().DecodeFunctionOutput(Activator.CreateInstance<GetPerpRegistrationPricingResult>(), data)
-
-let callGetPerpRegistrationPricing (contract: Contract) (block: BlockParameter) (args: GetPerpRegistrationPricingParams) =
-    contract.GetFunctionBySignature("0x79dbb199").CallDeserializingToObjectAsync<GetPerpRegistrationPricingResult>(block, [| box args.MarketId |])
-
-/// Encodes settlePerpListing() without RPC.
-let encodeSettlePerpListing (contract: Contract) (args: SettlePerpListingParams) =
-    contract.GetFunctionBySignature("0x2c4e0da1").GetData([|  |])
-
-let decodeSettlePerpListingResult (data: string) : SettlePerpListingResult =
-    Nethereum.ABI.FunctionEncoding.FunctionCallDecoder().DecodeFunctionOutput(Activator.CreateInstance<SettlePerpListingResult>(), data)
-
-/// Sends through the client's configured transaction manager.
-let sendSettlePerpListing (contract: Contract) (options: TransactionInput) (args: SettlePerpListingParams) =
-    if isNull options then nullArg "options"
-    if not (isNull options.Value) && options.Value.Value <> BigInteger.Zero then invalidArg "options" "Function is not payable"
-    options.To <- contract.Address
-    contract.GetFunctionBySignature("0x2c4e0da1").SendTransactionAsync(options, [|  |])
+    contract.GetFunctionBySignature("0x5c66b78b").SendTransactionAsync(options, [|  |])
 
 let filterBidAccepted (contract: Contract) (fromBlock: BlockParameter) (toBlock: BlockParameter) =
     let filter = contract.GetEventBySignature("0x0ba5cb6e9a798e8da4bf4439756becccd1c415856a59263f52b95e4df7896aeb").CreateFilterInput(fromBlock, toBlock)
@@ -300,10 +229,10 @@ let decodeAuctionNotSettledError (data: string) : AuctionNotSettledError =
     if data.Length <> 10 then invalidArg "data" "Unexpected custom error payload"
     Nethereum.Contracts.Error(typeof<AuctionNotSettledError>).DecodeExceptionEncodedData<AuctionNotSettledError>(data)
 
-let decodeInvalidUnpricedPerpRegistrationError (data: string) : InvalidUnpricedPerpRegistrationError =
-    if isNull data || not (data.StartsWith("0xe431e4d8", StringComparison.OrdinalIgnoreCase)) then invalidArg "data" "Custom error selector mismatch"
+let decodeInvalidPerpRegistrationV1Error (data: string) : InvalidPerpRegistrationV1Error =
+    if isNull data || not (data.StartsWith("0x97bb0617", StringComparison.OrdinalIgnoreCase)) then invalidArg "data" "Custom error selector mismatch"
     if data.Length <> 10 then invalidArg "data" "Unexpected custom error payload"
-    Nethereum.Contracts.Error(typeof<InvalidUnpricedPerpRegistrationError>).DecodeExceptionEncodedData<InvalidUnpricedPerpRegistrationError>(data)
+    Nethereum.Contracts.Error(typeof<InvalidPerpRegistrationV1Error>).DecodeExceptionEncodedData<InvalidPerpRegistrationV1Error>(data)
 
 let decodeIssuanceAuctionCallFailedError (data: string) : IssuanceAuctionCallFailedError =
     if isNull data || not (data.StartsWith("0x4ddd419d", StringComparison.OrdinalIgnoreCase)) then invalidArg "data" "Custom error selector mismatch"

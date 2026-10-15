@@ -9,7 +9,7 @@ open Nethereum.Web3
 open Nethereum.RPC.Eth.DTOs
 open Nethereum.Hex.HexTypes
 
-let abi = "[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"sessionKey\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"actionScope\",\"type\":\"uint256\"},{\"internalType\":\"uint64\",\"name\":\"validUntil\",\"type\":\"uint64\"},{\"internalType\":\"uint256\",\"name\":\"maxNotionalOrSpend\",\"type\":\"uint256\"},{\"internalType\":\"bytes32\",\"name\":\"allowedMarketsMask\",\"type\":\"bytes32\"}],\"name\":\"authorizeSessionKey\",\"outputs\":[{\"internalType\":\"uint64\",\"name\":\"generation\",\"type\":\"uint64\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"}],\"name\":\"availableBalance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"available\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint248\",\"name\":\"wordPos\",\"type\":\"uint248\"}],\"name\":\"cancelNonceWord\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"nonce\",\"type\":\"uint256\"}],\"name\":\"cancelOrderNonce\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"creditRouterDeposit\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"debitRouterWithdrawal\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"deposit\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"nonce\",\"type\":\"uint256\"}],\"name\":\"fundPerpBackstop\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"transactionId\",\"type\":\"bytes32\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"tradingKey\",\"type\":\"address\"}],\"name\":\"getTradingKeyAuth\",\"outputs\":[{\"components\":[{\"internalType\":\"bytes32\",\"name\":\"header\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"maxOrderNotional\",\"type\":\"uint256\"},{\"internalType\":\"bytes32\",\"name\":\"allowedMarketsMask\",\"type\":\"bytes32\"}],\"internalType\":\"struct IDiesisSettlement.TradingKeyAuth\",\"name\":\"auth\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"nonce\",\"type\":\"uint256\"}],\"name\":\"isNonceUsed\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"used\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"tradingKey\",\"type\":\"address\"},{\"internalType\":\"uint64\",\"name\":\"validUntil\",\"type\":\"uint64\"},{\"internalType\":\"uint128\",\"name\":\"maxOrderNotional\",\"type\":\"uint128\"},{\"internalType\":\"bytes32\",\"name\":\"allowedMarketsMask\",\"type\":\"bytes32\"},{\"internalType\":\"bool\",\"name\":\"canWithdraw\",\"type\":\"bool\"}],\"name\":\"registerTradingKey\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"sessionKey\",\"type\":\"address\"}],\"name\":\"revokeSessionKey\",\"outputs\":[{\"internalType\":\"uint64\",\"name\":\"generation\",\"type\":\"uint64\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"tradingKey\",\"type\":\"address\"}],\"name\":\"revokeTradingKey\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"}],\"name\":\"totalBalance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"total\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"withdraw\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"Deposit\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"nonce\",\"type\":\"uint256\"}],\"name\":\"NonceCancelled\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"funder\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"quoteToken\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"bytes32\",\"name\":\"transactionId\",\"type\":\"bytes32\"}],\"name\":\"PerpBackstopFunded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"tradingKey\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"validUntil\",\"type\":\"uint64\"},{\"indexed\":false,\"internalType\":\"uint128\",\"name\":\"maxOrderNotional\",\"type\":\"uint128\"},{\"indexed\":false,\"internalType\":\"bytes32\",\"name\":\"allowedMarketsMask\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"bool\",\"name\":\"canWithdraw\",\"type\":\"bool\"}],\"name\":\"TradingKeyRegistered\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"tradingKey\",\"type\":\"address\"}],\"name\":\"TradingKeyRevoked\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"Withdrawal\",\"type\":\"event\"}]"
+let abi = "[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"principal\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"actionScope\",\"type\":\"uint256\"},{\"internalType\":\"uint64\",\"name\":\"validUntil\",\"type\":\"uint64\"},{\"internalType\":\"uint256\",\"name\":\"maxNotionalOrSpend\",\"type\":\"uint256\"},{\"internalType\":\"bytes32\",\"name\":\"allowedMarketsMask\",\"type\":\"bytes32\"}],\"name\":\"acceptSessionKeyV2\",\"outputs\":[{\"internalType\":\"uint64\",\"name\":\"generation\",\"type\":\"uint64\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"sessionKey\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"actionScope\",\"type\":\"uint256\"},{\"internalType\":\"uint64\",\"name\":\"validUntil\",\"type\":\"uint64\"},{\"internalType\":\"uint256\",\"name\":\"maxNotionalOrSpend\",\"type\":\"uint256\"},{\"internalType\":\"bytes32\",\"name\":\"allowedMarketsMask\",\"type\":\"bytes32\"}],\"name\":\"authorizeSessionKeyV2\",\"outputs\":[{\"internalType\":\"uint64\",\"name\":\"generation\",\"type\":\"uint64\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"}],\"name\":\"availableBalance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"available\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint248\",\"name\":\"wordPos\",\"type\":\"uint248\"}],\"name\":\"cancelNonceWord\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"nonce\",\"type\":\"uint256\"}],\"name\":\"cancelOrderNonce\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"creditRouterDeposit\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"debitRouterWithdrawal\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"deposit\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"nonce\",\"type\":\"uint256\"}],\"name\":\"fundPerpBackstopV1\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"transactionId\",\"type\":\"bytes32\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"tradingKey\",\"type\":\"address\"}],\"name\":\"getTradingKeyAuth\",\"outputs\":[{\"components\":[{\"internalType\":\"bytes32\",\"name\":\"header\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"maxOrderNotional\",\"type\":\"uint256\"},{\"internalType\":\"bytes32\",\"name\":\"allowedMarketsMask\",\"type\":\"bytes32\"}],\"internalType\":\"struct IDiesisSettlement.TradingKeyAuth\",\"name\":\"auth\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"nonce\",\"type\":\"uint256\"}],\"name\":\"isNonceUsed\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"used\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"tradingKey\",\"type\":\"address\"},{\"internalType\":\"uint64\",\"name\":\"validUntil\",\"type\":\"uint64\"},{\"internalType\":\"uint128\",\"name\":\"maxOrderNotional\",\"type\":\"uint128\"},{\"internalType\":\"bytes32\",\"name\":\"allowedMarketsMask\",\"type\":\"bytes32\"},{\"internalType\":\"bool\",\"name\":\"canWithdraw\",\"type\":\"bool\"}],\"name\":\"registerTradingKey\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"sessionKey\",\"type\":\"address\"}],\"name\":\"revokeSessionKeyV2\",\"outputs\":[{\"internalType\":\"uint64\",\"name\":\"generation\",\"type\":\"uint64\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"tradingKey\",\"type\":\"address\"}],\"name\":\"revokeTradingKey\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"}],\"name\":\"totalBalance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"total\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"withdraw\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"Deposit\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"nonce\",\"type\":\"uint256\"}],\"name\":\"NonceCancelled\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"funder\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"quoteToken\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"bytes32\",\"name\":\"transactionId\",\"type\":\"bytes32\"}],\"name\":\"PerpBackstopFunded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"tradingKey\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"validUntil\",\"type\":\"uint64\"},{\"indexed\":false,\"internalType\":\"uint128\",\"name\":\"maxOrderNotional\",\"type\":\"uint128\"},{\"indexed\":false,\"internalType\":\"bytes32\",\"name\":\"allowedMarketsMask\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"bool\",\"name\":\"canWithdraw\",\"type\":\"bool\"}],\"name\":\"TradingKeyRegistered\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"tradingKey\",\"type\":\"address\"}],\"name\":\"TradingKeyRevoked\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"Withdrawal\",\"type\":\"event\"}]"
 
 [<Struct("TradingKeyAuth")>]
 [<CLIMutable>]
@@ -24,7 +24,31 @@ type TupleTradingKeyAuth =
     }
 
 [<CLIMutable>]
-type AuthorizeSessionKeyParams =
+type AcceptSessionKeyV2Params =
+    {
+        [<Parameter("address", "principal", 1, false)>]
+        Principal: string
+        [<Parameter("uint256", "actionScope", 2, false)>]
+        ActionScope: BigInteger
+        [<Parameter("uint64", "validUntil", 3, false)>]
+        ValidUntil: BigInteger
+        [<Parameter("uint256", "maxNotionalOrSpend", 4, false)>]
+        MaxNotionalOrSpend: BigInteger
+        [<Parameter("bytes32", "allowedMarketsMask", 5, false)>]
+        AllowedMarketsMask: byte array
+    }
+
+[<FunctionOutput>]
+[<CLIMutable>]
+type AcceptSessionKeyV2Result =
+    {
+        [<Parameter("uint64", "generation", 1, false)>]
+        Generation: BigInteger
+    }
+    interface IFunctionOutputDTO
+
+[<CLIMutable>]
+type AuthorizeSessionKeyV2Params =
     {
         [<Parameter("address", "sessionKey", 1, false)>]
         SessionKey: string
@@ -40,7 +64,7 @@ type AuthorizeSessionKeyParams =
 
 [<FunctionOutput>]
 [<CLIMutable>]
-type AuthorizeSessionKeyResult =
+type AuthorizeSessionKeyV2Result =
     {
         [<Parameter("uint64", "generation", 1, false)>]
         Generation: BigInteger
@@ -131,7 +155,7 @@ type DepositResult() =
     interface IFunctionOutputDTO
 
 [<CLIMutable>]
-type FundPerpBackstopParams =
+type FundPerpBackstopV1Params =
     {
         [<Parameter("bytes32", "marketId", 1, false)>]
         MarketId: byte array
@@ -143,7 +167,7 @@ type FundPerpBackstopParams =
 
 [<FunctionOutput>]
 [<CLIMutable>]
-type FundPerpBackstopResult =
+type FundPerpBackstopV1Result =
     {
         [<Parameter("bytes32", "transactionId", 1, false)>]
         TransactionId: byte array
@@ -206,7 +230,7 @@ type RegisterTradingKeyResult() =
     interface IFunctionOutputDTO
 
 [<CLIMutable>]
-type RevokeSessionKeyParams =
+type RevokeSessionKeyV2Params =
     {
         [<Parameter("address", "sessionKey", 1, false)>]
         SessionKey: string
@@ -214,7 +238,7 @@ type RevokeSessionKeyParams =
 
 [<FunctionOutput>]
 [<CLIMutable>]
-type RevokeSessionKeyResult =
+type RevokeSessionKeyV2Result =
     {
         [<Parameter("uint64", "generation", 1, false)>]
         Generation: BigInteger
@@ -350,19 +374,33 @@ type WithdrawalEvent =
 /// Creates a contract using the caller's client and signing configuration.
 let bind (web3: Web3) (address: string) = web3.Eth.GetContract(abi, address)
 
-/// Encodes authorizeSessionKey(address,uint256,uint64,uint256,bytes32) without RPC.
-let encodeAuthorizeSessionKey (contract: Contract) (args: AuthorizeSessionKeyParams) =
-    contract.GetFunctionBySignature("0x52f0072f").GetData([| box args.SessionKey; box args.ActionScope; box args.ValidUntil; box args.MaxNotionalOrSpend; box args.AllowedMarketsMask |])
+/// Encodes acceptSessionKeyV2(address,uint256,uint64,uint256,bytes32) without RPC.
+let encodeAcceptSessionKeyV2 (contract: Contract) (args: AcceptSessionKeyV2Params) =
+    contract.GetFunctionBySignature("0xca2bba63").GetData([| box args.Principal; box args.ActionScope; box args.ValidUntil; box args.MaxNotionalOrSpend; box args.AllowedMarketsMask |])
 
-let decodeAuthorizeSessionKeyResult (data: string) : AuthorizeSessionKeyResult =
-    Nethereum.ABI.FunctionEncoding.FunctionCallDecoder().DecodeFunctionOutput(Activator.CreateInstance<AuthorizeSessionKeyResult>(), data)
+let decodeAcceptSessionKeyV2Result (data: string) : AcceptSessionKeyV2Result =
+    Nethereum.ABI.FunctionEncoding.FunctionCallDecoder().DecodeFunctionOutput(Activator.CreateInstance<AcceptSessionKeyV2Result>(), data)
 
 /// Sends through the client's configured transaction manager.
-let sendAuthorizeSessionKey (contract: Contract) (options: TransactionInput) (args: AuthorizeSessionKeyParams) =
+let sendAcceptSessionKeyV2 (contract: Contract) (options: TransactionInput) (args: AcceptSessionKeyV2Params) =
     if isNull options then nullArg "options"
     if not (isNull options.Value) && options.Value.Value <> BigInteger.Zero then invalidArg "options" "Function is not payable"
     options.To <- contract.Address
-    contract.GetFunctionBySignature("0x52f0072f").SendTransactionAsync(options, [| box args.SessionKey; box args.ActionScope; box args.ValidUntil; box args.MaxNotionalOrSpend; box args.AllowedMarketsMask |])
+    contract.GetFunctionBySignature("0xca2bba63").SendTransactionAsync(options, [| box args.Principal; box args.ActionScope; box args.ValidUntil; box args.MaxNotionalOrSpend; box args.AllowedMarketsMask |])
+
+/// Encodes authorizeSessionKeyV2(address,uint256,uint64,uint256,bytes32) without RPC.
+let encodeAuthorizeSessionKeyV2 (contract: Contract) (args: AuthorizeSessionKeyV2Params) =
+    contract.GetFunctionBySignature("0xd1df736a").GetData([| box args.SessionKey; box args.ActionScope; box args.ValidUntil; box args.MaxNotionalOrSpend; box args.AllowedMarketsMask |])
+
+let decodeAuthorizeSessionKeyV2Result (data: string) : AuthorizeSessionKeyV2Result =
+    Nethereum.ABI.FunctionEncoding.FunctionCallDecoder().DecodeFunctionOutput(Activator.CreateInstance<AuthorizeSessionKeyV2Result>(), data)
+
+/// Sends through the client's configured transaction manager.
+let sendAuthorizeSessionKeyV2 (contract: Contract) (options: TransactionInput) (args: AuthorizeSessionKeyV2Params) =
+    if isNull options then nullArg "options"
+    if not (isNull options.Value) && options.Value.Value <> BigInteger.Zero then invalidArg "options" "Function is not payable"
+    options.To <- contract.Address
+    contract.GetFunctionBySignature("0xd1df736a").SendTransactionAsync(options, [| box args.SessionKey; box args.ActionScope; box args.ValidUntil; box args.MaxNotionalOrSpend; box args.AllowedMarketsMask |])
 
 /// Encodes availableBalance(address,address) without RPC.
 let encodeAvailableBalance (contract: Contract) (args: AvailableBalanceParams) =
@@ -444,19 +482,19 @@ let sendDeposit (contract: Contract) (options: TransactionInput) (args: DepositP
     options.To <- contract.Address
     contract.GetFunctionBySignature("0x47e7ef24").SendTransactionAsync(options, [| box args.Token; box args.Amount |])
 
-/// Encodes fundPerpBackstop(bytes32,uint256,uint256) without RPC.
-let encodeFundPerpBackstop (contract: Contract) (args: FundPerpBackstopParams) =
-    contract.GetFunctionBySignature("0x04244758").GetData([| box args.MarketId; box args.Amount; box args.Nonce |])
+/// Encodes fundPerpBackstopV1(bytes32,uint256,uint256) without RPC.
+let encodeFundPerpBackstopV1 (contract: Contract) (args: FundPerpBackstopV1Params) =
+    contract.GetFunctionBySignature("0xb8032646").GetData([| box args.MarketId; box args.Amount; box args.Nonce |])
 
-let decodeFundPerpBackstopResult (data: string) : FundPerpBackstopResult =
-    Nethereum.ABI.FunctionEncoding.FunctionCallDecoder().DecodeFunctionOutput(Activator.CreateInstance<FundPerpBackstopResult>(), data)
+let decodeFundPerpBackstopV1Result (data: string) : FundPerpBackstopV1Result =
+    Nethereum.ABI.FunctionEncoding.FunctionCallDecoder().DecodeFunctionOutput(Activator.CreateInstance<FundPerpBackstopV1Result>(), data)
 
 /// Sends through the client's configured transaction manager.
-let sendFundPerpBackstop (contract: Contract) (options: TransactionInput) (args: FundPerpBackstopParams) =
+let sendFundPerpBackstopV1 (contract: Contract) (options: TransactionInput) (args: FundPerpBackstopV1Params) =
     if isNull options then nullArg "options"
     if not (isNull options.Value) && options.Value.Value <> BigInteger.Zero then invalidArg "options" "Function is not payable"
     options.To <- contract.Address
-    contract.GetFunctionBySignature("0x04244758").SendTransactionAsync(options, [| box args.MarketId; box args.Amount; box args.Nonce |])
+    contract.GetFunctionBySignature("0xb8032646").SendTransactionAsync(options, [| box args.MarketId; box args.Amount; box args.Nonce |])
 
 /// Encodes getTradingKeyAuth(address,address) without RPC.
 let encodeGetTradingKeyAuth (contract: Contract) (args: GetTradingKeyAuthParams) =
@@ -492,19 +530,19 @@ let sendRegisterTradingKey (contract: Contract) (options: TransactionInput) (arg
     options.To <- contract.Address
     contract.GetFunctionBySignature("0xb5ad16ba").SendTransactionAsync(options, [| box args.TradingKey; box args.ValidUntil; box args.MaxOrderNotional; box args.AllowedMarketsMask; box args.CanWithdraw |])
 
-/// Encodes revokeSessionKey(address) without RPC.
-let encodeRevokeSessionKey (contract: Contract) (args: RevokeSessionKeyParams) =
-    contract.GetFunctionBySignature("0x84f4fc6a").GetData([| box args.SessionKey |])
+/// Encodes revokeSessionKeyV2(address) without RPC.
+let encodeRevokeSessionKeyV2 (contract: Contract) (args: RevokeSessionKeyV2Params) =
+    contract.GetFunctionBySignature("0xa8163070").GetData([| box args.SessionKey |])
 
-let decodeRevokeSessionKeyResult (data: string) : RevokeSessionKeyResult =
-    Nethereum.ABI.FunctionEncoding.FunctionCallDecoder().DecodeFunctionOutput(Activator.CreateInstance<RevokeSessionKeyResult>(), data)
+let decodeRevokeSessionKeyV2Result (data: string) : RevokeSessionKeyV2Result =
+    Nethereum.ABI.FunctionEncoding.FunctionCallDecoder().DecodeFunctionOutput(Activator.CreateInstance<RevokeSessionKeyV2Result>(), data)
 
 /// Sends through the client's configured transaction manager.
-let sendRevokeSessionKey (contract: Contract) (options: TransactionInput) (args: RevokeSessionKeyParams) =
+let sendRevokeSessionKeyV2 (contract: Contract) (options: TransactionInput) (args: RevokeSessionKeyV2Params) =
     if isNull options then nullArg "options"
     if not (isNull options.Value) && options.Value.Value <> BigInteger.Zero then invalidArg "options" "Function is not payable"
     options.To <- contract.Address
-    contract.GetFunctionBySignature("0x84f4fc6a").SendTransactionAsync(options, [| box args.SessionKey |])
+    contract.GetFunctionBySignature("0xa8163070").SendTransactionAsync(options, [| box args.SessionKey |])
 
 /// Encodes revokeTradingKey(address) without RPC.
 let encodeRevokeTradingKey (contract: Contract) (args: RevokeTradingKeyParams) =

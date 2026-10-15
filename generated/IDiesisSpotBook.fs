@@ -9,7 +9,7 @@ open Nethereum.Web3
 open Nethereum.RPC.Eth.DTOs
 open Nethereum.Hex.HexTypes
 
-let abi = "[{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"orderId\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"newPrice\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"newAmount\",\"type\":\"uint256\"},{\"internalType\":\"uint8\",\"name\":\"newFlags\",\"type\":\"uint8\"}],\"name\":\"amendOrder\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"newOrderId\",\"type\":\"bytes32\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"orderId\",\"type\":\"bytes32\"}],\"name\":\"cancelOrder\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"orderId\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"fillPrice\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"fillQty\",\"type\":\"uint256\"}],\"name\":\"executeSpotFill\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"filledQty\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"executionPrice\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"makerOrderId\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32\",\"name\":\"takerOrderId\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"fillPrice\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"fillQty\",\"type\":\"uint256\"}],\"name\":\"executeSpotTrade\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"filledQty\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"executionPrice\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"}],\"name\":\"finalizeOpeningAuction\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"clearingPrice\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"totalVolume\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"}],\"name\":\"getBestAsk\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"priceTicks\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"amountLots\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"}],\"name\":\"getBestBid\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"priceTicks\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"amountLots\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"}],\"name\":\"getOpeningAuction\",\"outputs\":[{\"internalType\":\"uint64\",\"name\":\"startBlock\",\"type\":\"uint64\"},{\"internalType\":\"uint64\",\"name\":\"endBlock\",\"type\":\"uint64\"},{\"internalType\":\"uint256\",\"name\":\"referencePrice\",\"type\":\"uint256\"},{\"internalType\":\"bool\",\"name\":\"finalized\",\"type\":\"bool\"},{\"internalType\":\"uint256\",\"name\":\"clearingPrice\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"totalVolume\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"internalType\":\"uint8\",\"name\":\"levels\",\"type\":\"uint8\"}],\"name\":\"getOrderBookDepth\",\"outputs\":[{\"internalType\":\"uint256[]\",\"name\":\"bidPrices\",\"type\":\"uint256[]\"},{\"internalType\":\"uint256[]\",\"name\":\"bidAmounts\",\"type\":\"uint256[]\"},{\"internalType\":\"uint256[]\",\"name\":\"askPrices\",\"type\":\"uint256[]\"},{\"internalType\":\"uint256[]\",\"name\":\"askAmounts\",\"type\":\"uint256[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"},{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"}],\"name\":\"getUserOrders\",\"outputs\":[{\"internalType\":\"bytes32[]\",\"name\":\"orderIds\",\"type\":\"bytes32[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"internalType\":\"uint64\",\"name\":\"startBlock\",\"type\":\"uint64\"},{\"internalType\":\"uint64\",\"name\":\"endBlock\",\"type\":\"uint64\"},{\"internalType\":\"uint256\",\"name\":\"referencePrice\",\"type\":\"uint256\"}],\"name\":\"startOpeningAuction\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"encodedWrapper\",\"type\":\"bytes\"}],\"name\":\"submitBoundSessionActions\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"resultHash\",\"type\":\"bytes32\"},{\"internalType\":\"uint16\",\"name\":\"acceptedCount\",\"type\":\"uint16\"},{\"internalType\":\"uint16\",\"name\":\"rejectedCount\",\"type\":\"uint16\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"encodedActions\",\"type\":\"bytes\"}],\"name\":\"submitExchangeActions\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"resultHash\",\"type\":\"bytes32\"},{\"internalType\":\"uint16\",\"name\":\"acceptedCount\",\"type\":\"uint16\"},{\"internalType\":\"uint16\",\"name\":\"rejectedCount\",\"type\":\"uint16\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"internalType\":\"uint8\",\"name\":\"side\",\"type\":\"uint8\"},{\"internalType\":\"uint256\",\"name\":\"priceTicks\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"amountLots\",\"type\":\"uint256\"},{\"internalType\":\"uint8\",\"name\":\"flags\",\"type\":\"uint8\"}],\"name\":\"submitLimitOrder\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"orderId\",\"type\":\"bytes32\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"internalType\":\"uint8\",\"name\":\"side\",\"type\":\"uint8\"},{\"internalType\":\"uint256\",\"name\":\"amountLots\",\"type\":\"uint256\"}],\"name\":\"submitMarketOrder\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"filledAmount\",\"type\":\"uint256\"},{\"internalType\":\"bytes32\",\"name\":\"orderId\",\"type\":\"bytes32\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"signedCancelAllJson\",\"type\":\"bytes\"}],\"name\":\"submitSignedCancelAllSpotIntent\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"cancelled\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"signedIntentJson\",\"type\":\"bytes\"}],\"name\":\"submitSignedSpotIntent\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"internalType\":\"uint16\",\"name\":\"maxOrders\",\"type\":\"uint16\"}],\"name\":\"triggerSpotStops\",\"outputs\":[{\"internalType\":\"uint16\",\"name\":\"activated\",\"type\":\"uint16\"},{\"internalType\":\"bool\",\"name\":\"hasMore\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"clearingPrice\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"totalVolume\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"residualOrders\",\"type\":\"uint256\"}],\"name\":\"BatchAuctionCleared\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes16\",\"name\":\"clientActionId\",\"type\":\"bytes16\"},{\"indexed\":true,\"internalType\":\"uint16\",\"name\":\"actionIndex\",\"type\":\"uint16\"},{\"indexed\":false,\"internalType\":\"uint8\",\"name\":\"actionTag\",\"type\":\"uint8\"},{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"principal\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"bytes32\",\"name\":\"resultId\",\"type\":\"bytes32\"}],\"name\":\"ExchangeActionAccepted\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes16\",\"name\":\"clientActionId\",\"type\":\"bytes16\"},{\"indexed\":true,\"internalType\":\"uint16\",\"name\":\"actionIndex\",\"type\":\"uint16\"},{\"indexed\":false,\"internalType\":\"uint8\",\"name\":\"actionTag\",\"type\":\"uint8\"},{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"principal\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint16\",\"name\":\"reasonCode\",\"type\":\"uint16\"},{\"indexed\":false,\"internalType\":\"bytes32\",\"name\":\"context\",\"type\":\"bytes32\"}],\"name\":\"ExchangeActionRejected\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"orderId\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"trader\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint8\",\"name\":\"mutation\",\"type\":\"uint8\"},{\"indexed\":false,\"internalType\":\"uint8\",\"name\":\"side\",\"type\":\"uint8\"},{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"priceTicks\",\"type\":\"uint64\"},{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"quantityLots\",\"type\":\"uint64\"},{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"remainingLots\",\"type\":\"uint64\"}],\"name\":\"ExchangeL3Mutation\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"makerOrderId\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"takerOrderId\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"maker\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"taker\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint8\",\"name\":\"aggressorSide\",\"type\":\"uint8\"},{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"priceTicks\",\"type\":\"uint64\"},{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"quantityLots\",\"type\":\"uint64\"}],\"name\":\"ExchangeTradeFill\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"orderId\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"trader\",\"type\":\"address\"}],\"name\":\"OrderCancelled\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"orderId\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"trader\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"fillQty\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"fillPrice\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"remainingAmount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"bool\",\"name\":\"complete\",\"type\":\"bool\"}],\"name\":\"OrderFilled\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"orderId\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"trader\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint8\",\"name\":\"side\",\"type\":\"uint8\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"price\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint8\",\"name\":\"flags\",\"type\":\"uint8\"}],\"name\":\"OrderPlaced\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"orderId\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"trader\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"triggerPrice\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"activationPrice\",\"type\":\"uint256\"}],\"name\":\"StopOrderTriggered\",\"type\":\"event\"}]"
+let abi = "[{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"orderId\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"newPrice\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"newAmount\",\"type\":\"uint256\"},{\"internalType\":\"uint8\",\"name\":\"newFlags\",\"type\":\"uint8\"}],\"name\":\"amendOrder\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"newOrderId\",\"type\":\"bytes32\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"orderId\",\"type\":\"bytes32\"}],\"name\":\"cancelOrder\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"orderId\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"fillPrice\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"fillQty\",\"type\":\"uint256\"}],\"name\":\"executeSpotFill\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"filledQty\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"executionPrice\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"makerOrderId\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32\",\"name\":\"takerOrderId\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"fillPrice\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"fillQty\",\"type\":\"uint256\"}],\"name\":\"executeSpotTrade\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"filledQty\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"executionPrice\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"}],\"name\":\"finalizeOpeningAuction\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"clearingPrice\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"totalVolume\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"}],\"name\":\"getBestAsk\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"priceTicks\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"amountLots\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"}],\"name\":\"getBestBid\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"priceTicks\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"amountLots\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"}],\"name\":\"getOpeningAuction\",\"outputs\":[{\"internalType\":\"uint64\",\"name\":\"startBlock\",\"type\":\"uint64\"},{\"internalType\":\"uint64\",\"name\":\"endBlock\",\"type\":\"uint64\"},{\"internalType\":\"uint256\",\"name\":\"referencePrice\",\"type\":\"uint256\"},{\"internalType\":\"bool\",\"name\":\"finalized\",\"type\":\"bool\"},{\"internalType\":\"uint256\",\"name\":\"clearingPrice\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"totalVolume\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"internalType\":\"uint8\",\"name\":\"levels\",\"type\":\"uint8\"}],\"name\":\"getOrderBookDepth\",\"outputs\":[{\"internalType\":\"uint256[]\",\"name\":\"bidPrices\",\"type\":\"uint256[]\"},{\"internalType\":\"uint256[]\",\"name\":\"bidAmounts\",\"type\":\"uint256[]\"},{\"internalType\":\"uint256[]\",\"name\":\"askPrices\",\"type\":\"uint256[]\"},{\"internalType\":\"uint256[]\",\"name\":\"askAmounts\",\"type\":\"uint256[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"},{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"}],\"name\":\"getUserOrders\",\"outputs\":[{\"internalType\":\"bytes32[]\",\"name\":\"orderIds\",\"type\":\"bytes32[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"internalType\":\"uint64\",\"name\":\"startBlock\",\"type\":\"uint64\"},{\"internalType\":\"uint64\",\"name\":\"endBlock\",\"type\":\"uint64\"},{\"internalType\":\"uint256\",\"name\":\"referencePrice\",\"type\":\"uint256\"}],\"name\":\"startOpeningAuction\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"encodedActions\",\"type\":\"bytes\"}],\"name\":\"submitExchangeActionsV2\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"resultHash\",\"type\":\"bytes32\"},{\"internalType\":\"uint16\",\"name\":\"acceptedCount\",\"type\":\"uint16\"},{\"internalType\":\"uint16\",\"name\":\"rejectedCount\",\"type\":\"uint16\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"internalType\":\"uint8\",\"name\":\"side\",\"type\":\"uint8\"},{\"internalType\":\"uint256\",\"name\":\"priceTicks\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"amountLots\",\"type\":\"uint256\"},{\"internalType\":\"uint8\",\"name\":\"flags\",\"type\":\"uint8\"}],\"name\":\"submitLimitOrder\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"orderId\",\"type\":\"bytes32\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"internalType\":\"uint8\",\"name\":\"side\",\"type\":\"uint8\"},{\"internalType\":\"uint256\",\"name\":\"amountLots\",\"type\":\"uint256\"}],\"name\":\"submitMarketOrder\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"filledAmount\",\"type\":\"uint256\"},{\"internalType\":\"bytes32\",\"name\":\"orderId\",\"type\":\"bytes32\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"signedCancelAllJson\",\"type\":\"bytes\"}],\"name\":\"submitSignedCancelAllSpotIntent\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"cancelled\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"signedIntentJson\",\"type\":\"bytes\"}],\"name\":\"submitSignedSpotIntent\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"internalType\":\"uint16\",\"name\":\"maxOrders\",\"type\":\"uint16\"}],\"name\":\"triggerSpotStops\",\"outputs\":[{\"internalType\":\"uint16\",\"name\":\"activated\",\"type\":\"uint16\"},{\"internalType\":\"bool\",\"name\":\"hasMore\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"clearingPrice\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"totalVolume\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"residualOrders\",\"type\":\"uint256\"}],\"name\":\"BatchAuctionCleared\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes16\",\"name\":\"clientActionId\",\"type\":\"bytes16\"},{\"indexed\":true,\"internalType\":\"uint16\",\"name\":\"actionIndex\",\"type\":\"uint16\"},{\"indexed\":false,\"internalType\":\"uint8\",\"name\":\"actionTag\",\"type\":\"uint8\"},{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"principal\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"bytes32\",\"name\":\"resultId\",\"type\":\"bytes32\"}],\"name\":\"ExchangeActionAcceptedV2\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes16\",\"name\":\"clientActionId\",\"type\":\"bytes16\"},{\"indexed\":true,\"internalType\":\"uint16\",\"name\":\"actionIndex\",\"type\":\"uint16\"},{\"indexed\":false,\"internalType\":\"uint8\",\"name\":\"actionTag\",\"type\":\"uint8\"},{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"principal\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint16\",\"name\":\"reasonCode\",\"type\":\"uint16\"},{\"indexed\":false,\"internalType\":\"bytes32\",\"name\":\"context\",\"type\":\"bytes32\"}],\"name\":\"ExchangeActionRejectedV2\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"orderId\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"trader\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint8\",\"name\":\"mutation\",\"type\":\"uint8\"},{\"indexed\":false,\"internalType\":\"uint8\",\"name\":\"side\",\"type\":\"uint8\"},{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"priceTicks\",\"type\":\"uint64\"},{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"quantityLots\",\"type\":\"uint64\"},{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"remainingLots\",\"type\":\"uint64\"}],\"name\":\"ExchangeL3MutationV2\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"makerOrderId\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"takerOrderId\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"maker\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"taker\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint8\",\"name\":\"aggressorSide\",\"type\":\"uint8\"},{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"priceTicks\",\"type\":\"uint64\"},{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"quantityLots\",\"type\":\"uint64\"}],\"name\":\"ExchangeTradeFillV2\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"orderId\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"trader\",\"type\":\"address\"}],\"name\":\"OrderCancelled\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"orderId\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"trader\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"fillQty\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"fillPrice\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"remainingAmount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"bool\",\"name\":\"complete\",\"type\":\"bool\"}],\"name\":\"OrderFilled\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"orderId\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"trader\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint8\",\"name\":\"side\",\"type\":\"uint8\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"price\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint8\",\"name\":\"flags\",\"type\":\"uint8\"}],\"name\":\"OrderPlaced\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"orderId\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"trader\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"triggerPrice\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"activationPrice\",\"type\":\"uint256\"}],\"name\":\"StopOrderTriggered\",\"type\":\"event\"}]"
 
 [<CLIMutable>]
 type AmendOrderParams =
@@ -230,27 +230,7 @@ type StartOpeningAuctionResult() =
     interface IFunctionOutputDTO
 
 [<CLIMutable>]
-type SubmitBoundSessionActionsParams =
-    {
-        [<Parameter("bytes", "encodedWrapper", 1, false)>]
-        EncodedWrapper: byte array
-    }
-
-[<FunctionOutput>]
-[<CLIMutable>]
-type SubmitBoundSessionActionsResult =
-    {
-        [<Parameter("bytes32", "resultHash", 1, false)>]
-        ResultHash: byte array
-        [<Parameter("uint16", "acceptedCount", 2, false)>]
-        AcceptedCount: BigInteger
-        [<Parameter("uint16", "rejectedCount", 3, false)>]
-        RejectedCount: BigInteger
-    }
-    interface IFunctionOutputDTO
-
-[<CLIMutable>]
-type SubmitExchangeActionsParams =
+type SubmitExchangeActionsV2Params =
     {
         [<Parameter("bytes", "encodedActions", 1, false)>]
         EncodedActions: byte array
@@ -258,7 +238,7 @@ type SubmitExchangeActionsParams =
 
 [<FunctionOutput>]
 [<CLIMutable>]
-type SubmitExchangeActionsResult =
+type SubmitExchangeActionsV2Result =
     {
         [<Parameter("bytes32", "resultHash", 1, false)>]
         ResultHash: byte array
@@ -377,9 +357,9 @@ type BatchAuctionClearedEvent =
     }
     interface IEventDTO
 
-[<Event("ExchangeActionAccepted", false)>]
+[<Event("ExchangeActionAcceptedV2", false)>]
 [<CLIMutable>]
-type ExchangeActionAcceptedEvent =
+type ExchangeActionAcceptedV2Event =
     {
         [<Parameter("bytes16", "clientActionId", 1, true)>]
         ClientActionId: byte array
@@ -396,9 +376,9 @@ type ExchangeActionAcceptedEvent =
     }
     interface IEventDTO
 
-[<Event("ExchangeActionRejected", false)>]
+[<Event("ExchangeActionRejectedV2", false)>]
 [<CLIMutable>]
-type ExchangeActionRejectedEvent =
+type ExchangeActionRejectedV2Event =
     {
         [<Parameter("bytes16", "clientActionId", 1, true)>]
         ClientActionId: byte array
@@ -417,9 +397,9 @@ type ExchangeActionRejectedEvent =
     }
     interface IEventDTO
 
-[<Event("ExchangeL3Mutation", false)>]
+[<Event("ExchangeL3MutationV2", false)>]
 [<CLIMutable>]
-type ExchangeL3MutationEvent =
+type ExchangeL3MutationV2Event =
     {
         [<Parameter("bytes32", "marketId", 1, true)>]
         MarketId: byte array
@@ -440,9 +420,9 @@ type ExchangeL3MutationEvent =
     }
     interface IEventDTO
 
-[<Event("ExchangeTradeFill", false)>]
+[<Event("ExchangeTradeFillV2", false)>]
 [<CLIMutable>]
-type ExchangeTradeFillEvent =
+type ExchangeTradeFillV2Event =
     {
         [<Parameter("bytes32", "marketId", 1, true)>]
         MarketId: byte array
@@ -672,33 +652,19 @@ let sendStartOpeningAuction (contract: Contract) (options: TransactionInput) (ar
     options.To <- contract.Address
     contract.GetFunctionBySignature("0x49359265").SendTransactionAsync(options, [| box args.MarketId; box args.StartBlock; box args.EndBlock; box args.ReferencePrice |])
 
-/// Encodes submitBoundSessionActions(bytes) without RPC.
-let encodeSubmitBoundSessionActions (contract: Contract) (args: SubmitBoundSessionActionsParams) =
-    contract.GetFunctionBySignature("0x1cf05da9").GetData([| box args.EncodedWrapper |])
+/// Encodes submitExchangeActionsV2(bytes) without RPC.
+let encodeSubmitExchangeActionsV2 (contract: Contract) (args: SubmitExchangeActionsV2Params) =
+    contract.GetFunctionBySignature("0x881c51de").GetData([| box args.EncodedActions |])
 
-let decodeSubmitBoundSessionActionsResult (data: string) : SubmitBoundSessionActionsResult =
-    Nethereum.ABI.FunctionEncoding.FunctionCallDecoder().DecodeFunctionOutput(Activator.CreateInstance<SubmitBoundSessionActionsResult>(), data)
+let decodeSubmitExchangeActionsV2Result (data: string) : SubmitExchangeActionsV2Result =
+    Nethereum.ABI.FunctionEncoding.FunctionCallDecoder().DecodeFunctionOutput(Activator.CreateInstance<SubmitExchangeActionsV2Result>(), data)
 
 /// Sends through the client's configured transaction manager.
-let sendSubmitBoundSessionActions (contract: Contract) (options: TransactionInput) (args: SubmitBoundSessionActionsParams) =
+let sendSubmitExchangeActionsV2 (contract: Contract) (options: TransactionInput) (args: SubmitExchangeActionsV2Params) =
     if isNull options then nullArg "options"
     if not (isNull options.Value) && options.Value.Value <> BigInteger.Zero then invalidArg "options" "Function is not payable"
     options.To <- contract.Address
-    contract.GetFunctionBySignature("0x1cf05da9").SendTransactionAsync(options, [| box args.EncodedWrapper |])
-
-/// Encodes submitExchangeActions(bytes) without RPC.
-let encodeSubmitExchangeActions (contract: Contract) (args: SubmitExchangeActionsParams) =
-    contract.GetFunctionBySignature("0xd47b704f").GetData([| box args.EncodedActions |])
-
-let decodeSubmitExchangeActionsResult (data: string) : SubmitExchangeActionsResult =
-    Nethereum.ABI.FunctionEncoding.FunctionCallDecoder().DecodeFunctionOutput(Activator.CreateInstance<SubmitExchangeActionsResult>(), data)
-
-/// Sends through the client's configured transaction manager.
-let sendSubmitExchangeActions (contract: Contract) (options: TransactionInput) (args: SubmitExchangeActionsParams) =
-    if isNull options then nullArg "options"
-    if not (isNull options.Value) && options.Value.Value <> BigInteger.Zero then invalidArg "options" "Function is not payable"
-    options.To <- contract.Address
-    contract.GetFunctionBySignature("0xd47b704f").SendTransactionAsync(options, [| box args.EncodedActions |])
+    contract.GetFunctionBySignature("0x881c51de").SendTransactionAsync(options, [| box args.EncodedActions |])
 
 /// Encodes submitLimitOrder(bytes32,uint8,uint256,uint256,uint8) without RPC.
 let encodeSubmitLimitOrder (contract: Contract) (args: SubmitLimitOrderParams) =
@@ -791,87 +757,87 @@ let queryBatchAuctionCleared (contract: Contract) (filter: NewFilterInput) =
         return result
     }
 
-let filterExchangeActionAccepted (contract: Contract) (fromBlock: BlockParameter) (toBlock: BlockParameter) =
-    let filter = contract.GetEventBySignature("0x9fd3566e39f14b3c593967cf13d7e11e65dafed9c4a3bfeab39504f893a72158").CreateFilterInput(fromBlock, toBlock)
+let filterExchangeActionAcceptedV2 (contract: Contract) (fromBlock: BlockParameter) (toBlock: BlockParameter) =
+    let filter = contract.GetEventBySignature("0x3ca6ab0c0316f6313bc20abbc2dc769133834b25425e93a865b9ef0892d83e2f").CreateFilterInput(fromBlock, toBlock)
     filter
 
-let decodeExchangeActionAcceptedEvent (contract: Contract) (log: FilterLog) : ExchangeActionAcceptedEvent =
-    let decoded = contract.GetEventBySignature("0x9fd3566e39f14b3c593967cf13d7e11e65dafed9c4a3bfeab39504f893a72158").DecodeAllEventsForEvent<ExchangeActionAcceptedEvent>([| log |])
+let decodeExchangeActionAcceptedV2Event (contract: Contract) (log: FilterLog) : ExchangeActionAcceptedV2Event =
+    let decoded = contract.GetEventBySignature("0x3ca6ab0c0316f6313bc20abbc2dc769133834b25425e93a865b9ef0892d83e2f").DecodeAllEventsForEvent<ExchangeActionAcceptedV2Event>([| log |])
     if decoded.Count <> 1 then invalidArg "log" "Log does not match event"
     decoded.[0].Event
 
-let queryExchangeActionAccepted (contract: Contract) (filter: NewFilterInput) =
+let queryExchangeActionAcceptedV2 (contract: Contract) (filter: NewFilterInput) =
     if isNull filter || isNull filter.Address || not (filter.Address |> Array.exists (fun address -> String.Equals(address, contract.Address, StringComparison.OrdinalIgnoreCase))) then invalidArg "filter" "Filter must include this contract address"
     task {
         let! logs = contract.Eth.Filters.GetLogs.SendRequestAsync(filter)
-        let result = ResizeArray<EventLog<ExchangeActionAcceptedEvent>>()
-        let event = contract.GetEventBySignature("0x9fd3566e39f14b3c593967cf13d7e11e65dafed9c4a3bfeab39504f893a72158")
+        let result = ResizeArray<EventLog<ExchangeActionAcceptedV2Event>>()
+        let event = contract.GetEventBySignature("0x3ca6ab0c0316f6313bc20abbc2dc769133834b25425e93a865b9ef0892d83e2f")
         for log in logs do
             if String.Equals(log.Address, contract.Address, StringComparison.OrdinalIgnoreCase) && event.IsLogForEvent(log) then
-                result.Add(EventLog<ExchangeActionAcceptedEvent>(decodeExchangeActionAcceptedEvent contract log, log))
+                result.Add(EventLog<ExchangeActionAcceptedV2Event>(decodeExchangeActionAcceptedV2Event contract log, log))
         return result
     }
 
-let filterExchangeActionRejected (contract: Contract) (fromBlock: BlockParameter) (toBlock: BlockParameter) =
-    let filter = contract.GetEventBySignature("0x70937d7f9595dc387b9e50f455a240b0830750a17ec1be4373c143fc5dde1b54").CreateFilterInput(fromBlock, toBlock)
+let filterExchangeActionRejectedV2 (contract: Contract) (fromBlock: BlockParameter) (toBlock: BlockParameter) =
+    let filter = contract.GetEventBySignature("0x919a92f6cab2e02a0599f1c76ab564597ac54873d064ae7b21c5ba8a8744d958").CreateFilterInput(fromBlock, toBlock)
     filter
 
-let decodeExchangeActionRejectedEvent (contract: Contract) (log: FilterLog) : ExchangeActionRejectedEvent =
-    let decoded = contract.GetEventBySignature("0x70937d7f9595dc387b9e50f455a240b0830750a17ec1be4373c143fc5dde1b54").DecodeAllEventsForEvent<ExchangeActionRejectedEvent>([| log |])
+let decodeExchangeActionRejectedV2Event (contract: Contract) (log: FilterLog) : ExchangeActionRejectedV2Event =
+    let decoded = contract.GetEventBySignature("0x919a92f6cab2e02a0599f1c76ab564597ac54873d064ae7b21c5ba8a8744d958").DecodeAllEventsForEvent<ExchangeActionRejectedV2Event>([| log |])
     if decoded.Count <> 1 then invalidArg "log" "Log does not match event"
     decoded.[0].Event
 
-let queryExchangeActionRejected (contract: Contract) (filter: NewFilterInput) =
+let queryExchangeActionRejectedV2 (contract: Contract) (filter: NewFilterInput) =
     if isNull filter || isNull filter.Address || not (filter.Address |> Array.exists (fun address -> String.Equals(address, contract.Address, StringComparison.OrdinalIgnoreCase))) then invalidArg "filter" "Filter must include this contract address"
     task {
         let! logs = contract.Eth.Filters.GetLogs.SendRequestAsync(filter)
-        let result = ResizeArray<EventLog<ExchangeActionRejectedEvent>>()
-        let event = contract.GetEventBySignature("0x70937d7f9595dc387b9e50f455a240b0830750a17ec1be4373c143fc5dde1b54")
+        let result = ResizeArray<EventLog<ExchangeActionRejectedV2Event>>()
+        let event = contract.GetEventBySignature("0x919a92f6cab2e02a0599f1c76ab564597ac54873d064ae7b21c5ba8a8744d958")
         for log in logs do
             if String.Equals(log.Address, contract.Address, StringComparison.OrdinalIgnoreCase) && event.IsLogForEvent(log) then
-                result.Add(EventLog<ExchangeActionRejectedEvent>(decodeExchangeActionRejectedEvent contract log, log))
+                result.Add(EventLog<ExchangeActionRejectedV2Event>(decodeExchangeActionRejectedV2Event contract log, log))
         return result
     }
 
-let filterExchangeL3Mutation (contract: Contract) (fromBlock: BlockParameter) (toBlock: BlockParameter) =
-    let filter = contract.GetEventBySignature("0x2a5a4fc8324c7e62213e49aee23883746c4398ed74bd31d2eccc48de31026734").CreateFilterInput(fromBlock, toBlock)
+let filterExchangeL3MutationV2 (contract: Contract) (fromBlock: BlockParameter) (toBlock: BlockParameter) =
+    let filter = contract.GetEventBySignature("0x083d99cea649c1d115fc1f70b8045c9b198634bd9b286cc43a595e2f5328fbdd").CreateFilterInput(fromBlock, toBlock)
     filter
 
-let decodeExchangeL3MutationEvent (contract: Contract) (log: FilterLog) : ExchangeL3MutationEvent =
-    let decoded = contract.GetEventBySignature("0x2a5a4fc8324c7e62213e49aee23883746c4398ed74bd31d2eccc48de31026734").DecodeAllEventsForEvent<ExchangeL3MutationEvent>([| log |])
+let decodeExchangeL3MutationV2Event (contract: Contract) (log: FilterLog) : ExchangeL3MutationV2Event =
+    let decoded = contract.GetEventBySignature("0x083d99cea649c1d115fc1f70b8045c9b198634bd9b286cc43a595e2f5328fbdd").DecodeAllEventsForEvent<ExchangeL3MutationV2Event>([| log |])
     if decoded.Count <> 1 then invalidArg "log" "Log does not match event"
     decoded.[0].Event
 
-let queryExchangeL3Mutation (contract: Contract) (filter: NewFilterInput) =
+let queryExchangeL3MutationV2 (contract: Contract) (filter: NewFilterInput) =
     if isNull filter || isNull filter.Address || not (filter.Address |> Array.exists (fun address -> String.Equals(address, contract.Address, StringComparison.OrdinalIgnoreCase))) then invalidArg "filter" "Filter must include this contract address"
     task {
         let! logs = contract.Eth.Filters.GetLogs.SendRequestAsync(filter)
-        let result = ResizeArray<EventLog<ExchangeL3MutationEvent>>()
-        let event = contract.GetEventBySignature("0x2a5a4fc8324c7e62213e49aee23883746c4398ed74bd31d2eccc48de31026734")
+        let result = ResizeArray<EventLog<ExchangeL3MutationV2Event>>()
+        let event = contract.GetEventBySignature("0x083d99cea649c1d115fc1f70b8045c9b198634bd9b286cc43a595e2f5328fbdd")
         for log in logs do
             if String.Equals(log.Address, contract.Address, StringComparison.OrdinalIgnoreCase) && event.IsLogForEvent(log) then
-                result.Add(EventLog<ExchangeL3MutationEvent>(decodeExchangeL3MutationEvent contract log, log))
+                result.Add(EventLog<ExchangeL3MutationV2Event>(decodeExchangeL3MutationV2Event contract log, log))
         return result
     }
 
-let filterExchangeTradeFill (contract: Contract) (fromBlock: BlockParameter) (toBlock: BlockParameter) =
-    let filter = contract.GetEventBySignature("0xa9f7130999050253a9d4be9931ac9c49de061fca2e6833ad1422f1d74ce0fb92").CreateFilterInput(fromBlock, toBlock)
+let filterExchangeTradeFillV2 (contract: Contract) (fromBlock: BlockParameter) (toBlock: BlockParameter) =
+    let filter = contract.GetEventBySignature("0x74eea602401da7376b8e69a8401c0164dea612f7370c6d2ed8f016e86b19e5e2").CreateFilterInput(fromBlock, toBlock)
     filter
 
-let decodeExchangeTradeFillEvent (contract: Contract) (log: FilterLog) : ExchangeTradeFillEvent =
-    let decoded = contract.GetEventBySignature("0xa9f7130999050253a9d4be9931ac9c49de061fca2e6833ad1422f1d74ce0fb92").DecodeAllEventsForEvent<ExchangeTradeFillEvent>([| log |])
+let decodeExchangeTradeFillV2Event (contract: Contract) (log: FilterLog) : ExchangeTradeFillV2Event =
+    let decoded = contract.GetEventBySignature("0x74eea602401da7376b8e69a8401c0164dea612f7370c6d2ed8f016e86b19e5e2").DecodeAllEventsForEvent<ExchangeTradeFillV2Event>([| log |])
     if decoded.Count <> 1 then invalidArg "log" "Log does not match event"
     decoded.[0].Event
 
-let queryExchangeTradeFill (contract: Contract) (filter: NewFilterInput) =
+let queryExchangeTradeFillV2 (contract: Contract) (filter: NewFilterInput) =
     if isNull filter || isNull filter.Address || not (filter.Address |> Array.exists (fun address -> String.Equals(address, contract.Address, StringComparison.OrdinalIgnoreCase))) then invalidArg "filter" "Filter must include this contract address"
     task {
         let! logs = contract.Eth.Filters.GetLogs.SendRequestAsync(filter)
-        let result = ResizeArray<EventLog<ExchangeTradeFillEvent>>()
-        let event = contract.GetEventBySignature("0xa9f7130999050253a9d4be9931ac9c49de061fca2e6833ad1422f1d74ce0fb92")
+        let result = ResizeArray<EventLog<ExchangeTradeFillV2Event>>()
+        let event = contract.GetEventBySignature("0x74eea602401da7376b8e69a8401c0164dea612f7370c6d2ed8f016e86b19e5e2")
         for log in logs do
             if String.Equals(log.Address, contract.Address, StringComparison.OrdinalIgnoreCase) && event.IsLogForEvent(log) then
-                result.Add(EventLog<ExchangeTradeFillEvent>(decodeExchangeTradeFillEvent contract log, log))
+                result.Add(EventLog<ExchangeTradeFillV2Event>(decodeExchangeTradeFillV2Event contract log, log))
         return result
     }
 

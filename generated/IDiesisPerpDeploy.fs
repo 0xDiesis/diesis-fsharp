@@ -9,7 +9,7 @@ open Nethereum.Web3
 open Nethereum.RPC.Eth.DTOs
 open Nethereum.Hex.HexTypes
 
-let abi = "[{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32\",\"name\":\"parentHash\",\"type\":\"bytes32\"},{\"internalType\":\"uint64\",\"name\":\"blockNumber\",\"type\":\"uint64\"},{\"internalType\":\"uint64\",\"name\":\"policyEpoch\",\"type\":\"uint64\"},{\"internalType\":\"bytes32\",\"name\":\"policyHash\",\"type\":\"bytes32\"},{\"internalType\":\"uint64\",\"name\":\"windowStart\",\"type\":\"uint64\"},{\"internalType\":\"uint64\",\"name\":\"windowEnd\",\"type\":\"uint64\"},{\"internalType\":\"uint256\",\"name\":\"filledVolume\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"operatorFees\",\"type\":\"uint256\"},{\"internalType\":\"uint64\",\"name\":\"lastMetadataUpdate\",\"type\":\"uint64\"},{\"internalType\":\"bytes32\",\"name\":\"inputHash\",\"type\":\"bytes32\"},{\"internalType\":\"uint64\",\"name\":\"committeeEpoch\",\"type\":\"uint64\"},{\"internalType\":\"bytes32\",\"name\":\"committeeIdentity\",\"type\":\"bytes32\"},{\"internalType\":\"uint64\",\"name\":\"quorumPower\",\"type\":\"uint64\"},{\"internalType\":\"uint64\",\"name\":\"attestingPower\",\"type\":\"uint64\"},{\"internalType\":\"uint16\",\"name\":\"voterCount\",\"type\":\"uint16\"},{\"internalType\":\"bytes32\",\"name\":\"evidenceHash\",\"type\":\"bytes32\"}],\"name\":\"applyPerpAbandonment\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"internalType\":\"uint8\",\"name\":\"reason\",\"type\":\"uint8\"}],\"name\":\"applySlash\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"slotId\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"internalType\":\"bytes\",\"name\":\"sourceList\",\"type\":\"bytes\"},{\"internalType\":\"bytes\",\"name\":\"metadata\",\"type\":\"bytes\"},{\"internalType\":\"bytes\",\"name\":\"signatures\",\"type\":\"bytes\"}],\"name\":\"deployPerp\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"expireNextUnactivatedPerp\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"}],\"name\":\"expireUnactivatedPerp\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"}],\"name\":\"finalizeClose\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"internalType\":\"uint64\",\"name\":\"revision\",\"type\":\"uint64\"},{\"internalType\":\"bytes32\",\"name\":\"proposalId\",\"type\":\"bytes32\"}],\"name\":\"finalizePerpPolicy\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"}],\"name\":\"getDeploymentState\",\"outputs\":[{\"components\":[{\"internalType\":\"uint8\",\"name\":\"stateTag\",\"type\":\"uint8\"},{\"internalType\":\"uint64\",\"name\":\"deadlineOrLiveBlock\",\"type\":\"uint64\"},{\"internalType\":\"uint64\",\"name\":\"windowCloseBlock\",\"type\":\"uint64\"},{\"internalType\":\"uint8\",\"name\":\"slashReason\",\"type\":\"uint8\"}],\"internalType\":\"struct IDiesisPerpDeploy.DeploymentInfo\",\"name\":\"\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"}],\"name\":\"getMarketDeploymentState\",\"outputs\":[{\"components\":[{\"internalType\":\"uint8\",\"name\":\"stateTag\",\"type\":\"uint8\"},{\"internalType\":\"uint64\",\"name\":\"deadlineOrLiveBlock\",\"type\":\"uint64\"},{\"internalType\":\"uint64\",\"name\":\"windowCloseBlock\",\"type\":\"uint64\"},{\"internalType\":\"uint8\",\"name\":\"slashReason\",\"type\":\"uint8\"}],\"internalType\":\"struct IDiesisPerpDeploy.DeploymentInfo\",\"name\":\"\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"operator\",\"type\":\"address\"}],\"name\":\"getOperatorBalance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"}],\"name\":\"getPerpPolicy\",\"outputs\":[{\"components\":[{\"internalType\":\"uint64\",\"name\":\"revision\",\"type\":\"uint64\"},{\"internalType\":\"uint16\",\"name\":\"backstopTopupBps\",\"type\":\"uint16\"},{\"components\":[{\"internalType\":\"uint64\",\"name\":\"maxNotional\",\"type\":\"uint64\"},{\"internalType\":\"uint8\",\"name\":\"maxLeverage\",\"type\":\"uint8\"},{\"internalType\":\"uint16\",\"name\":\"maintenanceMarginBps\",\"type\":\"uint16\"}],\"internalType\":\"struct IDiesisPerpDeploy.RiskTierInput[]\",\"name\":\"tiers\",\"type\":\"tuple[]\"}],\"internalType\":\"struct IDiesisPerpDeploy.PerpPolicy\",\"name\":\"policy\",\"type\":\"tuple\"},{\"components\":[{\"internalType\":\"uint64\",\"name\":\"epoch\",\"type\":\"uint64\"},{\"internalType\":\"uint8\",\"name\":\"threshold\",\"type\":\"uint8\"},{\"internalType\":\"address[]\",\"name\":\"signers\",\"type\":\"address[]\"}],\"internalType\":\"struct IDiesisPerpDeploy.MetadataKeyset\",\"name\":\"keyset\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"baseToken\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"quoteToken\",\"type\":\"address\"},{\"internalType\":\"uint64\",\"name\":\"tickSize\",\"type\":\"uint64\"},{\"internalType\":\"uint64\",\"name\":\"lotSize\",\"type\":\"uint64\"},{\"internalType\":\"uint256\",\"name\":\"maxOpenInterest\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"initialMark\",\"type\":\"uint256\"},{\"internalType\":\"uint8\",\"name\":\"maxLeverage\",\"type\":\"uint8\"}],\"name\":\"initializeBasicPerpMarket\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"baseToken\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"quoteToken\",\"type\":\"address\"},{\"internalType\":\"uint64\",\"name\":\"tickSize\",\"type\":\"uint64\"},{\"internalType\":\"uint64\",\"name\":\"lotSize\",\"type\":\"uint64\"},{\"internalType\":\"uint256\",\"name\":\"maxOpenInterest\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"initialMark\",\"type\":\"uint256\"},{\"components\":[{\"internalType\":\"uint64\",\"name\":\"revision\",\"type\":\"uint64\"},{\"internalType\":\"uint16\",\"name\":\"backstopTopupBps\",\"type\":\"uint16\"},{\"components\":[{\"internalType\":\"uint64\",\"name\":\"maxNotional\",\"type\":\"uint64\"},{\"internalType\":\"uint8\",\"name\":\"maxLeverage\",\"type\":\"uint8\"},{\"internalType\":\"uint16\",\"name\":\"maintenanceMarginBps\",\"type\":\"uint16\"}],\"internalType\":\"struct IDiesisPerpDeploy.RiskTierInput[]\",\"name\":\"tiers\",\"type\":\"tuple[]\"}],\"internalType\":\"struct IDiesisPerpDeploy.PerpPolicy\",\"name\":\"policy\",\"type\":\"tuple\"},{\"components\":[{\"internalType\":\"uint64\",\"name\":\"epoch\",\"type\":\"uint64\"},{\"internalType\":\"uint8\",\"name\":\"threshold\",\"type\":\"uint8\"},{\"internalType\":\"address[]\",\"name\":\"signers\",\"type\":\"address[]\"}],\"internalType\":\"struct IDiesisPerpDeploy.MetadataKeyset\",\"name\":\"keyset\",\"type\":\"tuple\"}],\"name\":\"initializePolicyPerpMarket\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"baseToken\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"quoteToken\",\"type\":\"address\"},{\"internalType\":\"uint64\",\"name\":\"tickSize\",\"type\":\"uint64\"},{\"internalType\":\"uint64\",\"name\":\"lotSize\",\"type\":\"uint64\"},{\"internalType\":\"uint64\",\"name\":\"priceDenominator\",\"type\":\"uint64\"},{\"internalType\":\"uint256\",\"name\":\"maxOpenInterest\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"initialMark\",\"type\":\"uint256\"},{\"components\":[{\"internalType\":\"uint64\",\"name\":\"revision\",\"type\":\"uint64\"},{\"internalType\":\"uint16\",\"name\":\"backstopTopupBps\",\"type\":\"uint16\"},{\"components\":[{\"internalType\":\"uint64\",\"name\":\"maxNotional\",\"type\":\"uint64\"},{\"internalType\":\"uint8\",\"name\":\"maxLeverage\",\"type\":\"uint8\"},{\"internalType\":\"uint16\",\"name\":\"maintenanceMarginBps\",\"type\":\"uint16\"}],\"internalType\":\"struct IDiesisPerpDeploy.RiskTierInput[]\",\"name\":\"tiers\",\"type\":\"tuple[]\"}],\"internalType\":\"struct IDiesisPerpDeploy.PerpPolicy\",\"name\":\"policy\",\"type\":\"tuple\"},{\"components\":[{\"internalType\":\"uint64\",\"name\":\"epoch\",\"type\":\"uint64\"},{\"internalType\":\"uint8\",\"name\":\"threshold\",\"type\":\"uint8\"},{\"internalType\":\"address[]\",\"name\":\"signers\",\"type\":\"address[]\"}],\"internalType\":\"struct IDiesisPerpDeploy.MetadataKeyset\",\"name\":\"keyset\",\"type\":\"tuple\"}],\"name\":\"initializePricedPerpMarket\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"}],\"name\":\"initiateDelist\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"internalType\":\"uint8\",\"name\":\"baseDecimals\",\"type\":\"uint8\"},{\"internalType\":\"uint8\",\"name\":\"quoteDecimals\",\"type\":\"uint8\"},{\"internalType\":\"uint8\",\"name\":\"roundingPolicy\",\"type\":\"uint8\"},{\"internalType\":\"bytes32\",\"name\":\"sourceSetHash\",\"type\":\"bytes32\"}],\"name\":\"installPricedOracleDescriptor\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"internalType\":\"uint16\",\"name\":\"maxOrders\",\"type\":\"uint16\"},{\"internalType\":\"uint16\",\"name\":\"maxPositions\",\"type\":\"uint16\"}],\"name\":\"preparePerpMarketClose\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"readyToFinalize\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"}],\"name\":\"promoteToLive\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"internalType\":\"uint64\",\"name\":\"expectedRevision\",\"type\":\"uint64\"},{\"internalType\":\"uint64\",\"name\":\"expectedKeysetEpoch\",\"type\":\"uint64\"},{\"internalType\":\"uint16\",\"name\":\"backstopTopupBps\",\"type\":\"uint16\"},{\"components\":[{\"internalType\":\"uint64\",\"name\":\"maxNotional\",\"type\":\"uint64\"},{\"internalType\":\"uint8\",\"name\":\"maxLeverage\",\"type\":\"uint8\"},{\"internalType\":\"uint16\",\"name\":\"maintenanceMarginBps\",\"type\":\"uint16\"}],\"internalType\":\"struct IDiesisPerpDeploy.RiskTierInput[]\",\"name\":\"tiers\",\"type\":\"tuple[]\"},{\"internalType\":\"address[]\",\"name\":\"nextSigners\",\"type\":\"address[]\"},{\"internalType\":\"uint8\",\"name\":\"nextThreshold\",\"type\":\"uint8\"},{\"components\":[{\"internalType\":\"address\",\"name\":\"signer\",\"type\":\"address\"},{\"internalType\":\"bytes32\",\"name\":\"r\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32\",\"name\":\"s\",\"type\":\"bytes32\"},{\"internalType\":\"uint8\",\"name\":\"v\",\"type\":\"uint8\"}],\"internalType\":\"struct IDiesisPerpDeploy.MetadataSignature[]\",\"name\":\"signatures\",\"type\":\"tuple[]\"}],\"name\":\"proposePerpPolicy\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"proposalId\",\"type\":\"bytes32\"},{\"internalType\":\"uint64\",\"name\":\"executeAfter\",\"type\":\"uint64\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"operator\",\"type\":\"address\"},{\"internalType\":\"bytes32\",\"name\":\"registrationDigest\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32\",\"name\":\"evidenceHash\",\"type\":\"bytes32\"}],\"name\":\"recordAuctionWin\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"liveAtBlock\",\"type\":\"uint64\"}],\"name\":\"Activated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"operator\",\"type\":\"address\"}],\"name\":\"AuctionWinRecorded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"}],\"name\":\"BasicPerpMarketInitialized\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"}],\"name\":\"Closed\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"windowCloseBlock\",\"type\":\"uint64\"}],\"name\":\"Delisting\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"}],\"name\":\"LiveStarted\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"uint16\",\"name\":\"ordersCancelled\",\"type\":\"uint16\"},{\"indexed\":false,\"internalType\":\"uint16\",\"name\":\"positionsSettled\",\"type\":\"uint16\"},{\"indexed\":false,\"internalType\":\"bool\",\"name\":\"readyToFinalize\",\"type\":\"bool\"}],\"name\":\"PerpMarketClosePrepared\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"bytes32\",\"name\":\"policyHash\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"bytes32\",\"name\":\"keysetHash\",\"type\":\"bytes32\"}],\"name\":\"PolicyPerpMarketInitialized\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"uint8\",\"name\":\"reason\",\"type\":\"uint8\"}],\"name\":\"Slashed\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"DeadlineExceeded\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InvalidStateTransition\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"NoSuchMarket\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"PerpDeployCallFailed\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"WrongOperator\",\"type\":\"error\"}]"
+let abi = "[{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32\",\"name\":\"parentHash\",\"type\":\"bytes32\"},{\"internalType\":\"uint64\",\"name\":\"blockNumber\",\"type\":\"uint64\"},{\"internalType\":\"uint64\",\"name\":\"policyEpoch\",\"type\":\"uint64\"},{\"internalType\":\"bytes32\",\"name\":\"policyHash\",\"type\":\"bytes32\"},{\"internalType\":\"uint64\",\"name\":\"windowStart\",\"type\":\"uint64\"},{\"internalType\":\"uint64\",\"name\":\"windowEnd\",\"type\":\"uint64\"},{\"internalType\":\"uint256\",\"name\":\"filledVolume\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"operatorFees\",\"type\":\"uint256\"},{\"internalType\":\"uint64\",\"name\":\"lastMetadataUpdate\",\"type\":\"uint64\"},{\"internalType\":\"bytes32\",\"name\":\"inputHash\",\"type\":\"bytes32\"},{\"internalType\":\"uint64\",\"name\":\"committeeEpoch\",\"type\":\"uint64\"},{\"internalType\":\"bytes32\",\"name\":\"committeeIdentity\",\"type\":\"bytes32\"},{\"internalType\":\"uint64\",\"name\":\"quorumPower\",\"type\":\"uint64\"},{\"internalType\":\"uint64\",\"name\":\"attestingPower\",\"type\":\"uint64\"},{\"internalType\":\"uint16\",\"name\":\"voterCount\",\"type\":\"uint16\"},{\"internalType\":\"bytes32\",\"name\":\"evidenceHash\",\"type\":\"bytes32\"}],\"name\":\"applyPerpAbandonmentV1\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"internalType\":\"uint8\",\"name\":\"reason\",\"type\":\"uint8\"}],\"name\":\"applySlash\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"slotId\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"internalType\":\"bytes\",\"name\":\"sourceList\",\"type\":\"bytes\"},{\"internalType\":\"bytes\",\"name\":\"metadata\",\"type\":\"bytes\"},{\"internalType\":\"bytes\",\"name\":\"signatures\",\"type\":\"bytes\"}],\"name\":\"deployPerp\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"expireNextUnactivatedPerpV1\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"}],\"name\":\"expireUnactivatedPerpV1\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"}],\"name\":\"finalizeClose\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"internalType\":\"uint64\",\"name\":\"revision\",\"type\":\"uint64\"},{\"internalType\":\"bytes32\",\"name\":\"proposalId\",\"type\":\"bytes32\"}],\"name\":\"finalizePerpPolicyV1\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"}],\"name\":\"getDeploymentState\",\"outputs\":[{\"components\":[{\"internalType\":\"uint8\",\"name\":\"stateTag\",\"type\":\"uint8\"},{\"internalType\":\"uint64\",\"name\":\"deadlineOrLiveBlock\",\"type\":\"uint64\"},{\"internalType\":\"uint64\",\"name\":\"windowCloseBlock\",\"type\":\"uint64\"},{\"internalType\":\"uint8\",\"name\":\"slashReason\",\"type\":\"uint8\"}],\"internalType\":\"struct IDiesisPerpDeploy.DeploymentInfo\",\"name\":\"\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"}],\"name\":\"getMarketDeploymentState\",\"outputs\":[{\"components\":[{\"internalType\":\"uint8\",\"name\":\"stateTag\",\"type\":\"uint8\"},{\"internalType\":\"uint64\",\"name\":\"deadlineOrLiveBlock\",\"type\":\"uint64\"},{\"internalType\":\"uint64\",\"name\":\"windowCloseBlock\",\"type\":\"uint64\"},{\"internalType\":\"uint8\",\"name\":\"slashReason\",\"type\":\"uint8\"}],\"internalType\":\"struct IDiesisPerpDeploy.DeploymentInfo\",\"name\":\"\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"operator\",\"type\":\"address\"}],\"name\":\"getOperatorBalance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"}],\"name\":\"getPerpPolicyV1\",\"outputs\":[{\"components\":[{\"internalType\":\"uint64\",\"name\":\"revision\",\"type\":\"uint64\"},{\"internalType\":\"uint16\",\"name\":\"backstopTopupBps\",\"type\":\"uint16\"},{\"components\":[{\"internalType\":\"uint64\",\"name\":\"maxNotional\",\"type\":\"uint64\"},{\"internalType\":\"uint8\",\"name\":\"maxLeverage\",\"type\":\"uint8\"},{\"internalType\":\"uint16\",\"name\":\"maintenanceMarginBps\",\"type\":\"uint16\"}],\"internalType\":\"struct IDiesisPerpDeploy.RiskTierInputV1[]\",\"name\":\"tiers\",\"type\":\"tuple[]\"}],\"internalType\":\"struct IDiesisPerpDeploy.PerpPolicyV1\",\"name\":\"policy\",\"type\":\"tuple\"},{\"components\":[{\"internalType\":\"uint64\",\"name\":\"epoch\",\"type\":\"uint64\"},{\"internalType\":\"uint8\",\"name\":\"threshold\",\"type\":\"uint8\"},{\"internalType\":\"address[]\",\"name\":\"signers\",\"type\":\"address[]\"}],\"internalType\":\"struct IDiesisPerpDeploy.MetadataKeysetV1\",\"name\":\"keyset\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"baseToken\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"quoteToken\",\"type\":\"address\"},{\"internalType\":\"uint64\",\"name\":\"tickSize\",\"type\":\"uint64\"},{\"internalType\":\"uint64\",\"name\":\"lotSize\",\"type\":\"uint64\"},{\"internalType\":\"uint256\",\"name\":\"maxOpenInterest\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"initialMark\",\"type\":\"uint256\"},{\"internalType\":\"uint8\",\"name\":\"maxLeverage\",\"type\":\"uint8\"}],\"name\":\"initializePerpMarketV1\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"baseToken\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"quoteToken\",\"type\":\"address\"},{\"internalType\":\"uint64\",\"name\":\"tickSize\",\"type\":\"uint64\"},{\"internalType\":\"uint64\",\"name\":\"lotSize\",\"type\":\"uint64\"},{\"internalType\":\"uint256\",\"name\":\"maxOpenInterest\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"initialMark\",\"type\":\"uint256\"},{\"components\":[{\"internalType\":\"uint64\",\"name\":\"revision\",\"type\":\"uint64\"},{\"internalType\":\"uint16\",\"name\":\"backstopTopupBps\",\"type\":\"uint16\"},{\"components\":[{\"internalType\":\"uint64\",\"name\":\"maxNotional\",\"type\":\"uint64\"},{\"internalType\":\"uint8\",\"name\":\"maxLeverage\",\"type\":\"uint8\"},{\"internalType\":\"uint16\",\"name\":\"maintenanceMarginBps\",\"type\":\"uint16\"}],\"internalType\":\"struct IDiesisPerpDeploy.RiskTierInputV1[]\",\"name\":\"tiers\",\"type\":\"tuple[]\"}],\"internalType\":\"struct IDiesisPerpDeploy.PerpPolicyV1\",\"name\":\"policy\",\"type\":\"tuple\"},{\"components\":[{\"internalType\":\"uint64\",\"name\":\"epoch\",\"type\":\"uint64\"},{\"internalType\":\"uint8\",\"name\":\"threshold\",\"type\":\"uint8\"},{\"internalType\":\"address[]\",\"name\":\"signers\",\"type\":\"address[]\"}],\"internalType\":\"struct IDiesisPerpDeploy.MetadataKeysetV1\",\"name\":\"keyset\",\"type\":\"tuple\"}],\"name\":\"initializePerpMarketV2\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"}],\"name\":\"initiateDelist\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"internalType\":\"uint16\",\"name\":\"maxOrders\",\"type\":\"uint16\"},{\"internalType\":\"uint16\",\"name\":\"maxPositions\",\"type\":\"uint16\"}],\"name\":\"preparePerpMarketCloseV1\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"readyToFinalize\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"}],\"name\":\"promoteToLive\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"internalType\":\"uint64\",\"name\":\"expectedRevision\",\"type\":\"uint64\"},{\"internalType\":\"uint64\",\"name\":\"expectedKeysetEpoch\",\"type\":\"uint64\"},{\"internalType\":\"uint16\",\"name\":\"backstopTopupBps\",\"type\":\"uint16\"},{\"components\":[{\"internalType\":\"uint64\",\"name\":\"maxNotional\",\"type\":\"uint64\"},{\"internalType\":\"uint8\",\"name\":\"maxLeverage\",\"type\":\"uint8\"},{\"internalType\":\"uint16\",\"name\":\"maintenanceMarginBps\",\"type\":\"uint16\"}],\"internalType\":\"struct IDiesisPerpDeploy.RiskTierInputV1[]\",\"name\":\"tiers\",\"type\":\"tuple[]\"},{\"internalType\":\"address[]\",\"name\":\"nextSigners\",\"type\":\"address[]\"},{\"internalType\":\"uint8\",\"name\":\"nextThreshold\",\"type\":\"uint8\"},{\"components\":[{\"internalType\":\"address\",\"name\":\"signer\",\"type\":\"address\"},{\"internalType\":\"bytes32\",\"name\":\"r\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32\",\"name\":\"s\",\"type\":\"bytes32\"},{\"internalType\":\"uint8\",\"name\":\"v\",\"type\":\"uint8\"}],\"internalType\":\"struct IDiesisPerpDeploy.MetadataSignatureV1[]\",\"name\":\"signatures\",\"type\":\"tuple[]\"}],\"name\":\"proposePerpPolicyV1\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"proposalId\",\"type\":\"bytes32\"},{\"internalType\":\"uint64\",\"name\":\"executeAfter\",\"type\":\"uint64\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"operator\",\"type\":\"address\"},{\"internalType\":\"bytes32\",\"name\":\"registrationDigest\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32\",\"name\":\"evidenceHash\",\"type\":\"bytes32\"}],\"name\":\"recordAuctionWin\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"liveAtBlock\",\"type\":\"uint64\"}],\"name\":\"Activated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"operator\",\"type\":\"address\"}],\"name\":\"AuctionWinRecorded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"}],\"name\":\"Closed\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"windowCloseBlock\",\"type\":\"uint64\"}],\"name\":\"Delisting\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"}],\"name\":\"LiveStarted\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"uint16\",\"name\":\"ordersCancelled\",\"type\":\"uint16\"},{\"indexed\":false,\"internalType\":\"uint16\",\"name\":\"positionsSettled\",\"type\":\"uint16\"},{\"indexed\":false,\"internalType\":\"bool\",\"name\":\"readyToFinalize\",\"type\":\"bool\"}],\"name\":\"PerpMarketClosePreparedV1\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"}],\"name\":\"PerpMarketInitializedV1\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"bytes32\",\"name\":\"policyHash\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"bytes32\",\"name\":\"keysetHash\",\"type\":\"bytes32\"}],\"name\":\"PerpMarketInitializedV2\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"uint8\",\"name\":\"reason\",\"type\":\"uint8\"}],\"name\":\"Slashed\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"DeadlineExceeded\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InvalidStateTransition\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"NoSuchMarket\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"PerpDeployCallFailed\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"WrongOperator\",\"type\":\"error\"}]"
 
 [<Struct("DeploymentInfo")>]
 [<CLIMutable>]
@@ -25,9 +25,9 @@ type TupleDeploymentInfo =
         SlashReason: BigInteger
     }
 
-[<Struct("RiskTierInput")>]
+[<Struct("RiskTierInputV1")>]
 [<CLIMutable>]
-type TupleRiskTierInput =
+type TupleRiskTierInputV1 =
     {
         [<Parameter("uint64", "maxNotional", 1, false)>]
         MaxNotional: BigInteger
@@ -37,21 +37,21 @@ type TupleRiskTierInput =
         MaintenanceMarginBps: BigInteger
     }
 
-[<Struct("PerpPolicy")>]
+[<Struct("PerpPolicyV1")>]
 [<CLIMutable>]
-type TuplePerpPolicy =
+type TuplePerpPolicyV1 =
     {
         [<Parameter("uint64", "revision", 1, false)>]
         Revision: BigInteger
         [<Parameter("uint16", "backstopTopupBps", 2, false)>]
         BackstopTopupBps: BigInteger
         [<Parameter("tuple[]", "tiers", 3, false)>]
-        Tiers: ResizeArray<TupleRiskTierInput>
+        Tiers: ResizeArray<TupleRiskTierInputV1>
     }
 
-[<Struct("MetadataKeyset")>]
+[<Struct("MetadataKeysetV1")>]
 [<CLIMutable>]
-type TupleMetadataKeyset =
+type TupleMetadataKeysetV1 =
     {
         [<Parameter("uint64", "epoch", 1, false)>]
         Epoch: BigInteger
@@ -61,9 +61,9 @@ type TupleMetadataKeyset =
         Signers: ResizeArray<string>
     }
 
-[<Struct("MetadataSignature")>]
+[<Struct("MetadataSignatureV1")>]
 [<CLIMutable>]
-type TupleMetadataSignature =
+type TupleMetadataSignatureV1 =
     {
         [<Parameter("address", "signer", 1, false)>]
         Signer: string
@@ -76,7 +76,7 @@ type TupleMetadataSignature =
     }
 
 [<CLIMutable>]
-type ApplyPerpAbandonmentParams =
+type ApplyPerpAbandonmentV1Params =
     {
         [<Parameter("bytes32", "marketId", 1, false)>]
         MarketId: byte array
@@ -115,7 +115,7 @@ type ApplyPerpAbandonmentParams =
     }
 
 [<FunctionOutput>]
-type ApplyPerpAbandonmentResult() =
+type ApplyPerpAbandonmentV1Result() =
     interface IFunctionOutputDTO
 
 [<CLIMutable>]
@@ -155,22 +155,22 @@ type DeployPerpResult =
     }
     interface IFunctionOutputDTO
 
-type ExpireNextUnactivatedPerpParams() =
+type ExpireNextUnactivatedPerpV1Params() =
     class end
 
 [<FunctionOutput>]
-type ExpireNextUnactivatedPerpResult() =
+type ExpireNextUnactivatedPerpV1Result() =
     interface IFunctionOutputDTO
 
 [<CLIMutable>]
-type ExpireUnactivatedPerpParams =
+type ExpireUnactivatedPerpV1Params =
     {
         [<Parameter("bytes32", "marketId", 1, false)>]
         MarketId: byte array
     }
 
 [<FunctionOutput>]
-type ExpireUnactivatedPerpResult() =
+type ExpireUnactivatedPerpV1Result() =
     interface IFunctionOutputDTO
 
 [<CLIMutable>]
@@ -185,7 +185,7 @@ type FinalizeCloseResult() =
     interface IFunctionOutputDTO
 
 [<CLIMutable>]
-type FinalizePerpPolicyParams =
+type FinalizePerpPolicyV1Params =
     {
         [<Parameter("bytes32", "marketId", 1, false)>]
         MarketId: byte array
@@ -196,7 +196,7 @@ type FinalizePerpPolicyParams =
     }
 
 [<FunctionOutput>]
-type FinalizePerpPolicyResult() =
+type FinalizePerpPolicyV1Result() =
     interface IFunctionOutputDTO
 
 [<CLIMutable>]
@@ -248,7 +248,7 @@ type GetOperatorBalanceResult =
     interface IFunctionOutputDTO
 
 [<CLIMutable>]
-type GetPerpPolicyParams =
+type GetPerpPolicyV1Params =
     {
         [<Parameter("bytes32", "marketId", 1, false)>]
         MarketId: byte array
@@ -256,17 +256,17 @@ type GetPerpPolicyParams =
 
 [<FunctionOutput>]
 [<CLIMutable>]
-type GetPerpPolicyResult =
+type GetPerpPolicyV1Result =
     {
         [<Parameter("tuple", "policy", 1, false)>]
-        Policy: TuplePerpPolicy
+        Policy: TuplePerpPolicyV1
         [<Parameter("tuple", "keyset", 2, false)>]
-        Keyset: TupleMetadataKeyset
+        Keyset: TupleMetadataKeysetV1
     }
     interface IFunctionOutputDTO
 
 [<CLIMutable>]
-type InitializeBasicPerpMarketParams =
+type InitializePerpMarketV1Params =
     {
         [<Parameter("address", "baseToken", 1, false)>]
         BaseToken: string
@@ -286,7 +286,7 @@ type InitializeBasicPerpMarketParams =
 
 [<FunctionOutput>]
 [<CLIMutable>]
-type InitializeBasicPerpMarketResult =
+type InitializePerpMarketV1Result =
     {
         [<Parameter("bytes32", "marketId", 1, false)>]
         MarketId: byte array
@@ -294,7 +294,7 @@ type InitializeBasicPerpMarketResult =
     interface IFunctionOutputDTO
 
 [<CLIMutable>]
-type InitializePolicyPerpMarketParams =
+type InitializePerpMarketV2Params =
     {
         [<Parameter("address", "baseToken", 1, false)>]
         BaseToken: string
@@ -309,46 +309,14 @@ type InitializePolicyPerpMarketParams =
         [<Parameter("uint256", "initialMark", 6, false)>]
         InitialMark: BigInteger
         [<Parameter("tuple", "policy", 7, false)>]
-        Policy: TuplePerpPolicy
+        Policy: TuplePerpPolicyV1
         [<Parameter("tuple", "keyset", 8, false)>]
-        Keyset: TupleMetadataKeyset
+        Keyset: TupleMetadataKeysetV1
     }
 
 [<FunctionOutput>]
 [<CLIMutable>]
-type InitializePolicyPerpMarketResult =
-    {
-        [<Parameter("bytes32", "marketId", 1, false)>]
-        MarketId: byte array
-    }
-    interface IFunctionOutputDTO
-
-[<CLIMutable>]
-type InitializePricedPerpMarketParams =
-    {
-        [<Parameter("address", "baseToken", 1, false)>]
-        BaseToken: string
-        [<Parameter("address", "quoteToken", 2, false)>]
-        QuoteToken: string
-        [<Parameter("uint64", "tickSize", 3, false)>]
-        TickSize: BigInteger
-        [<Parameter("uint64", "lotSize", 4, false)>]
-        LotSize: BigInteger
-        [<Parameter("uint64", "priceDenominator", 5, false)>]
-        PriceDenominator: BigInteger
-        [<Parameter("uint256", "maxOpenInterest", 6, false)>]
-        MaxOpenInterest: BigInteger
-        [<Parameter("uint256", "initialMark", 7, false)>]
-        InitialMark: BigInteger
-        [<Parameter("tuple", "policy", 8, false)>]
-        Policy: TuplePerpPolicy
-        [<Parameter("tuple", "keyset", 9, false)>]
-        Keyset: TupleMetadataKeyset
-    }
-
-[<FunctionOutput>]
-[<CLIMutable>]
-type InitializePricedPerpMarketResult =
+type InitializePerpMarketV2Result =
     {
         [<Parameter("bytes32", "marketId", 1, false)>]
         MarketId: byte array
@@ -367,26 +335,7 @@ type InitiateDelistResult() =
     interface IFunctionOutputDTO
 
 [<CLIMutable>]
-type InstallPricedOracleDescriptorParams =
-    {
-        [<Parameter("bytes32", "marketId", 1, false)>]
-        MarketId: byte array
-        [<Parameter("uint8", "baseDecimals", 2, false)>]
-        BaseDecimals: BigInteger
-        [<Parameter("uint8", "quoteDecimals", 3, false)>]
-        QuoteDecimals: BigInteger
-        [<Parameter("uint8", "roundingPolicy", 4, false)>]
-        RoundingPolicy: BigInteger
-        [<Parameter("bytes32", "sourceSetHash", 5, false)>]
-        SourceSetHash: byte array
-    }
-
-[<FunctionOutput>]
-type InstallPricedOracleDescriptorResult() =
-    interface IFunctionOutputDTO
-
-[<CLIMutable>]
-type PreparePerpMarketCloseParams =
+type PreparePerpMarketCloseV1Params =
     {
         [<Parameter("bytes32", "marketId", 1, false)>]
         MarketId: byte array
@@ -398,7 +347,7 @@ type PreparePerpMarketCloseParams =
 
 [<FunctionOutput>]
 [<CLIMutable>]
-type PreparePerpMarketCloseResult =
+type PreparePerpMarketCloseV1Result =
     {
         [<Parameter("bool", "readyToFinalize", 1, false)>]
         ReadyToFinalize: bool
@@ -417,7 +366,7 @@ type PromoteToLiveResult() =
     interface IFunctionOutputDTO
 
 [<CLIMutable>]
-type ProposePerpPolicyParams =
+type ProposePerpPolicyV1Params =
     {
         [<Parameter("bytes32", "marketId", 1, false)>]
         MarketId: byte array
@@ -428,18 +377,18 @@ type ProposePerpPolicyParams =
         [<Parameter("uint16", "backstopTopupBps", 4, false)>]
         BackstopTopupBps: BigInteger
         [<Parameter("tuple[]", "tiers", 5, false)>]
-        Tiers: ResizeArray<TupleRiskTierInput>
+        Tiers: ResizeArray<TupleRiskTierInputV1>
         [<Parameter("address[]", "nextSigners", 6, false)>]
         NextSigners: ResizeArray<string>
         [<Parameter("uint8", "nextThreshold", 7, false)>]
         NextThreshold: BigInteger
         [<Parameter("tuple[]", "signatures", 8, false)>]
-        Signatures: ResizeArray<TupleMetadataSignature>
+        Signatures: ResizeArray<TupleMetadataSignatureV1>
     }
 
 [<FunctionOutput>]
 [<CLIMutable>]
-type ProposePerpPolicyResult =
+type ProposePerpPolicyV1Result =
     {
         [<Parameter("bytes32", "proposalId", 1, false)>]
         ProposalId: byte array
@@ -487,15 +436,6 @@ type AuctionWinRecordedEvent =
     }
     interface IEventDTO
 
-[<Event("BasicPerpMarketInitialized", false)>]
-[<CLIMutable>]
-type BasicPerpMarketInitializedEvent =
-    {
-        [<Parameter("bytes32", "marketId", 1, true)>]
-        MarketId: byte array
-    }
-    interface IEventDTO
-
 [<Event("Closed", false)>]
 [<CLIMutable>]
 type ClosedEvent =
@@ -525,9 +465,9 @@ type LiveStartedEvent =
     }
     interface IEventDTO
 
-[<Event("PerpMarketClosePrepared", false)>]
+[<Event("PerpMarketClosePreparedV1", false)>]
 [<CLIMutable>]
-type PerpMarketClosePreparedEvent =
+type PerpMarketClosePreparedV1Event =
     {
         [<Parameter("bytes32", "marketId", 1, true)>]
         MarketId: byte array
@@ -540,9 +480,18 @@ type PerpMarketClosePreparedEvent =
     }
     interface IEventDTO
 
-[<Event("PolicyPerpMarketInitialized", false)>]
+[<Event("PerpMarketInitializedV1", false)>]
 [<CLIMutable>]
-type PolicyPerpMarketInitializedEvent =
+type PerpMarketInitializedV1Event =
+    {
+        [<Parameter("bytes32", "marketId", 1, true)>]
+        MarketId: byte array
+    }
+    interface IEventDTO
+
+[<Event("PerpMarketInitializedV2", false)>]
+[<CLIMutable>]
+type PerpMarketInitializedV2Event =
     {
         [<Parameter("bytes32", "marketId", 1, true)>]
         MarketId: byte array
@@ -587,19 +536,19 @@ type WrongOperatorError() =
 /// Creates a contract using the caller's client and signing configuration.
 let bind (web3: Web3) (address: string) = web3.Eth.GetContract(abi, address)
 
-/// Encodes applyPerpAbandonment(bytes32,bytes32,uint64,uint64,bytes32,uint64,uint64,uint256,uint256,uint64,bytes32,uint64,bytes32,uint64,uint64,uint16,bytes32) without RPC.
-let encodeApplyPerpAbandonment (contract: Contract) (args: ApplyPerpAbandonmentParams) =
-    contract.GetFunctionBySignature("0xc6e91ba7").GetData([| box args.MarketId; box args.ParentHash; box args.BlockNumber; box args.PolicyEpoch; box args.PolicyHash; box args.WindowStart; box args.WindowEnd; box args.FilledVolume; box args.OperatorFees; box args.LastMetadataUpdate; box args.InputHash; box args.CommitteeEpoch; box args.CommitteeIdentity; box args.QuorumPower; box args.AttestingPower; box args.VoterCount; box args.EvidenceHash |])
+/// Encodes applyPerpAbandonmentV1(bytes32,bytes32,uint64,uint64,bytes32,uint64,uint64,uint256,uint256,uint64,bytes32,uint64,bytes32,uint64,uint64,uint16,bytes32) without RPC.
+let encodeApplyPerpAbandonmentV1 (contract: Contract) (args: ApplyPerpAbandonmentV1Params) =
+    contract.GetFunctionBySignature("0x440c9ce4").GetData([| box args.MarketId; box args.ParentHash; box args.BlockNumber; box args.PolicyEpoch; box args.PolicyHash; box args.WindowStart; box args.WindowEnd; box args.FilledVolume; box args.OperatorFees; box args.LastMetadataUpdate; box args.InputHash; box args.CommitteeEpoch; box args.CommitteeIdentity; box args.QuorumPower; box args.AttestingPower; box args.VoterCount; box args.EvidenceHash |])
 
-let decodeApplyPerpAbandonmentResult (data: string) : ApplyPerpAbandonmentResult =
-    Nethereum.ABI.FunctionEncoding.FunctionCallDecoder().DecodeFunctionOutput(Activator.CreateInstance<ApplyPerpAbandonmentResult>(), data)
+let decodeApplyPerpAbandonmentV1Result (data: string) : ApplyPerpAbandonmentV1Result =
+    Nethereum.ABI.FunctionEncoding.FunctionCallDecoder().DecodeFunctionOutput(Activator.CreateInstance<ApplyPerpAbandonmentV1Result>(), data)
 
 /// Sends through the client's configured transaction manager.
-let sendApplyPerpAbandonment (contract: Contract) (options: TransactionInput) (args: ApplyPerpAbandonmentParams) =
+let sendApplyPerpAbandonmentV1 (contract: Contract) (options: TransactionInput) (args: ApplyPerpAbandonmentV1Params) =
     if isNull options then nullArg "options"
     if not (isNull options.Value) && options.Value.Value <> BigInteger.Zero then invalidArg "options" "Function is not payable"
     options.To <- contract.Address
-    contract.GetFunctionBySignature("0xc6e91ba7").SendTransactionAsync(options, [| box args.MarketId; box args.ParentHash; box args.BlockNumber; box args.PolicyEpoch; box args.PolicyHash; box args.WindowStart; box args.WindowEnd; box args.FilledVolume; box args.OperatorFees; box args.LastMetadataUpdate; box args.InputHash; box args.CommitteeEpoch; box args.CommitteeIdentity; box args.QuorumPower; box args.AttestingPower; box args.VoterCount; box args.EvidenceHash |])
+    contract.GetFunctionBySignature("0x440c9ce4").SendTransactionAsync(options, [| box args.MarketId; box args.ParentHash; box args.BlockNumber; box args.PolicyEpoch; box args.PolicyHash; box args.WindowStart; box args.WindowEnd; box args.FilledVolume; box args.OperatorFees; box args.LastMetadataUpdate; box args.InputHash; box args.CommitteeEpoch; box args.CommitteeIdentity; box args.QuorumPower; box args.AttestingPower; box args.VoterCount; box args.EvidenceHash |])
 
 /// Encodes applySlash(bytes32,uint8) without RPC.
 let encodeApplySlash (contract: Contract) (args: ApplySlashParams) =
@@ -629,33 +578,33 @@ let sendDeployPerp (contract: Contract) (options: TransactionInput) (args: Deplo
     options.To <- contract.Address
     contract.GetFunctionBySignature("0x6fd95f59").SendTransactionAsync(options, [| box args.SlotId; box args.MarketId; box args.SourceList; box args.Metadata; box args.Signatures |])
 
-/// Encodes expireNextUnactivatedPerp() without RPC.
-let encodeExpireNextUnactivatedPerp (contract: Contract) (args: ExpireNextUnactivatedPerpParams) =
-    contract.GetFunctionBySignature("0x387be752").GetData([|  |])
+/// Encodes expireNextUnactivatedPerpV1() without RPC.
+let encodeExpireNextUnactivatedPerpV1 (contract: Contract) (args: ExpireNextUnactivatedPerpV1Params) =
+    contract.GetFunctionBySignature("0x0e96e909").GetData([|  |])
 
-let decodeExpireNextUnactivatedPerpResult (data: string) : ExpireNextUnactivatedPerpResult =
-    Nethereum.ABI.FunctionEncoding.FunctionCallDecoder().DecodeFunctionOutput(Activator.CreateInstance<ExpireNextUnactivatedPerpResult>(), data)
+let decodeExpireNextUnactivatedPerpV1Result (data: string) : ExpireNextUnactivatedPerpV1Result =
+    Nethereum.ABI.FunctionEncoding.FunctionCallDecoder().DecodeFunctionOutput(Activator.CreateInstance<ExpireNextUnactivatedPerpV1Result>(), data)
 
 /// Sends through the client's configured transaction manager.
-let sendExpireNextUnactivatedPerp (contract: Contract) (options: TransactionInput) (args: ExpireNextUnactivatedPerpParams) =
+let sendExpireNextUnactivatedPerpV1 (contract: Contract) (options: TransactionInput) (args: ExpireNextUnactivatedPerpV1Params) =
     if isNull options then nullArg "options"
     if not (isNull options.Value) && options.Value.Value <> BigInteger.Zero then invalidArg "options" "Function is not payable"
     options.To <- contract.Address
-    contract.GetFunctionBySignature("0x387be752").SendTransactionAsync(options, [|  |])
+    contract.GetFunctionBySignature("0x0e96e909").SendTransactionAsync(options, [|  |])
 
-/// Encodes expireUnactivatedPerp(bytes32) without RPC.
-let encodeExpireUnactivatedPerp (contract: Contract) (args: ExpireUnactivatedPerpParams) =
-    contract.GetFunctionBySignature("0x72a00fd8").GetData([| box args.MarketId |])
+/// Encodes expireUnactivatedPerpV1(bytes32) without RPC.
+let encodeExpireUnactivatedPerpV1 (contract: Contract) (args: ExpireUnactivatedPerpV1Params) =
+    contract.GetFunctionBySignature("0x1572341b").GetData([| box args.MarketId |])
 
-let decodeExpireUnactivatedPerpResult (data: string) : ExpireUnactivatedPerpResult =
-    Nethereum.ABI.FunctionEncoding.FunctionCallDecoder().DecodeFunctionOutput(Activator.CreateInstance<ExpireUnactivatedPerpResult>(), data)
+let decodeExpireUnactivatedPerpV1Result (data: string) : ExpireUnactivatedPerpV1Result =
+    Nethereum.ABI.FunctionEncoding.FunctionCallDecoder().DecodeFunctionOutput(Activator.CreateInstance<ExpireUnactivatedPerpV1Result>(), data)
 
 /// Sends through the client's configured transaction manager.
-let sendExpireUnactivatedPerp (contract: Contract) (options: TransactionInput) (args: ExpireUnactivatedPerpParams) =
+let sendExpireUnactivatedPerpV1 (contract: Contract) (options: TransactionInput) (args: ExpireUnactivatedPerpV1Params) =
     if isNull options then nullArg "options"
     if not (isNull options.Value) && options.Value.Value <> BigInteger.Zero then invalidArg "options" "Function is not payable"
     options.To <- contract.Address
-    contract.GetFunctionBySignature("0x72a00fd8").SendTransactionAsync(options, [| box args.MarketId |])
+    contract.GetFunctionBySignature("0x1572341b").SendTransactionAsync(options, [| box args.MarketId |])
 
 /// Encodes finalizeClose(bytes32) without RPC.
 let encodeFinalizeClose (contract: Contract) (args: FinalizeCloseParams) =
@@ -671,19 +620,19 @@ let sendFinalizeClose (contract: Contract) (options: TransactionInput) (args: Fi
     options.To <- contract.Address
     contract.GetFunctionBySignature("0xb589db7b").SendTransactionAsync(options, [| box args.MarketId |])
 
-/// Encodes finalizePerpPolicy(bytes32,uint64,bytes32) without RPC.
-let encodeFinalizePerpPolicy (contract: Contract) (args: FinalizePerpPolicyParams) =
-    contract.GetFunctionBySignature("0x9a4008d3").GetData([| box args.MarketId; box args.Revision; box args.ProposalId |])
+/// Encodes finalizePerpPolicyV1(bytes32,uint64,bytes32) without RPC.
+let encodeFinalizePerpPolicyV1 (contract: Contract) (args: FinalizePerpPolicyV1Params) =
+    contract.GetFunctionBySignature("0x86c0a24e").GetData([| box args.MarketId; box args.Revision; box args.ProposalId |])
 
-let decodeFinalizePerpPolicyResult (data: string) : FinalizePerpPolicyResult =
-    Nethereum.ABI.FunctionEncoding.FunctionCallDecoder().DecodeFunctionOutput(Activator.CreateInstance<FinalizePerpPolicyResult>(), data)
+let decodeFinalizePerpPolicyV1Result (data: string) : FinalizePerpPolicyV1Result =
+    Nethereum.ABI.FunctionEncoding.FunctionCallDecoder().DecodeFunctionOutput(Activator.CreateInstance<FinalizePerpPolicyV1Result>(), data)
 
 /// Sends through the client's configured transaction manager.
-let sendFinalizePerpPolicy (contract: Contract) (options: TransactionInput) (args: FinalizePerpPolicyParams) =
+let sendFinalizePerpPolicyV1 (contract: Contract) (options: TransactionInput) (args: FinalizePerpPolicyV1Params) =
     if isNull options then nullArg "options"
     if not (isNull options.Value) && options.Value.Value <> BigInteger.Zero then invalidArg "options" "Function is not payable"
     options.To <- contract.Address
-    contract.GetFunctionBySignature("0x9a4008d3").SendTransactionAsync(options, [| box args.MarketId; box args.Revision; box args.ProposalId |])
+    contract.GetFunctionBySignature("0x86c0a24e").SendTransactionAsync(options, [| box args.MarketId; box args.Revision; box args.ProposalId |])
 
 /// Encodes getDeploymentState(bytes32) without RPC.
 let encodeGetDeploymentState (contract: Contract) (args: GetDeploymentStateParams) =
@@ -715,57 +664,43 @@ let decodeGetOperatorBalanceResult (data: string) : GetOperatorBalanceResult =
 let callGetOperatorBalance (contract: Contract) (block: BlockParameter) (args: GetOperatorBalanceParams) =
     contract.GetFunctionBySignature("0xf6be9333").CallDeserializingToObjectAsync<GetOperatorBalanceResult>(block, [| box args.Operator |])
 
-/// Encodes getPerpPolicy(bytes32) without RPC.
-let encodeGetPerpPolicy (contract: Contract) (args: GetPerpPolicyParams) =
-    contract.GetFunctionBySignature("0xf07b7c02").GetData([| box args.MarketId |])
+/// Encodes getPerpPolicyV1(bytes32) without RPC.
+let encodeGetPerpPolicyV1 (contract: Contract) (args: GetPerpPolicyV1Params) =
+    contract.GetFunctionBySignature("0xb5ebefbd").GetData([| box args.MarketId |])
 
-let decodeGetPerpPolicyResult (data: string) : GetPerpPolicyResult =
-    Nethereum.ABI.FunctionEncoding.FunctionCallDecoder().DecodeFunctionOutput(Activator.CreateInstance<GetPerpPolicyResult>(), data)
+let decodeGetPerpPolicyV1Result (data: string) : GetPerpPolicyV1Result =
+    Nethereum.ABI.FunctionEncoding.FunctionCallDecoder().DecodeFunctionOutput(Activator.CreateInstance<GetPerpPolicyV1Result>(), data)
 
-let callGetPerpPolicy (contract: Contract) (block: BlockParameter) (args: GetPerpPolicyParams) =
-    contract.GetFunctionBySignature("0xf07b7c02").CallDeserializingToObjectAsync<GetPerpPolicyResult>(block, [| box args.MarketId |])
+let callGetPerpPolicyV1 (contract: Contract) (block: BlockParameter) (args: GetPerpPolicyV1Params) =
+    contract.GetFunctionBySignature("0xb5ebefbd").CallDeserializingToObjectAsync<GetPerpPolicyV1Result>(block, [| box args.MarketId |])
 
-/// Encodes initializeBasicPerpMarket(address,address,uint64,uint64,uint256,uint256,uint8) without RPC.
-let encodeInitializeBasicPerpMarket (contract: Contract) (args: InitializeBasicPerpMarketParams) =
-    contract.GetFunctionBySignature("0x03485432").GetData([| box args.BaseToken; box args.QuoteToken; box args.TickSize; box args.LotSize; box args.MaxOpenInterest; box args.InitialMark; box args.MaxLeverage |])
+/// Encodes initializePerpMarketV1(address,address,uint64,uint64,uint256,uint256,uint8) without RPC.
+let encodeInitializePerpMarketV1 (contract: Contract) (args: InitializePerpMarketV1Params) =
+    contract.GetFunctionBySignature("0xe19fe61c").GetData([| box args.BaseToken; box args.QuoteToken; box args.TickSize; box args.LotSize; box args.MaxOpenInterest; box args.InitialMark; box args.MaxLeverage |])
 
-let decodeInitializeBasicPerpMarketResult (data: string) : InitializeBasicPerpMarketResult =
-    Nethereum.ABI.FunctionEncoding.FunctionCallDecoder().DecodeFunctionOutput(Activator.CreateInstance<InitializeBasicPerpMarketResult>(), data)
+let decodeInitializePerpMarketV1Result (data: string) : InitializePerpMarketV1Result =
+    Nethereum.ABI.FunctionEncoding.FunctionCallDecoder().DecodeFunctionOutput(Activator.CreateInstance<InitializePerpMarketV1Result>(), data)
 
 /// Sends through the client's configured transaction manager.
-let sendInitializeBasicPerpMarket (contract: Contract) (options: TransactionInput) (args: InitializeBasicPerpMarketParams) =
+let sendInitializePerpMarketV1 (contract: Contract) (options: TransactionInput) (args: InitializePerpMarketV1Params) =
     if isNull options then nullArg "options"
     if not (isNull options.Value) && options.Value.Value <> BigInteger.Zero then invalidArg "options" "Function is not payable"
     options.To <- contract.Address
-    contract.GetFunctionBySignature("0x03485432").SendTransactionAsync(options, [| box args.BaseToken; box args.QuoteToken; box args.TickSize; box args.LotSize; box args.MaxOpenInterest; box args.InitialMark; box args.MaxLeverage |])
+    contract.GetFunctionBySignature("0xe19fe61c").SendTransactionAsync(options, [| box args.BaseToken; box args.QuoteToken; box args.TickSize; box args.LotSize; box args.MaxOpenInterest; box args.InitialMark; box args.MaxLeverage |])
 
-/// Encodes initializePolicyPerpMarket(address,address,uint64,uint64,uint256,uint256,(uint64,uint16,(uint64,uint8,uint16)[]),(uint64,uint8,address[])) without RPC.
-let encodeInitializePolicyPerpMarket (contract: Contract) (args: InitializePolicyPerpMarketParams) =
-    contract.GetFunctionBySignature("0x79a6a477").GetData([| box args.BaseToken; box args.QuoteToken; box args.TickSize; box args.LotSize; box args.MaxOpenInterest; box args.InitialMark; box args.Policy; box args.Keyset |])
+/// Encodes initializePerpMarketV2(address,address,uint64,uint64,uint256,uint256,(uint64,uint16,(uint64,uint8,uint16)[]),(uint64,uint8,address[])) without RPC.
+let encodeInitializePerpMarketV2 (contract: Contract) (args: InitializePerpMarketV2Params) =
+    contract.GetFunctionBySignature("0xdf4c851f").GetData([| box args.BaseToken; box args.QuoteToken; box args.TickSize; box args.LotSize; box args.MaxOpenInterest; box args.InitialMark; box args.Policy; box args.Keyset |])
 
-let decodeInitializePolicyPerpMarketResult (data: string) : InitializePolicyPerpMarketResult =
-    Nethereum.ABI.FunctionEncoding.FunctionCallDecoder().DecodeFunctionOutput(Activator.CreateInstance<InitializePolicyPerpMarketResult>(), data)
+let decodeInitializePerpMarketV2Result (data: string) : InitializePerpMarketV2Result =
+    Nethereum.ABI.FunctionEncoding.FunctionCallDecoder().DecodeFunctionOutput(Activator.CreateInstance<InitializePerpMarketV2Result>(), data)
 
 /// Sends through the client's configured transaction manager.
-let sendInitializePolicyPerpMarket (contract: Contract) (options: TransactionInput) (args: InitializePolicyPerpMarketParams) =
+let sendInitializePerpMarketV2 (contract: Contract) (options: TransactionInput) (args: InitializePerpMarketV2Params) =
     if isNull options then nullArg "options"
     if not (isNull options.Value) && options.Value.Value <> BigInteger.Zero then invalidArg "options" "Function is not payable"
     options.To <- contract.Address
-    contract.GetFunctionBySignature("0x79a6a477").SendTransactionAsync(options, [| box args.BaseToken; box args.QuoteToken; box args.TickSize; box args.LotSize; box args.MaxOpenInterest; box args.InitialMark; box args.Policy; box args.Keyset |])
-
-/// Encodes initializePricedPerpMarket(address,address,uint64,uint64,uint64,uint256,uint256,(uint64,uint16,(uint64,uint8,uint16)[]),(uint64,uint8,address[])) without RPC.
-let encodeInitializePricedPerpMarket (contract: Contract) (args: InitializePricedPerpMarketParams) =
-    contract.GetFunctionBySignature("0x74ff5e86").GetData([| box args.BaseToken; box args.QuoteToken; box args.TickSize; box args.LotSize; box args.PriceDenominator; box args.MaxOpenInterest; box args.InitialMark; box args.Policy; box args.Keyset |])
-
-let decodeInitializePricedPerpMarketResult (data: string) : InitializePricedPerpMarketResult =
-    Nethereum.ABI.FunctionEncoding.FunctionCallDecoder().DecodeFunctionOutput(Activator.CreateInstance<InitializePricedPerpMarketResult>(), data)
-
-/// Sends through the client's configured transaction manager.
-let sendInitializePricedPerpMarket (contract: Contract) (options: TransactionInput) (args: InitializePricedPerpMarketParams) =
-    if isNull options then nullArg "options"
-    if not (isNull options.Value) && options.Value.Value <> BigInteger.Zero then invalidArg "options" "Function is not payable"
-    options.To <- contract.Address
-    contract.GetFunctionBySignature("0x74ff5e86").SendTransactionAsync(options, [| box args.BaseToken; box args.QuoteToken; box args.TickSize; box args.LotSize; box args.PriceDenominator; box args.MaxOpenInterest; box args.InitialMark; box args.Policy; box args.Keyset |])
+    contract.GetFunctionBySignature("0xdf4c851f").SendTransactionAsync(options, [| box args.BaseToken; box args.QuoteToken; box args.TickSize; box args.LotSize; box args.MaxOpenInterest; box args.InitialMark; box args.Policy; box args.Keyset |])
 
 /// Encodes initiateDelist(bytes32) without RPC.
 let encodeInitiateDelist (contract: Contract) (args: InitiateDelistParams) =
@@ -781,33 +716,19 @@ let sendInitiateDelist (contract: Contract) (options: TransactionInput) (args: I
     options.To <- contract.Address
     contract.GetFunctionBySignature("0xf0c6838b").SendTransactionAsync(options, [| box args.MarketId |])
 
-/// Encodes installPricedOracleDescriptor(bytes32,uint8,uint8,uint8,bytes32) without RPC.
-let encodeInstallPricedOracleDescriptor (contract: Contract) (args: InstallPricedOracleDescriptorParams) =
-    contract.GetFunctionBySignature("0xdb77803b").GetData([| box args.MarketId; box args.BaseDecimals; box args.QuoteDecimals; box args.RoundingPolicy; box args.SourceSetHash |])
+/// Encodes preparePerpMarketCloseV1(bytes32,uint16,uint16) without RPC.
+let encodePreparePerpMarketCloseV1 (contract: Contract) (args: PreparePerpMarketCloseV1Params) =
+    contract.GetFunctionBySignature("0x4d67fa55").GetData([| box args.MarketId; box args.MaxOrders; box args.MaxPositions |])
 
-let decodeInstallPricedOracleDescriptorResult (data: string) : InstallPricedOracleDescriptorResult =
-    Nethereum.ABI.FunctionEncoding.FunctionCallDecoder().DecodeFunctionOutput(Activator.CreateInstance<InstallPricedOracleDescriptorResult>(), data)
+let decodePreparePerpMarketCloseV1Result (data: string) : PreparePerpMarketCloseV1Result =
+    Nethereum.ABI.FunctionEncoding.FunctionCallDecoder().DecodeFunctionOutput(Activator.CreateInstance<PreparePerpMarketCloseV1Result>(), data)
 
 /// Sends through the client's configured transaction manager.
-let sendInstallPricedOracleDescriptor (contract: Contract) (options: TransactionInput) (args: InstallPricedOracleDescriptorParams) =
+let sendPreparePerpMarketCloseV1 (contract: Contract) (options: TransactionInput) (args: PreparePerpMarketCloseV1Params) =
     if isNull options then nullArg "options"
     if not (isNull options.Value) && options.Value.Value <> BigInteger.Zero then invalidArg "options" "Function is not payable"
     options.To <- contract.Address
-    contract.GetFunctionBySignature("0xdb77803b").SendTransactionAsync(options, [| box args.MarketId; box args.BaseDecimals; box args.QuoteDecimals; box args.RoundingPolicy; box args.SourceSetHash |])
-
-/// Encodes preparePerpMarketClose(bytes32,uint16,uint16) without RPC.
-let encodePreparePerpMarketClose (contract: Contract) (args: PreparePerpMarketCloseParams) =
-    contract.GetFunctionBySignature("0x05e069d5").GetData([| box args.MarketId; box args.MaxOrders; box args.MaxPositions |])
-
-let decodePreparePerpMarketCloseResult (data: string) : PreparePerpMarketCloseResult =
-    Nethereum.ABI.FunctionEncoding.FunctionCallDecoder().DecodeFunctionOutput(Activator.CreateInstance<PreparePerpMarketCloseResult>(), data)
-
-/// Sends through the client's configured transaction manager.
-let sendPreparePerpMarketClose (contract: Contract) (options: TransactionInput) (args: PreparePerpMarketCloseParams) =
-    if isNull options then nullArg "options"
-    if not (isNull options.Value) && options.Value.Value <> BigInteger.Zero then invalidArg "options" "Function is not payable"
-    options.To <- contract.Address
-    contract.GetFunctionBySignature("0x05e069d5").SendTransactionAsync(options, [| box args.MarketId; box args.MaxOrders; box args.MaxPositions |])
+    contract.GetFunctionBySignature("0x4d67fa55").SendTransactionAsync(options, [| box args.MarketId; box args.MaxOrders; box args.MaxPositions |])
 
 /// Encodes promoteToLive(bytes32) without RPC.
 let encodePromoteToLive (contract: Contract) (args: PromoteToLiveParams) =
@@ -823,19 +744,19 @@ let sendPromoteToLive (contract: Contract) (options: TransactionInput) (args: Pr
     options.To <- contract.Address
     contract.GetFunctionBySignature("0x4df652de").SendTransactionAsync(options, [| box args.MarketId |])
 
-/// Encodes proposePerpPolicy(bytes32,uint64,uint64,uint16,(uint64,uint8,uint16)[],address[],uint8,(address,bytes32,bytes32,uint8)[]) without RPC.
-let encodeProposePerpPolicy (contract: Contract) (args: ProposePerpPolicyParams) =
-    contract.GetFunctionBySignature("0xe69d2df8").GetData([| box args.MarketId; box args.ExpectedRevision; box args.ExpectedKeysetEpoch; box args.BackstopTopupBps; box args.Tiers; box args.NextSigners; box args.NextThreshold; box args.Signatures |])
+/// Encodes proposePerpPolicyV1(bytes32,uint64,uint64,uint16,(uint64,uint8,uint16)[],address[],uint8,(address,bytes32,bytes32,uint8)[]) without RPC.
+let encodeProposePerpPolicyV1 (contract: Contract) (args: ProposePerpPolicyV1Params) =
+    contract.GetFunctionBySignature("0x1df21b1c").GetData([| box args.MarketId; box args.ExpectedRevision; box args.ExpectedKeysetEpoch; box args.BackstopTopupBps; box args.Tiers; box args.NextSigners; box args.NextThreshold; box args.Signatures |])
 
-let decodeProposePerpPolicyResult (data: string) : ProposePerpPolicyResult =
-    Nethereum.ABI.FunctionEncoding.FunctionCallDecoder().DecodeFunctionOutput(Activator.CreateInstance<ProposePerpPolicyResult>(), data)
+let decodeProposePerpPolicyV1Result (data: string) : ProposePerpPolicyV1Result =
+    Nethereum.ABI.FunctionEncoding.FunctionCallDecoder().DecodeFunctionOutput(Activator.CreateInstance<ProposePerpPolicyV1Result>(), data)
 
 /// Sends through the client's configured transaction manager.
-let sendProposePerpPolicy (contract: Contract) (options: TransactionInput) (args: ProposePerpPolicyParams) =
+let sendProposePerpPolicyV1 (contract: Contract) (options: TransactionInput) (args: ProposePerpPolicyV1Params) =
     if isNull options then nullArg "options"
     if not (isNull options.Value) && options.Value.Value <> BigInteger.Zero then invalidArg "options" "Function is not payable"
     options.To <- contract.Address
-    contract.GetFunctionBySignature("0xe69d2df8").SendTransactionAsync(options, [| box args.MarketId; box args.ExpectedRevision; box args.ExpectedKeysetEpoch; box args.BackstopTopupBps; box args.Tiers; box args.NextSigners; box args.NextThreshold; box args.Signatures |])
+    contract.GetFunctionBySignature("0x1df21b1c").SendTransactionAsync(options, [| box args.MarketId; box args.ExpectedRevision; box args.ExpectedKeysetEpoch; box args.BackstopTopupBps; box args.Tiers; box args.NextSigners; box args.NextThreshold; box args.Signatures |])
 
 /// Encodes recordAuctionWin(bytes32,address,bytes32,bytes32) without RPC.
 let encodeRecordAuctionWin (contract: Contract) (args: RecordAuctionWinParams) =
@@ -890,27 +811,6 @@ let queryAuctionWinRecorded (contract: Contract) (filter: NewFilterInput) =
         for log in logs do
             if String.Equals(log.Address, contract.Address, StringComparison.OrdinalIgnoreCase) && event.IsLogForEvent(log) then
                 result.Add(EventLog<AuctionWinRecordedEvent>(decodeAuctionWinRecordedEvent contract log, log))
-        return result
-    }
-
-let filterBasicPerpMarketInitialized (contract: Contract) (fromBlock: BlockParameter) (toBlock: BlockParameter) =
-    let filter = contract.GetEventBySignature("0x8ed4a782ada6aeb6b27230c6be1cc205df314b153e77cc29e9f4fb9f0d60aebb").CreateFilterInput(fromBlock, toBlock)
-    filter
-
-let decodeBasicPerpMarketInitializedEvent (contract: Contract) (log: FilterLog) : BasicPerpMarketInitializedEvent =
-    let decoded = contract.GetEventBySignature("0x8ed4a782ada6aeb6b27230c6be1cc205df314b153e77cc29e9f4fb9f0d60aebb").DecodeAllEventsForEvent<BasicPerpMarketInitializedEvent>([| log |])
-    if decoded.Count <> 1 then invalidArg "log" "Log does not match event"
-    decoded.[0].Event
-
-let queryBasicPerpMarketInitialized (contract: Contract) (filter: NewFilterInput) =
-    if isNull filter || isNull filter.Address || not (filter.Address |> Array.exists (fun address -> String.Equals(address, contract.Address, StringComparison.OrdinalIgnoreCase))) then invalidArg "filter" "Filter must include this contract address"
-    task {
-        let! logs = contract.Eth.Filters.GetLogs.SendRequestAsync(filter)
-        let result = ResizeArray<EventLog<BasicPerpMarketInitializedEvent>>()
-        let event = contract.GetEventBySignature("0x8ed4a782ada6aeb6b27230c6be1cc205df314b153e77cc29e9f4fb9f0d60aebb")
-        for log in logs do
-            if String.Equals(log.Address, contract.Address, StringComparison.OrdinalIgnoreCase) && event.IsLogForEvent(log) then
-                result.Add(EventLog<BasicPerpMarketInitializedEvent>(decodeBasicPerpMarketInitializedEvent contract log, log))
         return result
     }
 
@@ -977,45 +877,66 @@ let queryLiveStarted (contract: Contract) (filter: NewFilterInput) =
         return result
     }
 
-let filterPerpMarketClosePrepared (contract: Contract) (fromBlock: BlockParameter) (toBlock: BlockParameter) =
-    let filter = contract.GetEventBySignature("0x5ddbb5614e90260d3ac9da4d0926a1c69cb6e3ad9461650a61be186dc0f5ed6d").CreateFilterInput(fromBlock, toBlock)
+let filterPerpMarketClosePreparedV1 (contract: Contract) (fromBlock: BlockParameter) (toBlock: BlockParameter) =
+    let filter = contract.GetEventBySignature("0x117ace778384c5297b6d983d8c36978b771db2a21cef458d9f2ee2709dcd5e40").CreateFilterInput(fromBlock, toBlock)
     filter
 
-let decodePerpMarketClosePreparedEvent (contract: Contract) (log: FilterLog) : PerpMarketClosePreparedEvent =
-    let decoded = contract.GetEventBySignature("0x5ddbb5614e90260d3ac9da4d0926a1c69cb6e3ad9461650a61be186dc0f5ed6d").DecodeAllEventsForEvent<PerpMarketClosePreparedEvent>([| log |])
+let decodePerpMarketClosePreparedV1Event (contract: Contract) (log: FilterLog) : PerpMarketClosePreparedV1Event =
+    let decoded = contract.GetEventBySignature("0x117ace778384c5297b6d983d8c36978b771db2a21cef458d9f2ee2709dcd5e40").DecodeAllEventsForEvent<PerpMarketClosePreparedV1Event>([| log |])
     if decoded.Count <> 1 then invalidArg "log" "Log does not match event"
     decoded.[0].Event
 
-let queryPerpMarketClosePrepared (contract: Contract) (filter: NewFilterInput) =
+let queryPerpMarketClosePreparedV1 (contract: Contract) (filter: NewFilterInput) =
     if isNull filter || isNull filter.Address || not (filter.Address |> Array.exists (fun address -> String.Equals(address, contract.Address, StringComparison.OrdinalIgnoreCase))) then invalidArg "filter" "Filter must include this contract address"
     task {
         let! logs = contract.Eth.Filters.GetLogs.SendRequestAsync(filter)
-        let result = ResizeArray<EventLog<PerpMarketClosePreparedEvent>>()
-        let event = contract.GetEventBySignature("0x5ddbb5614e90260d3ac9da4d0926a1c69cb6e3ad9461650a61be186dc0f5ed6d")
+        let result = ResizeArray<EventLog<PerpMarketClosePreparedV1Event>>()
+        let event = contract.GetEventBySignature("0x117ace778384c5297b6d983d8c36978b771db2a21cef458d9f2ee2709dcd5e40")
         for log in logs do
             if String.Equals(log.Address, contract.Address, StringComparison.OrdinalIgnoreCase) && event.IsLogForEvent(log) then
-                result.Add(EventLog<PerpMarketClosePreparedEvent>(decodePerpMarketClosePreparedEvent contract log, log))
+                result.Add(EventLog<PerpMarketClosePreparedV1Event>(decodePerpMarketClosePreparedV1Event contract log, log))
         return result
     }
 
-let filterPolicyPerpMarketInitialized (contract: Contract) (fromBlock: BlockParameter) (toBlock: BlockParameter) =
-    let filter = contract.GetEventBySignature("0x578f90f2924a4aec498933f49a45d147533da03409ff3d9cab2d47a31a4d863d").CreateFilterInput(fromBlock, toBlock)
+let filterPerpMarketInitializedV1 (contract: Contract) (fromBlock: BlockParameter) (toBlock: BlockParameter) =
+    let filter = contract.GetEventBySignature("0xd453dec56e0945cf9b3fceb927bd4c84bcb1bcbf27b1fa0ecb44a29b2e124cce").CreateFilterInput(fromBlock, toBlock)
     filter
 
-let decodePolicyPerpMarketInitializedEvent (contract: Contract) (log: FilterLog) : PolicyPerpMarketInitializedEvent =
-    let decoded = contract.GetEventBySignature("0x578f90f2924a4aec498933f49a45d147533da03409ff3d9cab2d47a31a4d863d").DecodeAllEventsForEvent<PolicyPerpMarketInitializedEvent>([| log |])
+let decodePerpMarketInitializedV1Event (contract: Contract) (log: FilterLog) : PerpMarketInitializedV1Event =
+    let decoded = contract.GetEventBySignature("0xd453dec56e0945cf9b3fceb927bd4c84bcb1bcbf27b1fa0ecb44a29b2e124cce").DecodeAllEventsForEvent<PerpMarketInitializedV1Event>([| log |])
     if decoded.Count <> 1 then invalidArg "log" "Log does not match event"
     decoded.[0].Event
 
-let queryPolicyPerpMarketInitialized (contract: Contract) (filter: NewFilterInput) =
+let queryPerpMarketInitializedV1 (contract: Contract) (filter: NewFilterInput) =
     if isNull filter || isNull filter.Address || not (filter.Address |> Array.exists (fun address -> String.Equals(address, contract.Address, StringComparison.OrdinalIgnoreCase))) then invalidArg "filter" "Filter must include this contract address"
     task {
         let! logs = contract.Eth.Filters.GetLogs.SendRequestAsync(filter)
-        let result = ResizeArray<EventLog<PolicyPerpMarketInitializedEvent>>()
-        let event = contract.GetEventBySignature("0x578f90f2924a4aec498933f49a45d147533da03409ff3d9cab2d47a31a4d863d")
+        let result = ResizeArray<EventLog<PerpMarketInitializedV1Event>>()
+        let event = contract.GetEventBySignature("0xd453dec56e0945cf9b3fceb927bd4c84bcb1bcbf27b1fa0ecb44a29b2e124cce")
         for log in logs do
             if String.Equals(log.Address, contract.Address, StringComparison.OrdinalIgnoreCase) && event.IsLogForEvent(log) then
-                result.Add(EventLog<PolicyPerpMarketInitializedEvent>(decodePolicyPerpMarketInitializedEvent contract log, log))
+                result.Add(EventLog<PerpMarketInitializedV1Event>(decodePerpMarketInitializedV1Event contract log, log))
+        return result
+    }
+
+let filterPerpMarketInitializedV2 (contract: Contract) (fromBlock: BlockParameter) (toBlock: BlockParameter) =
+    let filter = contract.GetEventBySignature("0x5c97bb0eda07f3e36a297c1748da18db057fa3223a9847438f679eca067e4676").CreateFilterInput(fromBlock, toBlock)
+    filter
+
+let decodePerpMarketInitializedV2Event (contract: Contract) (log: FilterLog) : PerpMarketInitializedV2Event =
+    let decoded = contract.GetEventBySignature("0x5c97bb0eda07f3e36a297c1748da18db057fa3223a9847438f679eca067e4676").DecodeAllEventsForEvent<PerpMarketInitializedV2Event>([| log |])
+    if decoded.Count <> 1 then invalidArg "log" "Log does not match event"
+    decoded.[0].Event
+
+let queryPerpMarketInitializedV2 (contract: Contract) (filter: NewFilterInput) =
+    if isNull filter || isNull filter.Address || not (filter.Address |> Array.exists (fun address -> String.Equals(address, contract.Address, StringComparison.OrdinalIgnoreCase))) then invalidArg "filter" "Filter must include this contract address"
+    task {
+        let! logs = contract.Eth.Filters.GetLogs.SendRequestAsync(filter)
+        let result = ResizeArray<EventLog<PerpMarketInitializedV2Event>>()
+        let event = contract.GetEventBySignature("0x5c97bb0eda07f3e36a297c1748da18db057fa3223a9847438f679eca067e4676")
+        for log in logs do
+            if String.Equals(log.Address, contract.Address, StringComparison.OrdinalIgnoreCase) && event.IsLogForEvent(log) then
+                result.Add(EventLog<PerpMarketInitializedV2Event>(decodePerpMarketInitializedV2Event contract log, log))
         return result
     }
 

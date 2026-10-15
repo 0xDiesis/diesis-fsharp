@@ -9,7 +9,7 @@ open Nethereum.Web3
 open Nethereum.RPC.Eth.DTOs
 open Nethereum.Hex.HexTypes
 
-let abi = "[{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"currentPrice\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"referencePrice\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"thresholdBps\",\"type\":\"uint256\"}],\"name\":\"checkCircuitBreaker\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"tripped\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"baseToken\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"quoteToken\",\"type\":\"address\"},{\"internalType\":\"uint64\",\"name\":\"tickSize\",\"type\":\"uint64\"},{\"internalType\":\"uint64\",\"name\":\"lotSize\",\"type\":\"uint64\"},{\"internalType\":\"uint64\",\"name\":\"priceDenominator\",\"type\":\"uint64\"},{\"internalType\":\"uint256\",\"name\":\"bond\",\"type\":\"uint256\"}],\"name\":\"createPricedSpotMarket\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"baseToken\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"quoteToken\",\"type\":\"address\"},{\"internalType\":\"uint64\",\"name\":\"tickSize\",\"type\":\"uint64\"},{\"internalType\":\"uint64\",\"name\":\"lotSize\",\"type\":\"uint64\"},{\"internalType\":\"uint256\",\"name\":\"bond\",\"type\":\"uint256\"}],\"name\":\"createSpotMarket\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes11\",\"name\":\"symbol\",\"type\":\"bytes11\"},{\"internalType\":\"string\",\"name\":\"name\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"initialSupply\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"dsBond\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"usdcFee\",\"type\":\"uint256\"}],\"name\":\"deployTokenAndSpotBook\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"}],\"name\":\"getMarket\",\"outputs\":[{\"components\":[{\"internalType\":\"bytes32\",\"name\":\"slot0\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32\",\"name\":\"slot1\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"maxOpenInterest\",\"type\":\"uint256\"}],\"internalType\":\"struct IDiesisMarkets.PackedMarket\",\"name\":\"market\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"}],\"name\":\"getMarketPricing\",\"outputs\":[{\"internalType\":\"uint8\",\"name\":\"pricingVersion\",\"type\":\"uint8\"},{\"internalType\":\"uint64\",\"name\":\"priceDenominator\",\"type\":\"uint64\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"}],\"name\":\"resumeMarket\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"success\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"priceDeviation\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"threshold\",\"type\":\"uint256\"}],\"name\":\"CircuitBreakerTriggered\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"baseToken\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"quoteToken\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint8\",\"name\":\"marketType\",\"type\":\"uint8\"}],\"name\":\"MarketCreated\",\"type\":\"event\"}]"
+let abi = "[{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"currentPrice\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"referencePrice\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"thresholdBps\",\"type\":\"uint256\"}],\"name\":\"checkCircuitBreaker\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"tripped\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"baseToken\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"quoteToken\",\"type\":\"address\"},{\"internalType\":\"uint64\",\"name\":\"tickSize\",\"type\":\"uint64\"},{\"internalType\":\"uint64\",\"name\":\"lotSize\",\"type\":\"uint64\"},{\"internalType\":\"uint256\",\"name\":\"bond\",\"type\":\"uint256\"}],\"name\":\"createSpotMarket\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes11\",\"name\":\"symbol\",\"type\":\"bytes11\"},{\"internalType\":\"string\",\"name\":\"name\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"initialSupply\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"dsBond\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"usdcFee\",\"type\":\"uint256\"}],\"name\":\"deployTokenAndSpotBook\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"}],\"name\":\"getMarket\",\"outputs\":[{\"components\":[{\"internalType\":\"bytes32\",\"name\":\"slot0\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32\",\"name\":\"slot1\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"maxOpenInterest\",\"type\":\"uint256\"}],\"internalType\":\"struct IDiesisMarkets.PackedMarket\",\"name\":\"market\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"}],\"name\":\"resumeMarket\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"success\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"priceDeviation\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"threshold\",\"type\":\"uint256\"}],\"name\":\"CircuitBreakerTriggered\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"baseToken\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"quoteToken\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint8\",\"name\":\"marketType\",\"type\":\"uint8\"}],\"name\":\"MarketCreated\",\"type\":\"event\"}]"
 
 [<Struct("PackedMarket")>]
 [<CLIMutable>]
@@ -42,32 +42,6 @@ type CheckCircuitBreakerResult =
     {
         [<Parameter("uint256", "tripped", 1, false)>]
         Tripped: BigInteger
-    }
-    interface IFunctionOutputDTO
-
-[<CLIMutable>]
-type CreatePricedSpotMarketParams =
-    {
-        [<Parameter("address", "baseToken", 1, false)>]
-        BaseToken: string
-        [<Parameter("address", "quoteToken", 2, false)>]
-        QuoteToken: string
-        [<Parameter("uint64", "tickSize", 3, false)>]
-        TickSize: BigInteger
-        [<Parameter("uint64", "lotSize", 4, false)>]
-        LotSize: BigInteger
-        [<Parameter("uint64", "priceDenominator", 5, false)>]
-        PriceDenominator: BigInteger
-        [<Parameter("uint256", "bond", 6, false)>]
-        Bond: BigInteger
-    }
-
-[<FunctionOutput>]
-[<CLIMutable>]
-type CreatePricedSpotMarketResult =
-    {
-        [<Parameter("bytes32", "marketId", 1, false)>]
-        MarketId: byte array
     }
     interface IFunctionOutputDTO
 
@@ -138,24 +112,6 @@ type GetMarketResult =
     interface IFunctionOutputDTO
 
 [<CLIMutable>]
-type GetMarketPricingParams =
-    {
-        [<Parameter("bytes32", "marketId", 1, false)>]
-        MarketId: byte array
-    }
-
-[<FunctionOutput>]
-[<CLIMutable>]
-type GetMarketPricingResult =
-    {
-        [<Parameter("uint8", "pricingVersion", 1, false)>]
-        PricingVersion: BigInteger
-        [<Parameter("uint64", "priceDenominator", 2, false)>]
-        PriceDenominator: BigInteger
-    }
-    interface IFunctionOutputDTO
-
-[<CLIMutable>]
 type ResumeMarketParams =
     {
         [<Parameter("bytes32", "marketId", 1, false)>]
@@ -216,20 +172,6 @@ let sendCheckCircuitBreaker (contract: Contract) (options: TransactionInput) (ar
     options.To <- contract.Address
     contract.GetFunctionBySignature("0x9de24fc6").SendTransactionAsync(options, [| box args.MarketId; box args.CurrentPrice; box args.ReferencePrice; box args.ThresholdBps |])
 
-/// Encodes createPricedSpotMarket(address,address,uint64,uint64,uint64,uint256) without RPC.
-let encodeCreatePricedSpotMarket (contract: Contract) (args: CreatePricedSpotMarketParams) =
-    contract.GetFunctionBySignature("0x64e058cc").GetData([| box args.BaseToken; box args.QuoteToken; box args.TickSize; box args.LotSize; box args.PriceDenominator; box args.Bond |])
-
-let decodeCreatePricedSpotMarketResult (data: string) : CreatePricedSpotMarketResult =
-    Nethereum.ABI.FunctionEncoding.FunctionCallDecoder().DecodeFunctionOutput(Activator.CreateInstance<CreatePricedSpotMarketResult>(), data)
-
-/// Sends through the client's configured transaction manager.
-let sendCreatePricedSpotMarket (contract: Contract) (options: TransactionInput) (args: CreatePricedSpotMarketParams) =
-    if isNull options then nullArg "options"
-    if not (isNull options.Value) && options.Value.Value <> BigInteger.Zero then invalidArg "options" "Function is not payable"
-    options.To <- contract.Address
-    contract.GetFunctionBySignature("0x64e058cc").SendTransactionAsync(options, [| box args.BaseToken; box args.QuoteToken; box args.TickSize; box args.LotSize; box args.PriceDenominator; box args.Bond |])
-
 /// Encodes createSpotMarket(address,address,uint64,uint64,uint256) without RPC.
 let encodeCreateSpotMarket (contract: Contract) (args: CreateSpotMarketParams) =
     contract.GetFunctionBySignature("0x6fc2e470").GetData([| box args.BaseToken; box args.QuoteToken; box args.TickSize; box args.LotSize; box args.Bond |])
@@ -267,16 +209,6 @@ let decodeGetMarketResult (data: string) : GetMarketResult =
 
 let callGetMarket (contract: Contract) (block: BlockParameter) (args: GetMarketParams) =
     contract.GetFunctionBySignature("0xc3c95c7b").CallDeserializingToObjectAsync<GetMarketResult>(block, [| box args.MarketId |])
-
-/// Encodes getMarketPricing(bytes32) without RPC.
-let encodeGetMarketPricing (contract: Contract) (args: GetMarketPricingParams) =
-    contract.GetFunctionBySignature("0x6f710490").GetData([| box args.MarketId |])
-
-let decodeGetMarketPricingResult (data: string) : GetMarketPricingResult =
-    Nethereum.ABI.FunctionEncoding.FunctionCallDecoder().DecodeFunctionOutput(Activator.CreateInstance<GetMarketPricingResult>(), data)
-
-let callGetMarketPricing (contract: Contract) (block: BlockParameter) (args: GetMarketPricingParams) =
-    contract.GetFunctionBySignature("0x6f710490").CallDeserializingToObjectAsync<GetMarketPricingResult>(block, [| box args.MarketId |])
 
 /// Encodes resumeMarket(bytes32) without RPC.
 let encodeResumeMarket (contract: Contract) (args: ResumeMarketParams) =

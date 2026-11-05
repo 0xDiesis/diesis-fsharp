@@ -3,11 +3,11 @@
 F# bindings with Nethereum reads, writes, ABI codecs, events, and errors.
 
 Includes bindings for 29 public system contracts and `canonical.json` with chain
-configuration and addresses. Generated with exact **abi-typegen 0.8.0**.
+configuration and addresses. Generated with exact **abi-typegen 0.9.1**.
 
 ## Regenerate
 
-Install [abi-typegen 0.8.0](https://github.com/doublesharp/abi-typegen/releases/tag/v0.8.0)
+Install [abi-typegen 0.9.1](https://github.com/doublesharp/abi-typegen/releases/tag/v0.9.1)
 and compile the Diesis contracts. From this repository:
 
 ```sh
